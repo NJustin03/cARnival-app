@@ -350,10 +350,10 @@
 -r:"Library/Bee/artifacts/200b0aE.dag/UnityEngine.UI.ref.dll"
 -analyzer:"/Applications/Unity/Hub/Editor/2022.3.27f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"/Applications/Unity/Hub/Editor/2022.3.27f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
-"Library/PackageCache/com.unity.xr.arfoundation@5.1.3/Editor/ARAnalytics/ARAnalyticsConstants.cs"
-"Library/PackageCache/com.unity.xr.arfoundation@5.1.3/Editor/ARAnalytics/ARAnalyticsEvent.cs"
-"Library/PackageCache/com.unity.xr.arfoundation@5.1.3/Editor/ARAnalytics/AREditorAnalyticsEvent.cs"
-"Library/PackageCache/com.unity.xr.arfoundation@5.1.3/Editor/ARAnalytics/AssemblyInfo.cs"
+"Library/PackageCache/com.unity.xr.arfoundation@5.1.4/Editor/ARAnalytics/ARAnalyticsConstants.cs"
+"Library/PackageCache/com.unity.xr.arfoundation@5.1.4/Editor/ARAnalytics/ARAnalyticsEvent.cs"
+"Library/PackageCache/com.unity.xr.arfoundation@5.1.4/Editor/ARAnalytics/AREditorAnalyticsEvent.cs"
+"Library/PackageCache/com.unity.xr.arfoundation@5.1.4/Editor/ARAnalytics/AssemblyInfo.cs"
 -langversion:9.0
 /deterministic
 /optimize+

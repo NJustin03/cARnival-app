@@ -1,0 +1,34 @@
+{
+  "name": "com.unity.xr.arcore",
+  "displayName": "Google ARCore XR Plugin",
+  "version": "5.1.4",
+  "unity": "2021.2",
+  "description": "Provides native Google ARCore integration for use with Unity's multi-platform XR API.\nSupports the following features:\n-Efficient Background Rendering\n-Horizontal Planes\n-Depth Data\n-Anchors\n-Hit Testing\n-Occlusion",
+  "keywords": [
+    "arcore",
+    "ar",
+    "augmented",
+    "xr",
+    "reality",
+    "core"
+  ],
+  "dependencies": {
+    "com.unity.xr.arfoundation": "5.1.4",
+    "com.unity.xr.core-utils": "2.1.0",
+    "com.unity.xr.management": "4.0.1",
+    "com.unity.modules.androidjni": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0"
+  },
+  "_upm": {
+    "changelog": "### Changed\n\n- Upgraded ARCore SDK version to 1.42 from 1.31.\n- Changed the AR Foundation dependency version from 5.1.3 to 5.1.4.\n\n### Fixed\n\n- Fixed an issue where the tvOS build target would have compile errors in `ARCore.InputLayoutLoader`.\n- Fixed an issue where the AR background was rendered with incorrect rotation on Pixel Fold devices when the device was in unfolded mode."
+  },
+  "upmCi": {
+    "footprint": "e7edd6a06d7826323b143bc45923294539785df3"
+  },
+  "documentationUrl": "https://docs.unity3d.com/Packages/com.unity.xr.arcore@5.1/manual/index.html",
+  "repository": {
+    "url": "https://github.cds.internal.unity3d.com/unity/arfoundation.git",
+    "type": "git",
+    "revision": "17e0eb6efa2c4360e6ea85191696374b4405f5f8"
+  }
+}
