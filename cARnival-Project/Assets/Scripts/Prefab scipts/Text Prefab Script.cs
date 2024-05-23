@@ -27,8 +27,9 @@ public class TextPrefabScript : MonoBehaviour
 
         BackImg.sprite = BackgroundImage;
     }
-
+#if UNITY_EDITOR
     [MenuItem("GameObject/ELLE/Text", false)]
+
     private static void Create(MenuCommand menuCommand)
     {
         var uiElementGameObject = CreateUIElement();
@@ -51,4 +52,5 @@ public class TextPrefabScript : MonoBehaviour
 
         return gameObject;
     }
+#endif
 }

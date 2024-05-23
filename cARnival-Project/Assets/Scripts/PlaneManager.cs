@@ -3,46 +3,59 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
 
+[RequireComponent(requiredComponent: typeof(ARRaycastManager), requiredComponent2: typeof(ARPlaneManager))]
 public class PlaneManager : MonoBehaviour
 {
-    public GameObject spawnableObject;
-    private ARPlaneManager arPlaneManager;
-    private bool planeDetected = false;
+    [SerializeField]
+    private GameObject prefab;
+
+    private ARRaycastManager aRRaycastManager;
+    private ARPlaneManager aRPlaneManager;
+    private List<ARRaycastHit> hits = new List<ARRaycastHit>();
+    private bool objectPlaced = false;
 
     private void Awake()
     {
-        arPlaneManager = GetComponent<ARPlaneManager>();
+        aRRaycastManager = GetComponent<ARRaycastManager>();
+        aRPlaneManager = GetComponent<ARPlaneManager>();
     }
+
     private void OnEnable()
     {
-        arPlaneManager.planesChanged += OnPlaneChanged;
-    }
-    private void OnDisable()
-    {
-        arPlaneManager.planesChanged -= OnPlaneChanged;
+        EnhancedTouch.TouchSimulation.Enable();
+        EnhancedTouch.EnhancedTouchSupport.Enable();
+        EnhancedTouch.Touch.onFingerDown += FingerDown;
     }
 
-    void OnPlaneChanged(ARPlanesChangedEventArgs args)
+    private void OnDestroy()
     {
-        if (!planeDetected && args.added.Count > 0)
+        EnhancedTouch.TouchSimulation.Disable();
+        EnhancedTouch.EnhancedTouchSupport.Disable();
+        EnhancedTouch.Touch.onFingerDown -= FingerDown;
+    }
+
+    private void FingerDown(EnhancedTouch.Finger finger)
+    {
+        // Check if an object is already placed
+        if (objectPlaced)
+            return;
+
+        // Perform raycast
+        if (aRRaycastManager.Raycast(screenPoint: finger.currentTouch.screenPosition,
+            hitResults: hits, trackableTypes: TrackableType.PlaneWithinPolygon))
         {
-            //Processes the first plane & sets the position for objects to spawn
-            ARPlane firstPlane = args.added[0];
-            Vector3 spawnPosition = firstPlane.transform.position;
-            Instantiate(spawnableObject, spawnPosition, Quaternion.identity);
+            // Place object at first hit position
+            ARRaycastHit hit = hits[0];
+            Pose pose = hit.pose;
+            Instantiate(prefab, pose.position, pose.rotation);
 
-            planeDetected = true;
+            // Disable further plane detection
+            aRPlaneManager.enabled = false;
 
-            arPlaneManager.enabled = false;
-
-            //Ensures that any planes that are possibly added to the scene are now inactive
-            foreach (var plane in arPlaneManager.trackables)
-            {
-                plane.gameObject.SetActive(false);
-            }
-
-            firstPlane.gameObject.SetActive(true);
+            // Set objectPlaced to true to prevent further object placement
+            objectPlaced = true;
         }
     }
 }

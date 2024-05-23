@@ -25,8 +25,9 @@ public class ButtonPrefabScript : MonoBehaviour
 
         Img.sprite = ButtonImage;
     }
-
+#if UNITY_EDITOR
     [MenuItem("GameObject/ELLE/Button", false)]
+
     private static void Create(MenuCommand menuCommand)
     {
         var uiElementgameObject = CreateUIElement();
@@ -49,4 +50,5 @@ public class ButtonPrefabScript : MonoBehaviour
 
         return gameObject;
     }
+#endif
 }
