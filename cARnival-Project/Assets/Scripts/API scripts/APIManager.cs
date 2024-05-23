@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -26,6 +27,8 @@ public class APIManager : MonoBehaviour
     public static string randomUsername;
     public static string sessionID;
 
+    public static bool isConnected;
+
     public static Dictionary<int, string> userModules;
     public static QuestionJson[] currentQuestions;
 
@@ -43,6 +46,7 @@ public class APIManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         userModules = new Dictionary<int, string>();
+        isConnected = false;
     }
 
     public static IEnumerator GenerateUsername()
@@ -76,6 +80,7 @@ public class APIManager : MonoBehaviour
     // Function to submit a username and password.
     public static IEnumerator Login(string username, string password)
     {
+        authenticationString = string.Empty;
         // Start with creating the url endpoint and the form.
         string loginEndpoint = endpointURL + "login";
 
@@ -93,10 +98,22 @@ public class APIManager : MonoBehaviour
             // If a connection error is received, print the result.
             if (attemptLogin.result == UnityWebRequest.Result.ConnectionError)
             {
-                Debug.Log(attemptLogin.error);
+                authenticationString = "Error: " + attemptLogin.error;
+                isConnected = false; 
             }
-
-            authenticationString = attemptLogin.downloadHandler.text;
+            else 
+            {
+                authenticationString = attemptLogin.downloadHandler.text;
+                if (authenticationString.Contains("Error") || authenticationString.Length < 1)
+                {
+                    isConnected = false;
+                }
+                else
+                {
+                    isConnected = true;
+                }
+            }
+            authenticationString = authenticationString.Replace("\"", "");
         }
     }
 
