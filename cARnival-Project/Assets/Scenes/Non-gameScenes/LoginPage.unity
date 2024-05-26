@@ -4066,7 +4066,7 @@ PrefabInstance:
     - target: {fileID: 2080468433579962590, guid: 1ead6c0b5a026ec469ceef6b7c76b060,
         type: 3}
       propertyPath: m_text
-      value: username
+      value: password
       objectReference: {fileID: 0}
     - target: {fileID: 2080468433579962590, guid: 1ead6c0b5a026ec469ceef6b7c76b060,
         type: 3}
