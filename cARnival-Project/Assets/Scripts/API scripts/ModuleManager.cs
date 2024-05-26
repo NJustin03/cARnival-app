@@ -18,6 +18,18 @@ public class ModuleManager : MonoBehaviour
         currentModuleAnswers = new Dictionary<int, Answer>();
     }
 
+    private void Awake()
+    {
+        if (FindObjectsOfType<ModuleManager>().Length > 1)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
     public IEnumerator LoadQuestionsAndAnswers(int moduleID)
     {
         yield return StartCoroutine(APIManager.GetModule(moduleID));

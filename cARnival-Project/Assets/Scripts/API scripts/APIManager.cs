@@ -35,6 +35,8 @@ public class APIManager : MonoBehaviour
     public static Texture2D currentImage;
     public static AudioClip currentAudio;
 
+    public static ModulesJson[] ModulesJsonObjects;
+
     private void Awake()
     {
         if (FindObjectsOfType<APIManager>().Length > 1)
@@ -107,13 +109,16 @@ public class APIManager : MonoBehaviour
                 if (authenticationString.Contains("Error") || authenticationString.Length < 1)
                 {
                     isConnected = false;
+                    authenticationString = authenticationString.Replace("\"", "");
+                    authenticationString = authenticationString.Replace("\n", "");
+                    authenticationString = authenticationString.Replace("{", "");
+                    authenticationString = authenticationString.Replace("}", "");
                 }
                 else
                 {
                     isConnected = true;
                 }
             }
-            authenticationString = authenticationString.Replace("\"", "");
         }
     }
 
@@ -121,16 +126,16 @@ public class APIManager : MonoBehaviour
     // Function to receive a list of modules associated with a user.
     public static IEnumerator GetAllModules()
     {
+        Debug.Log(authenticationString);
         TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
         string retrieveModulesEndpoint = endpointURL + "modules";
-
         using (UnityWebRequest listOfModulesRequest = UnityWebRequest.Get(retrieveModulesEndpoint))
         {
             listOfModulesRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
 
             yield return listOfModulesRequest.SendWebRequest();
             Debug.Log("Server responded: " + listOfModulesRequest.downloadHandler.text);
-            ModulesJson[] ModulesJsonObjects = GetJsonArray<ModulesJson>(listOfModulesRequest.downloadHandler.text);
+            ModulesJsonObjects = GetJsonArray<ModulesJson>(listOfModulesRequest.downloadHandler.text);
         }
     }
 
