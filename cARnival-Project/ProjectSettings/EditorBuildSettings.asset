@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Non-gameScenes/ModulesSelectionPage(Draft).unity
     guid: f13eb1ae4d10b4d4987c2f4cd765a10e
+  - enabled: 1
+    path: Assets/Scenes/Non-gameScenes/StartPage.unity
+    guid: 62bc1df30905d4d1482f748e8865a2e6
   m_configObjects: {}
