@@ -41,6 +41,8 @@ public class ModuleManager : MonoBehaviour
         // Clear the current module set upon new load.
         currentModuleQuestions.Clear();
         currentModuleAnswers.Clear();
+        questionIDs.Clear();
+        answerIDs.Clear();
 
         // Retrieve the current module from the API manager.
         

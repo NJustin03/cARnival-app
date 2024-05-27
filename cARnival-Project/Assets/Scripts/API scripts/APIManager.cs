@@ -272,7 +272,7 @@ public class APIManager : MonoBehaviour
         string audioLink = filePrefixURL + audioURL;
         TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
 
-        using (UnityWebRequest audioRequest = UnityWebRequestMultimedia.GetAudioClip(audioLink, AudioType.OGGVORBIS))
+        using (UnityWebRequest audioRequest = UnityWebRequestMultimedia.GetAudioClip(audioLink, AudioType.UNKNOWN))
         {
             audioRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
 
