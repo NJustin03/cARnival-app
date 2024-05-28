@@ -1,37 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &611347785050060280
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7200371135007569679}
-  m_Layer: 0
-  m_Name: Duck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7200371135007569679
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 611347785050060280}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.335, y: -0.47441554, z: 0.08500004}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7887762096323983877}
-  m_Father: {fileID: 2150611582224510685}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2338554524533681132
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3560178674929150098}
-  - {fileID: 7200371135007569679}
+  - {fileID: 7887762096323983877}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8149084901936181583
@@ -178,7 +146,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7200371135007569679}
+    m_TransformParent: {fileID: 2150611582224510685}
     m_Modifications:
     - target: {fileID: 100000, guid: bba15a401835a274586eb834aaa72480, type: 3}
       propertyPath: m_Name
@@ -198,15 +166,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bba15a401835a274586eb834aaa72480, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.4
+      value: 0.065
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bba15a401835a274586eb834aaa72480, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.507
+      value: 0.03258449
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bba15a401835a274586eb834aaa72480, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: 0.08500004
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bba15a401835a274586eb834aaa72480, type: 3}
       propertyPath: m_LocalRotation.w
@@ -218,7 +186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bba15a401835a274586eb834aaa72480, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bba15a401835a274586eb834aaa72480, type: 3}
       propertyPath: m_LocalRotation.z
