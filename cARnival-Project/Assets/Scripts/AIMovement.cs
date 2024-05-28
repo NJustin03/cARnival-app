@@ -5,56 +5,55 @@ using UnityEngine.AI;
 
 public class AIMovement : MonoBehaviour
 {
-    public Transform[] waypoints;
+    public Vector3 centerPoint;
+    public float rangeRadius; 
+
     private int currentWaypointIndex = 0;
     private NavMeshAgent duckAgent;
-    private Vector3 direction;
     private bool canMove = true;
+    private Vector3 resultDestination;
+
 
     void Start()
     {
-        if (waypoints.Length > 0)
-        {
-            transform.position = waypoints[0].position;
-        }
         duckAgent = GetComponent<NavMeshAgent>();
-        duckAgent.updateUpAxis = false;
     }
 
     void Update()
     {
-        //MoveTowardsWaypoint();
         if (canMove)
         {
             StartCoroutine(Move());
             canMove = false;
         }
-        //Quaternion rot = Quaternion.LookRotation(direction);
-        //transform.rotation = Quaternion.Lerp(transform.rotation, rot, 1f * Time.deltaTime);
-        
-
     }
 
     private IEnumerator Move()
     {
-        Vector3 temp = waypoints[Random.Range(0, waypoints.Length - 1)].position;
-        duckAgent.SetDestination(new Vector3(temp.x, transform.position.y, temp.z));
-        direction = duckAgent.destination - transform.position;
+        if (RandomPoint(centerPoint, rangeRadius, out Vector3 randomPoint))
+        {
+            resultDestination = randomPoint;
+            duckAgent.SetDestination(resultDestination);
+        }
         yield return new WaitForSeconds(3f);
         canMove = true;
     }
 
-    void MoveTowardsWaypoint()
+    bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
-        if (waypoints != null)
+        for (int i = 0; i < 30; i++)
         {
-            Transform targetWaypoint = waypoints[currentWaypointIndex];
-            Vector3 direction = targetWaypoint.position - transform.position;
-            transform.position += direction.normalized * duckAgent.speed * Time.deltaTime;
-            if (Vector3.Distance(transform.position, targetWaypoint.position) < 0.1f)
+            Vector2 randomPointInUnitCircle2D = Random.insideUnitCircle;
+            Vector3 randomPointInUnitCircle3D = new Vector3(randomPointInUnitCircle2D.x, 0, randomPointInUnitCircle2D.y);
+            Vector3 randomPoint = center + randomPointInUnitCircle3D * range;
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
             {
-                currentWaypointIndex = Random.Range(0, waypoints.Length - 1);
+                result = hit.position;
+                return true;
             }
         }
+        result = Vector3.zero;
+        return false;
     }
 }
