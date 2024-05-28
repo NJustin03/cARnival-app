@@ -18,6 +18,18 @@ public class ModuleManager : MonoBehaviour
         currentModuleAnswers = new Dictionary<int, Answer>();
     }
 
+    private void Awake()
+    {
+        if (FindObjectsOfType<ModuleManager>().Length > 1)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
     public IEnumerator LoadQuestionsAndAnswers(int moduleID)
     {
         yield return StartCoroutine(APIManager.GetModule(moduleID));
@@ -29,6 +41,8 @@ public class ModuleManager : MonoBehaviour
         // Clear the current module set upon new load.
         currentModuleQuestions.Clear();
         currentModuleAnswers.Clear();
+        questionIDs.Clear();
+        answerIDs.Clear();
 
         // Retrieve the current module from the API manager.
         

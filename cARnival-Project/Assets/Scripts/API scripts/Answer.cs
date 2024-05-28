@@ -16,21 +16,32 @@ public class Answer
     private string audioLocation;
     private string imageLocation;
 
+    public bool hasImage;
+    public bool hasAudio;
+
     // Various constructors for whether or not there is an image or audio attached to the answer.
 
     public Answer(int termID, string front, string back, string type, string gender, string language, string audioLocation, string imageLocation)
     {
         this.termID = termID;
-        this.answerAudio = null;
-        this.answerImage = null;
+        answerAudio = null;
+        answerImage = null;
         this.front = front;
         this.back = back;
         this.type = type;
         this.gender = gender;
         this.language = language;
         this.audioLocation = audioLocation;
-        this.imageLocation = imageLocation;
+        if (audioLocation.Length == 0 )
+        {
+            hasAudio = false;
+        }
 
+        this.imageLocation = imageLocation;
+        if (imageLocation.Length == 0 )
+        {
+            hasImage = false;
+        }
     }
 
     public void SetAnswerAudio(AudioClip answerAudio)

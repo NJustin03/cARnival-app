@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -26,11 +27,15 @@ public class APIManager : MonoBehaviour
     public static string randomUsername;
     public static string sessionID;
 
+    public static bool isConnected;
+
     public static Dictionary<int, string> userModules;
     public static QuestionJson[] currentQuestions;
 
     public static Texture2D currentImage;
     public static AudioClip currentAudio;
+
+    public static ModulesJson[] ModulesJsonObjects;
 
     private void Awake()
     {
@@ -43,6 +48,7 @@ public class APIManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         userModules = new Dictionary<int, string>();
+        isConnected = false;
     }
 
     public static IEnumerator GenerateUsername()
@@ -76,6 +82,7 @@ public class APIManager : MonoBehaviour
     // Function to submit a username and password.
     public static IEnumerator Login(string username, string password)
     {
+        authenticationString = string.Empty;
         // Start with creating the url endpoint and the form.
         string loginEndpoint = endpointURL + "login";
 
@@ -93,10 +100,25 @@ public class APIManager : MonoBehaviour
             // If a connection error is received, print the result.
             if (attemptLogin.result == UnityWebRequest.Result.ConnectionError)
             {
-                Debug.Log(attemptLogin.error);
+                authenticationString = "Error: " + attemptLogin.error;
+                isConnected = false; 
             }
-
-            authenticationString = attemptLogin.downloadHandler.text;
+            else 
+            {
+                authenticationString = attemptLogin.downloadHandler.text;
+                if (authenticationString.Contains("Error") || authenticationString.Length < 1)
+                {
+                    isConnected = false;
+                    authenticationString = authenticationString.Replace("\"", "");
+                    authenticationString = authenticationString.Replace("\n", "");
+                    authenticationString = authenticationString.Replace("{", "");
+                    authenticationString = authenticationString.Replace("}", "");
+                }
+                else
+                {
+                    isConnected = true;
+                }
+            }
         }
     }
 
@@ -104,16 +126,16 @@ public class APIManager : MonoBehaviour
     // Function to receive a list of modules associated with a user.
     public static IEnumerator GetAllModules()
     {
+        Debug.Log(authenticationString);
         TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
         string retrieveModulesEndpoint = endpointURL + "modules";
-
         using (UnityWebRequest listOfModulesRequest = UnityWebRequest.Get(retrieveModulesEndpoint))
         {
             listOfModulesRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
 
             yield return listOfModulesRequest.SendWebRequest();
             Debug.Log("Server responded: " + listOfModulesRequest.downloadHandler.text);
-            ModulesJson[] ModulesJsonObjects = GetJsonArray<ModulesJson>(listOfModulesRequest.downloadHandler.text);
+            ModulesJsonObjects = GetJsonArray<ModulesJson>(listOfModulesRequest.downloadHandler.text);
         }
     }
 
@@ -250,7 +272,7 @@ public class APIManager : MonoBehaviour
         string audioLink = filePrefixURL + audioURL;
         TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
 
-        using (UnityWebRequest audioRequest = UnityWebRequestMultimedia.GetAudioClip(audioLink, AudioType.OGGVORBIS))
+        using (UnityWebRequest audioRequest = UnityWebRequestMultimedia.GetAudioClip(audioLink, AudioType.UNKNOWN))
         {
             audioRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
 
