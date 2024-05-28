@@ -15,34 +15,38 @@ public class TextPrefabScript : MonoBehaviour
        var TMPObject = gameObject.GetComponentInChildren<TextMeshProUGUI>();
        var BackImg = gameObject.GetComponentInChildren<Image>();
 
-        TMPObject.text = Text;
-        if (BackgroundImage == null)
-        {
-            BackImg.color = Color.clear;
-        }
-        else
-        {
-            BackImg.color = Color.white;
-        }
+        if (TMPObject != null)
+            TMPObject.text = Text;
+
+        if (BackImg != null)
+            BackImg.color = BackgroundImage == null ? Color.clear : Color.white;
 
         BackImg.sprite = BackgroundImage;
     }
 #if UNITY_EDITOR
-    [MenuItem("GameObject/ELLE/Text", false)]
-
-    private static void Create(MenuCommand menuCommand)
+    [MenuItem("GameObject/ELLE/Text Bold", false)]
+    private static void CreateBoldText(MenuCommand menuCommand)
     {
-        var uiElementGameObject = CreateUIElement();
+        Create("Assets/Prefabs/Text (Blue, Bold) Prefab.prefab");
+    }
+
+    [MenuItem("GameObject/ELLE/Text Medium", false)]
+    private static void CreateMediumText(MenuCommand menuCommand)
+    {
+        Create("Assets/Prefabs/Text (Blue, Medium) Prefab.prefab");
+    }
+
+    private static void Create(string prefabPath)
+    {
+        var uiElementGameObject = CreateUIElement(prefabPath);
 
         GameObjectUtility.SetParentAndAlign(uiElementGameObject, Selection.activeGameObject);
 
         Selection.activeGameObject = uiElementGameObject;
     }
 
-    private static GameObject CreateUIElement()
+    private static GameObject CreateUIElement(string prefabPath)
     {
-        const string prefabPath = "Assets/Prefabs/Text Prefab.prefab";
-
         var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
         var gameObject = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
 
