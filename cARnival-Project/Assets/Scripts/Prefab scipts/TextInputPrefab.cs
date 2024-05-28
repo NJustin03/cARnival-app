@@ -30,7 +30,7 @@ public class TextInputPrefab : MonoBehaviour
 
         BackImg.sprite = BackgroundImage;
     }
-
+#if UNITY_EDITOR
     [MenuItem("GameObject/ELLE/InputField", false)]
     private static void Create(MenuCommand menuCommand)
     {
@@ -54,4 +54,5 @@ public class TextInputPrefab : MonoBehaviour
 
         return gameObject;
     }
+#endif
 }
