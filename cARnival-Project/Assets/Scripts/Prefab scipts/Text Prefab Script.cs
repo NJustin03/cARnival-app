@@ -7,7 +7,18 @@ using UnityEngine.UI;
 
 public class TextPrefabScript : MonoBehaviour
 {
-    public string Text;
+    [SerializeField]
+    private string _Text;
+    public string Text
+    {
+        get => _Text;
+        set
+        {
+            _Text = value;
+            var TMPObject = gameObject.GetComponentInChildren<TextMeshProUGUI>();
+            TMPObject.text = _Text;
+        }
+    }
     public Sprite BackgroundImage = null;
 
     private void OnValidate()
