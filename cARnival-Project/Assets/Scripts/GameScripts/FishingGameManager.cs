@@ -100,9 +100,9 @@ public class FishingGameManager : MonoBehaviour
         }
         //configure all the ducks
         DuckA.ConfigureDuck(newWord, DuckColor);
-        DuckA.ConfigureDuck((string)tempWords[0], DuckColor);
-        DuckA.ConfigureDuck((string)tempWords[1], DuckColor);
-        DuckA.ConfigureDuck((string)tempWords[2], DuckColor);
+        DuckB.ConfigureDuck((string)tempWords[0], DuckColor);
+        DuckC.ConfigureDuck((string)tempWords[1], DuckColor);
+        DuckD.ConfigureDuck((string)tempWords[2], DuckColor);
         //TODO: configure question board
         QuestionBoard.ConfigureWithWord(newWord);
         //Add terms back into main term list

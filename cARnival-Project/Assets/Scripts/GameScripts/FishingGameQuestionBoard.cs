@@ -33,7 +33,6 @@ public class FishingGameQuestionBoard : MonoBehaviour
     public void ConfigureWithWord(string Term)
     {
         var allEnumValues = Enum.GetNames(typeof(TermType));
-        var filteredEnumValues = new List<TermType>();
         var randomIndex = UnityEngine.Random.Range(0, allEnumValues.Count() - 1);
         var randomTermType = allEnumValues[randomIndex];
 
@@ -47,10 +46,11 @@ public class FishingGameQuestionBoard : MonoBehaviour
                 /*
                 if (!Term.hasImage)
                 {
-                    goto case TermType.Word;
+                    goto case "Word";
                 }
                 */
-                    TermImageGameObject.SetActive(true);
+                goto case "Word";
+                TermImageGameObject.SetActive(true);
                     // TermImageImage.sprite = // TODO: Get the image for the word and assign it
                     break;
                 
@@ -58,9 +58,10 @@ public class FishingGameQuestionBoard : MonoBehaviour
                 /*
                 if (!Term.hasAudio)
                 {
-                    goto case TermType.Word;
+                    goto case "Word";
                 }
                 */
+                goto case "Word";
                 TermAudioGameObject.SetActive(true);
                 break;
 
