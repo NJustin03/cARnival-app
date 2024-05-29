@@ -11,7 +11,7 @@ public class FishingGameManager : MonoBehaviour
 
     public static FishingGameManager shared;
     // Likely will need to change this once words actually pulled
-    public ArrayList Terms;
+    public ArrayList Terms = new ArrayList();
     public Material DuckColor;
     //DuckA to be used as correct term
     public DuckPrefab DuckA, DuckB, DuckC, DuckD, duckSelected;
@@ -91,8 +91,8 @@ public class FishingGameManager : MonoBehaviour
         Terms.Remove(newWord);
 
         // TODO: Add logic to randomize duck colors
-        ArrayList tempWords = null;
-        for (int i = 0; i >= 2; i++)
+        ArrayList tempWords = new ArrayList();
+        for (int i = 0; i <= 2; i++)
         {
             randomIndex = UnityEngine.Random.Range(0, Terms.Count - 1);
             tempWords.Add(Terms[randomIndex]);

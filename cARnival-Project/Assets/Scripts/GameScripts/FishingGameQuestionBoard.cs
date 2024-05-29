@@ -32,19 +32,18 @@ public class FishingGameQuestionBoard : MonoBehaviour
 
     public void ConfigureWithWord(string Term)
     {
-        var allEnumValues = Enum.GetValues(typeof(TermType));
+        var allEnumValues = Enum.GetNames(typeof(TermType));
         var filteredEnumValues = new List<TermType>();
-        
-        var randomIndex = UnityEngine.Random.Range(0, filteredEnumValues.Count() - 1);
-        var randomTermType = filteredEnumValues[randomIndex];
+        var randomIndex = UnityEngine.Random.Range(0, allEnumValues.Count() - 1);
+        var randomTermType = allEnumValues[randomIndex];
 
         TermWordGameObject.SetActive(false);
         TermImageGameObject.SetActive(false);
         TermAudioGameObject.SetActive(false);
-
-        switch (randomTermType)
+        
+        switch (randomTermType.ToString())
         {
-            case TermType.Image:
+            case "Image":
                 /*
                 if (!Term.hasImage)
                 {
@@ -55,7 +54,7 @@ public class FishingGameQuestionBoard : MonoBehaviour
                     // TermImageImage.sprite = // TODO: Get the image for the word and assign it
                     break;
                 
-            case TermType.Audio:
+            case "Audio":
                 /*
                 if (!Term.hasAudio)
                 {
@@ -65,7 +64,7 @@ public class FishingGameQuestionBoard : MonoBehaviour
                 TermAudioGameObject.SetActive(true);
                 break;
 
-            case TermType.Word:
+            case "Word":
                 TermWordGameObject.SetActive(true);
                 TermWordText.Text = Term;
                 break;
