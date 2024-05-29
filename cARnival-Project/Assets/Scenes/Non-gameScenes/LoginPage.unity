@@ -2460,7 +2460,7 @@ PrefabInstance:
     - target: {fileID: 7856913891096508561, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: _Text
-      value: Forgot?
+      value: Forgt?
       objectReference: {fileID: 0}
     - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
@@ -2910,7 +2910,7 @@ PrefabInstance:
     - target: {fileID: 7856913891096508561, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: _Text
-      value: Sign up
+      value: Signup
       objectReference: {fileID: 0}
     - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
