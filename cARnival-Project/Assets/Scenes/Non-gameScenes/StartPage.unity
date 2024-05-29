@@ -1184,6 +1184,11 @@ PrefabInstance:
       propertyPath: Text
       value: Login here
       objectReference: {fileID: 0}
+    - target: {fileID: 7856913891096508561, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: _Text
+      value: Login Here
+      objectReference: {fileID: 0}
     - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_text
@@ -1374,6 +1379,11 @@ PrefabInstance:
     - target: {fileID: 7856913891096508561, guid: 537cc452af6394ba2affadae1f7802db,
         type: 3}
       propertyPath: Text
+      value: Get Started
+      objectReference: {fileID: 0}
+    - target: {fileID: 7856913891096508561, guid: 537cc452af6394ba2affadae1f7802db,
+        type: 3}
+      propertyPath: _Text
       value: Get Started
       objectReference: {fileID: 0}
     - target: {fileID: 7911452914725533870, guid: 537cc452af6394ba2affadae1f7802db,
@@ -1853,6 +1863,11 @@ PrefabInstance:
       propertyPath: Text
       value: Already have an account?
       objectReference: {fileID: 0}
+    - target: {fileID: 3316709040213122022, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
+        type: 3}
+      propertyPath: _Text
+      value: Already have an account?
+      objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
       propertyPath: m_text
@@ -2012,6 +2027,11 @@ PrefabInstance:
     - target: {fileID: 3316709040213122022, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
       propertyPath: Text
+      value: The ultimate way to learn a language
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316709040213122022, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
+        type: 3}
+      propertyPath: _Text
       value: The ultimate way to learn a language
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: 867f11c609f0da84d9a2b5ee2fc3c645,

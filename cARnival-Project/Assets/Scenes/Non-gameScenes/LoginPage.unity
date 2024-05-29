@@ -316,6 +316,11 @@ PrefabInstance:
       propertyPath: Text
       value: "Don\u2019t have an account?"
       objectReference: {fileID: 0}
+    - target: {fileID: 3316709040213122022, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
+        type: 3}
+      propertyPath: _Text
+      value: Don't have an account?
+      objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
       propertyPath: m_text
@@ -1315,6 +1320,11 @@ PrefabInstance:
       propertyPath: Text
       value: forgot?
       objectReference: {fileID: 0}
+    - target: {fileID: 7856913891096508561, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: _Text
+      value: Forgot?
+      objectReference: {fileID: 0}
     - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_text
@@ -1583,6 +1593,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Text
       value: 'Welcome back to ELLE. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316709040213122022, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
+        type: 3}
+      propertyPath: _Text
+      value: Welcome back to ELLE
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
@@ -2003,6 +2018,11 @@ PrefabInstance:
     - target: {fileID: 3316709040213122022, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
       propertyPath: Text
+      value: Login
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316709040213122022, guid: f796979706fdb4b72836161b4fde3a20,
+        type: 3}
+      propertyPath: _Text
       value: Login
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: f796979706fdb4b72836161b4fde3a20,
@@ -2436,6 +2456,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Text
       value: forgot?
+      objectReference: {fileID: 0}
+    - target: {fileID: 7856913891096508561, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: _Text
+      value: Forgt?
       objectReference: {fileID: 0}
     - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
@@ -2881,6 +2906,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Text
       value: Sign up
+      objectReference: {fileID: 0}
+    - target: {fileID: 7856913891096508561, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: _Text
+      value: Signup
       objectReference: {fileID: 0}
     - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
@@ -3783,6 +3813,11 @@ PrefabInstance:
       propertyPath: Text
       value: back
       objectReference: {fileID: 0}
+    - target: {fileID: 7856913891096508561, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: _Text
+      value: Back
+      objectReference: {fileID: 0}
     - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_text
@@ -4137,6 +4172,11 @@ PrefabInstance:
     - target: {fileID: 7856913891096508561, guid: 537cc452af6394ba2affadae1f7802db,
         type: 3}
       propertyPath: Text
+      value: Login
+      objectReference: {fileID: 0}
+    - target: {fileID: 7856913891096508561, guid: 537cc452af6394ba2affadae1f7802db,
+        type: 3}
+      propertyPath: _Text
       value: Login
       objectReference: {fileID: 0}
     - target: {fileID: 7911452914725533870, guid: 537cc452af6394ba2affadae1f7802db,
