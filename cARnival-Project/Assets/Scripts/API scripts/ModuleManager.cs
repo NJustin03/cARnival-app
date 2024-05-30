@@ -9,13 +9,16 @@ public class ModuleManager : MonoBehaviour
     public List<int> answerIDs;
     public Dictionary<int, Question> currentModuleQuestions;
     public Dictionary<int, Answer> currentModuleAnswers;
+    public List<Answer> terms;
 
     // Start is called before the first frame update
     void Start()
     {
         questionIDs = new List<int>();
+        answerIDs = new List<int>();
         currentModuleQuestions = new Dictionary<int, Question>();
         currentModuleAnswers = new Dictionary<int, Answer>();
+        terms = new List<Answer>();
     }
 
     private void Awake()
@@ -43,6 +46,7 @@ public class ModuleManager : MonoBehaviour
         currentModuleAnswers.Clear();
         questionIDs.Clear();
         answerIDs.Clear();
+        terms.Clear();
 
         // Retrieve the current module from the API manager.
         
@@ -59,6 +63,7 @@ public class ModuleManager : MonoBehaviour
                 if (!currentModuleAnswers.ContainsKey(a.termID))
                 {
                     currentModuleAnswers.Add(a.termID, value);
+                    terms.Add(value);
                     answerIDs.Add(a.termID);
                 }
 

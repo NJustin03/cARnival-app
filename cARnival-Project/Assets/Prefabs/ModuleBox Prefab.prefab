@@ -96,6 +96,7 @@ MonoBehaviour:
   moduleLanguage: {fileID: 3116709389294423258}
   moduleComplexity: {fileID: 3468131489992998550}
   moduleID: 0
+  gameToLoad: 
 --- !u!1001 &397982448655013635
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -112,7 +113,7 @@ PrefabInstance:
     - target: {fileID: 3370148552229051353, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
       propertyPath: m_text
-      value: language
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
@@ -298,7 +299,7 @@ PrefabInstance:
     - target: {fileID: 3370148552229051353, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
       propertyPath: m_text
-      value: Module
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
@@ -494,7 +495,7 @@ PrefabInstance:
     - target: {fileID: 3370148552229051353, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
       propertyPath: m_text
-      value: difficulty
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
@@ -896,6 +897,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7856913891096508561, guid: 7b9178bef7c5248bea9b5848e5bd658b,
+        type: 3}
+      propertyPath: _Text
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911452914725533870, guid: 7b9178bef7c5248bea9b5848e5bd658b,
+        type: 3}
+      propertyPath: m_text
+      value: Play
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
