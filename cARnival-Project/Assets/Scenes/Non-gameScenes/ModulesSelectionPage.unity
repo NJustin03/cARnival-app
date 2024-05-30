@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028373, g: 0.22571398, b: 0.30692294, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,6 +135,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Text
       value: 'Please choose a module to start the game.  '
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316709040213122022, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
+        type: 3}
+      propertyPath: _Text
+      value: 'Please choose a module to start the game. '
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
@@ -1139,6 +1144,11 @@ PrefabInstance:
       propertyPath: Text
       value: back
       objectReference: {fileID: 0}
+    - target: {fileID: 7856913891096508561, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: _Text
+      value: back
+      objectReference: {fileID: 0}
     - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_text
@@ -1509,6 +1519,11 @@ PrefabInstance:
       propertyPath: Text
       value: Modules
       objectReference: {fileID: 0}
+    - target: {fileID: 3316709040213122022, guid: f796979706fdb4b72836161b4fde3a20,
+        type: 3}
+      propertyPath: _Text
+      value: Modules
+      objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
       propertyPath: m_text
@@ -1667,5 +1682,5 @@ SceneRoots:
   - {fileID: 1811609522}
   - {fileID: 708461104}
   - {fileID: 1305333777}
-  - {fileID: 1071281405}
   - {fileID: 1126946126}
+  - {fileID: 1071281405}
