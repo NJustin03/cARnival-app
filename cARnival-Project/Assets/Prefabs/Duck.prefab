@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4366491580390667302}
   m_Layer: 0
   m_Name: Duck
-  m_TagString: Untagged
+  m_TagString: duck
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -271,6 +271,11 @@ PrefabInstance:
       propertyPath: Text
       value: Theme Park
       objectReference: {fileID: 0}
+    - target: {fileID: 3316709040213122022, guid: f796979706fdb4b72836161b4fde3a20,
+        type: 3}
+      propertyPath: _Text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
       propertyPath: m_text
@@ -285,6 +290,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_enableAutoSizing
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370148552229051353, guid: f796979706fdb4b72836161b4fde3a20,
+        type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}

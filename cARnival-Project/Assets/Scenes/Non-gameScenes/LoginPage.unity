@@ -2460,7 +2460,7 @@ PrefabInstance:
     - target: {fileID: 7856913891096508561, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: _Text
-      value: Forgt?
+      value: Forgot?
       objectReference: {fileID: 0}
     - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
@@ -4239,7 +4239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   api: {fileID: 0}
   sceneSwapper: {fileID: 1680165830}
-  moduleSceneName: ModulesSelectionPage(Draft)
+  nextScene: GamesPage(Draft)
   username: {fileID: 1241473737}
   password: {fileID: 905128447}
   errorText: {fileID: 1887585751}

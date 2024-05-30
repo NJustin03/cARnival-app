@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028373, g: 0.22571398, b: 0.30692294, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1381,6 +1381,46 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1624942980}
+    - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SwapScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SceneSwapper, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: ModulesSelectionPage(Draft)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7270015004753053831, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1536,7 +1576,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 982913838981139367, guid: 7b9178bef7c5248bea9b5848e5bd658b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1624942980}
   m_SourcePrefab: {fileID: 100100000, guid: 7b9178bef7c5248bea9b5848e5bd658b, type: 3}
 --- !u!224 &1624942978 stripped
 RectTransform:
@@ -1544,6 +1588,24 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1624942977}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1624942979 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 982913838981139367, guid: 7b9178bef7c5248bea9b5848e5bd658b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1624942977}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1624942980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624942979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac1aca269bad08e44bcf5f0af312f023, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1811609519
 GameObject:
   m_ObjectHideFlags: 0

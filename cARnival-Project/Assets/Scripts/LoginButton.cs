@@ -10,7 +10,7 @@ public class LoginButton : MonoBehaviour
 
     [SerializeField] private APIManager api;
     [SerializeField] private SceneSwapper sceneSwapper;
-    [SerializeField] private string moduleSceneName;
+    [SerializeField] private string nextScene;
 
     public TMP_InputField username;
     public TMP_InputField password;
@@ -33,7 +33,7 @@ public class LoginButton : MonoBehaviour
         else
         {
             Debug.Log("Successfully logged in");
-            sceneSwapper.SwapScene(moduleSceneName);
+            sceneSwapper.SwapScene(nextScene);
         }
     }
 }

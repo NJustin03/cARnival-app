@@ -28,8 +28,20 @@ public class FishingGameManager : MonoBehaviour
     private int numErrors = 0;
     private string currentWord = null;
 
+    [SerializeField]
+    private ModuleManager module;
+
+    [SerializeField]
+    private List<Answer> moduleTermsList;
+
     private void Awake()
     {
+        // Loads the module manager and finds the list of "terms" (current the Answer object).
+        // Front is the word in the foreign language (prompt),
+        // Back is the word in the native language(answer)
+        module = FindAnyObjectByType<ModuleManager>();
+        moduleTermsList = module.terms;
+        Debug.Log(moduleTermsList.Count);
         shared = this;
         
         //Adding a few terms for testing
@@ -143,7 +155,7 @@ public class FishingGameManager : MonoBehaviour
     {
         // TODO: Add the summary functionality if needed
         // TODO: Make sure the loading of the scene is the correct scene GameScene?
-        SceneManager.LoadScene("Home");
+        SceneSwapper.SwapSceneStatic("GamesPage(Draft)");
     }
 
     public void ShowSettings()
