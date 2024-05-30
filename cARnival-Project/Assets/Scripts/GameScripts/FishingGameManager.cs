@@ -10,8 +10,6 @@ public class FishingGameManager : MonoBehaviour
     public Camera arCamera;
 
     public static FishingGameManager shared;
-    // Likely will need to change this once words actually pulled
-    public ArrayList Terms = new ArrayList();
     public Material DuckColor;
     //DuckA to be used as correct term
     public DuckPrefab DuckA, DuckB, DuckC, DuckD, duckSelected;
@@ -32,7 +30,7 @@ public class FishingGameManager : MonoBehaviour
     private ModuleManager module;
 
     [SerializeField]
-    private List<Answer> moduleTermsList;
+    private List<Answer> TermsList;
 
     private void Awake()
     {
@@ -40,15 +38,11 @@ public class FishingGameManager : MonoBehaviour
         // Front is the word in the foreign language (prompt),
         // Back is the word in the native language(answer)
         module = FindAnyObjectByType<ModuleManager>();
-        moduleTermsList = module.terms;
-        Debug.Log(moduleTermsList.Count);
+        TermsList = module.terms;
+        Debug.Log(TermsList.Count);
         shared = this;
         
         //Adding a few terms for testing
-        Terms.Add("Apple");
-        Terms.Add("Bannana");
-        Terms.Add("Orange");
-        Terms.Add("Kiwi");
     }
 
     private void Start()
@@ -92,36 +86,36 @@ public class FishingGameManager : MonoBehaviour
     private void PlayNewWord()
     {   
         //TODO:Change type 'string' to word class when created
-        string newWord = null;
+        Answer newWord = null;
         numErrors = 0;
 
         //Get the new word randomly from a term array for now
-        var randomIndex = UnityEngine.Random.Range(0, Terms.Count - 1);
+        var randomIndex = UnityEngine.Random.Range(0, TermsList.Count - 1);
 
         //Do not destroy the value this holds when mofiying code
-        newWord = (string)Terms[randomIndex];
-        Terms.Remove(newWord);
+        newWord = TermsList[randomIndex];
+        TermsList.Remove(newWord);
 
         // TODO: Add logic to randomize duck colors
-        ArrayList tempWords = new ArrayList();
+        List<Answer> tempWords = new List<Answer>();
         for (int i = 0; i <= 2; i++)
         {
-            randomIndex = UnityEngine.Random.Range(0, Terms.Count - 1);
-            tempWords.Add(Terms[randomIndex]);
-            Terms.RemoveAt(randomIndex);
+            randomIndex = UnityEngine.Random.Range(0, TermsList.Count - 1);
+            tempWords.Add(TermsList[randomIndex]);
+            TermsList.RemoveAt(randomIndex);
         }
         //configure all the ducks
-        DuckA.ConfigureDuck(newWord, DuckColor);
-        DuckB.ConfigureDuck((string)tempWords[0], DuckColor);
-        DuckC.ConfigureDuck((string)tempWords[1], DuckColor);
-        DuckD.ConfigureDuck((string)tempWords[2], DuckColor);
+        DuckA.ConfigureDuck(newWord.GetBack(), DuckColor);
+        DuckB.ConfigureDuck(tempWords[0].GetBack(), DuckColor);
+        DuckC.ConfigureDuck(tempWords[1].GetBack(), DuckColor);
+        DuckD.ConfigureDuck(tempWords[2].GetBack(), DuckColor);
         //TODO: configure question board
         QuestionBoard.ConfigureWithWord(newWord);
         //Add terms back into main term list
-        Terms.Add(newWord);
-        Terms.Add(tempWords[0]);
-        Terms.Add(tempWords[1]);
-        Terms.Add(tempWords[2]);
+        TermsList.Add(newWord);
+        TermsList.Add(tempWords[0]);
+        TermsList.Add(tempWords[1]);
+        TermsList.Add(tempWords[2]);
     }
 
     public void PlayAudioClip(AudioClip clip) => FishingGameAudioSource.PlayOneShot(clip);
@@ -140,6 +134,7 @@ public class FishingGameManager : MonoBehaviour
             if (numErrors == 0)
             {
                 selectedDuck.SetActive(false);
+                numErrors++;
                 return;
             }
             //TODO: Add logic for giving correct answer after second incorrect guess

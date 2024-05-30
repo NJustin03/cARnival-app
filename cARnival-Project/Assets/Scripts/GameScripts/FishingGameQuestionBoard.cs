@@ -30,7 +30,9 @@ public class FishingGameQuestionBoard : MonoBehaviour
     [SerializeField]
     private Image TermImageImage = null;
 
-    public void ConfigureWithWord(string Term)
+    private AudioClip TermAudio = null;
+
+    public void ConfigureWithWord(Answer Term)
     {
         var allEnumValues = Enum.GetNames(typeof(TermType));
         var randomIndex = UnityEngine.Random.Range(0, allEnumValues.Count() - 1);
@@ -43,38 +45,38 @@ public class FishingGameQuestionBoard : MonoBehaviour
         switch (randomTermType.ToString())
         {
             case "Image":
-                /*
+                
                 if (!Term.hasImage)
                 {
                     goto case "Word";
                 }
-                */
-                goto case "Word";
+
+                Texture2D texture = Term.GetImage();
+                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                TermImageImage.sprite = sprite;
                 TermImageGameObject.SetActive(true);
-                    // TermImageImage.sprite = // TODO: Get the image for the word and assign it
-                    break;
+                break;
                 
             case "Audio":
-                /*
                 if (!Term.hasAudio)
                 {
                     goto case "Word";
                 }
-                */
-                goto case "Word";
+
+                TermAudio = Term.GetAudio();  
                 TermAudioGameObject.SetActive(true);
+                OnPlayAudio();
                 break;
 
             case "Word":
                 TermWordGameObject.SetActive(true);
-                TermWordText.Text = Term;
+                TermWordText.Text = Term.GetFront();
                 break;
         }
     }
 
     public void OnPlayAudio()
     {
-        // TODO: Get the word Audio Clip
-        FishingGameManager.shared.PlayAudioClip(null);
+        FishingGameManager.shared.PlayAudioClip(TermAudio);
     }
 }
