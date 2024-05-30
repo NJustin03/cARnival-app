@@ -1,15 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
 
-[RequireComponent(requiredComponent: typeof(ARRaycastManager), requiredComponent2: typeof(ARPlaneManager))]
+[RequireComponent(typeof(ARRaycastManager), typeof(ARPlaneManager))]
 public class PlaneManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject prefab;
+
+    [SerializeField]
+    private Material transparentPlane;
 
     private ARRaycastManager aRRaycastManager;
     private ARPlaneManager aRPlaneManager;
@@ -20,6 +22,12 @@ public class PlaneManager : MonoBehaviour
     {
         aRRaycastManager = GetComponent<ARRaycastManager>();
         aRPlaneManager = GetComponent<ARPlaneManager>();
+
+        // Ensure the prefab is set
+        if (prefab == null)
+        {
+            Debug.LogError("Prefab is not set. Please assign a prefab in the inspector.");
+        }
     }
 
     private void OnEnable()
@@ -29,7 +37,7 @@ public class PlaneManager : MonoBehaviour
         EnhancedTouch.Touch.onFingerDown += FingerDown;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         EnhancedTouch.TouchSimulation.Disable();
         EnhancedTouch.EnhancedTouchSupport.Disable();
@@ -38,24 +46,40 @@ public class PlaneManager : MonoBehaviour
 
     private void FingerDown(EnhancedTouch.Finger finger)
     {
-        // Check if an object is already placed
-        if (objectPlaced)
+        // Check if an object is already placed or if the prefab is not set
+        if (objectPlaced || prefab == null)
             return;
 
         // Perform raycast
-        if (aRRaycastManager.Raycast(screenPoint: finger.currentTouch.screenPosition,
-            hitResults: hits, trackableTypes: TrackableType.PlaneWithinPolygon))
+        if (aRRaycastManager.Raycast(finger.currentTouch.screenPosition, hits, TrackableType.PlaneWithinPolygon))
         {
             // Place object at first hit position
             ARRaycastHit hit = hits[0];
             Pose pose = hit.pose;
             Instantiate(prefab, pose.position, pose.rotation);
 
+            // Make all existing planes transparent
+            MakeAllPlanesTransparent();
+
             // Disable further plane detection
             aRPlaneManager.enabled = false;
 
             // Set objectPlaced to true to prevent further object placement
             objectPlaced = true;
+
+            Debug.Log("Object placed and planes made transparent.");
+        }
+    }
+
+    private void MakeAllPlanesTransparent()
+    {
+        foreach (var plane in aRPlaneManager.trackables)
+        {
+            Renderer renderer = plane.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.material = transparentPlane;
+            }
         }
     }
 }
