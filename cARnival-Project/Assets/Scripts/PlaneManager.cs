@@ -28,6 +28,9 @@ public class PlaneManager : MonoBehaviour
         {
             Debug.LogError("Prefab is not set. Please assign a prefab in the inspector.");
         }
+
+        prefab.SetActive(false);
+
     }
 
     private void OnEnable()
@@ -56,7 +59,13 @@ public class PlaneManager : MonoBehaviour
             // Place object at first hit position
             ARRaycastHit hit = hits[0];
             Pose pose = hit.pose;
-            Instantiate(prefab, pose.position, pose.rotation);
+
+            //Ensures that the game will be in the position of which the player has set the raycast
+            Vector3 posePosition = new(pose.position.x, (float)(pose.position.x + 0.1), pose.position.z);
+            prefab.transform.position = posePosition;
+
+            //Reveal the game
+            prefab.SetActive(true);
 
             // Make all existing planes transparent
             MakeAllPlanesTransparent();
