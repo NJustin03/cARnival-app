@@ -17,6 +17,19 @@ public class AIMovement : MonoBehaviour
     void Start()
     {
         duckAgent = GetComponent<NavMeshAgent>();
+        StartCoroutine(Move());
+    }
+
+    void OnEnable()
+    {
+        // Start the coroutine when the GameObject is enabled
+        StartCoroutine(Move());
+    }
+
+    void OnDisable()
+    {
+        // Stop all coroutines when the GameObject is disabled
+        StopAllCoroutines();
     }
 
     void Update()
@@ -25,6 +38,7 @@ public class AIMovement : MonoBehaviour
         {
             StartCoroutine(Move());
             canMove = false;
+
         }
     }
 
