@@ -4239,7 +4239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   api: {fileID: 0}
   sceneSwapper: {fileID: 1680165830}
-  nextScene: GamesPage(Draft)
+  nextScene: GamesPage
   username: {fileID: 1241473737}
   password: {fileID: 905128447}
   errorText: {fileID: 1887585751}
