@@ -14,6 +14,7 @@ public class FishingGameManager : MonoBehaviour
     //DuckA to be used as correct term
     public DuckPrefab DuckA, DuckB, DuckC, DuckD, duckSelected;
     public FishingGameQuestionBoard QuestionBoard;
+    public Answer newWord = null;
 
 
     [SerializeField]
@@ -75,7 +76,7 @@ public class FishingGameManager : MonoBehaviour
 
                         if (duckSelected != null)
                         {
-                            SelectWord(duckSelected);
+                            SelectWord(duckSelected, newWord);
                         }
                     }
                 }
@@ -85,18 +86,16 @@ public class FishingGameManager : MonoBehaviour
 
     private void PlayNewWord()
     {   
-        //TODO:Change type 'string' to word class when created
-        Answer newWord = null;
         numErrors = 0;
 
         //Get the new word randomly from a term array for now
-        var randomIndex = UnityEngine.Random.Range(0, TermsList.Count - 1);
+
+        int randomIndex = 0; 
 
         //Do not destroy the value this holds when mofiying code
-        newWord = TermsList[randomIndex];
+        newWord = AdaptiveLearning.GetNextAnswer(TermsList);
         TermsList.Remove(newWord);
 
-        // TODO: Add logic to randomize duck colors
         List<Answer> tempWords = new List<Answer>();
         for (int i = 0; i <= 2; i++)
         {
@@ -120,13 +119,17 @@ public class FishingGameManager : MonoBehaviour
 
     public void PlayAudioClip(AudioClip clip) => FishingGameAudioSource.PlayOneShot(clip);
 
-    // TODO: See what the duck script is 
-    public void SelectWord(DuckPrefab selectedDuck)
+    public void SelectWord(DuckPrefab selectedDuck, Answer currentAnswer)
     {
-        // TODO: Test to see if the word is correct or not
+        //TODO: Add logic to check for response time.
+        var responseTime = 0;
         if (selectedDuck.Text.Text == currentWord)
         {
             score++;
+
+            AdaptiveLearning.CalculateDecay(currentAnswer, false, responseTime);
+            AdaptiveLearning.CalculateActivationValue(currentAnswer);
+
             PlayNewWord();
         }
         else
@@ -140,6 +143,9 @@ public class FishingGameManager : MonoBehaviour
             //TODO: Add logic for giving correct answer after second incorrect guess
             else if (numErrors > 0)
             {
+                AdaptiveLearning.CalculateDecay(currentAnswer, false, responseTime);
+                AdaptiveLearning.CalculateActivationValue(currentAnswer);
+                
                 PlayNewWord();
                 return;
             }

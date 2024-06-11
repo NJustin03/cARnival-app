@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
 
 public class Answer
 {
-
     private int termID;
+    private float activation;
+    private float decay;
+    private float intercept;
     private AudioClip answerAudio;
     private Texture2D answerImage;
     private string front;
@@ -15,13 +19,16 @@ public class Answer
     private string language;
     private string audioLocation;
     private string imageLocation;
+    private string presentationTimes;
+
+    private string initialTime;
 
     public bool hasImage;
     public bool hasAudio;
 
     // Various constructors for whether or not there is an image or audio attached to the answer.
 
-    public Answer(int termID, string front, string back, string type, string gender, string language, string audioLocation, string imageLocation)
+    public Answer(int termID, string front, string back, string type, string gender, string language, string audioLocation, string imageLocation, float activation, float decay, string date, string presentationTimes)
     {
         this.termID = termID;
         answerAudio = null;
@@ -32,6 +39,11 @@ public class Answer
         this.gender = gender;
         this.language = language;
         this.audioLocation = audioLocation;
+        this.activation = activation;
+        this.decay = decay;
+        this.presentationTimes = presentationTimes;
+        this.initialTime = date;
+
         if (audioLocation.Length == 0 )
         {
             hasAudio = false;
@@ -42,6 +54,27 @@ public class Answer
         {
             hasImage = false;
         }
+
+
+    }
+    public List<int> GetPresentationTimes()
+    {
+        if (string.IsNullOrEmpty(presentationTimes))
+        {
+            return new List<int>();
+        }
+        return presentationTimes.Split(',').Select(int.Parse).ToList();
+    }
+
+    public void AddPresentationTime(int time)
+    {
+        var times = GetPresentationTimes();
+        times.Add(time);
+
+        if (times.Count() > 5000)
+            times.RemoveAt(0);
+
+        presentationTimes = string.Join(",", times);
     }
 
     public void SetAnswerAudio(AudioClip answerAudio)
@@ -49,6 +82,18 @@ public class Answer
 
     public void SetAnswerImage(Texture2D answerImage)
     { this.answerImage = answerImage; }
+
+    public void SetActivation(float activationValue)
+    { this.activation = activationValue; }
+
+    public void SetDecay(float decay)
+    { this.decay = decay; }
+
+    public void SetIntercept(float alpha)
+    { this.intercept = alpha; }
+
+    public void SetInitialTime(string initialTime)
+    { this.initialTime = initialTime; }
 
     public int GetTermID()
     { return termID; }
@@ -79,6 +124,18 @@ public class Answer
 
     public AudioClip GetAudio() 
     { return answerAudio; }
+
+    public float GetActivation()
+    { return activation; }
+
+    public float GetDecay()
+    { return decay; }
+
+    public string GetInitialTime()
+    { return initialTime; }
+
+    public float GetIntercept()
+    { return intercept; }
 
     override
     public string ToString()
