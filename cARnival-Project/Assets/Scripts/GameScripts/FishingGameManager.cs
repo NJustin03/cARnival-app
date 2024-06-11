@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -23,9 +22,16 @@ public class FishingGameManager : MonoBehaviour
     [SerializeField]
     private FishingGameQuestionBoard fishingGameQuestionBoard = null;
 
+    [SerializeField]
+    private GameObject incorrectCard;
+
+    [SerializeField]
+    private GameObject correctCard;
+
     private int score = 0;
     private int numErrors = 0;
     private string currentWord = null;
+    private bool canSelectDuck = true;
 
     [SerializeField]
     private ModuleManager module;
@@ -50,10 +56,13 @@ public class FishingGameManager : MonoBehaviour
     {
         // TODO: Start the game
         PlayNewWord();
+        incorrectCard.SetActive(false);
+        correctCard.SetActive(false);
     }
 
     private void Update()
     {
+        if (!canSelectDuck) return;
         // TODO: Perform raycast to see if we are clicking on a duck and determine if we need to select this word?
         if (Input.touchCount > 0)
         {
@@ -126,17 +135,21 @@ public class FishingGameManager : MonoBehaviour
         if (selectedDuck.Text.Text == currentWord)
         {
             score++;
-
+            
             AdaptiveLearning.CalculateDecay(currentAnswer, false, responseTime);
             AdaptiveLearning.CalculateActivationValue(currentAnswer);
-
+            
+            correctCard.SetActive(true);
             PlayNewWord();
         }
         else
         {
             if (numErrors == 0)
             {
+                canSelectDuck = false;
                 selectedDuck.SetActive(false);
+                incorrectCard.SetActive(true);
+                Time.timeScale = 0;
                 numErrors++;
                 return;
             }
@@ -165,5 +178,14 @@ public class FishingGameManager : MonoBehaviour
         // Ex: SetActive call on a settings prefab
 
         // TODO: Pause the game
+        Time.timeScale = 0;
+    }
+
+    public void UnPause()
+    {
+        Time.timeScale = 1;
+        incorrectCard.SetActive(false);
+        correctCard.SetActive(false);
+        canSelectDuck = true;
     }
 }

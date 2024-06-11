@@ -29,7 +29,7 @@ public class PlaneManager : MonoBehaviour
             Debug.LogError("Prefab is not set. Please assign a prefab in the inspector.");
         }
 
-        prefab.SetActive(false);
+        prefab.SetActive(true);
 
     }
 
