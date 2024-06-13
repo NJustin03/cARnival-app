@@ -21,7 +21,8 @@ public class APIManager : MonoBehaviour
         public T[] array;
     }
 
-    private const string endpointURL = "https://chdr.cs.ucf.edu/elleapi/";
+    //private const string endpointURL = "https://chdr.cs.ucf.edu/elleapi/";
+    private const string endpointURL = "https://www.elledevserver.xyz/elleapi/";
     private const string filePrefixURL = "https://chdr.cs.ucf.edu/elle";
     public static string authenticationString;
     public static string randomUsername;
@@ -36,6 +37,8 @@ public class APIManager : MonoBehaviour
     public static AudioClip currentAudio;
 
     public static ModulesJson[] ModulesJsonObjects;
+
+    public static AdaptiveValuesJson adaptiveValuesJson;
 
     private void Awake()
     {
@@ -302,6 +305,64 @@ public class APIManager : MonoBehaviour
             }
         }
     }
+
+    public static IEnumerator RetrieveAdaptiveLearningValue(int termID)
+    {
+        TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
+        string adaptiveRetrievalEndpoint = endpointURL + "/adaptivelearning/getvalues";
+        WWWForm form = new WWWForm();
+        form.AddField("termID", termID);
+
+        using (UnityWebRequest adaptiveRetrievalRequest = UnityWebRequest.Post(adaptiveRetrievalEndpoint, form))
+        {
+            adaptiveRetrievalRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
+
+            yield return adaptiveRetrievalRequest.SendWebRequest();
+
+            // If a connection error is received, print the result.
+            if (adaptiveRetrievalRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log(adaptiveRetrievalRequest.error);
+            }
+            else
+            {
+                // Debug.Log(adaptiveRetrievalRequest.downloadHandler.text);
+                adaptiveValuesJson = AdaptiveValuesJson.CreateAdaptiveFromJson(adaptiveRetrievalRequest.downloadHandler.text);
+            }
+        }
+    }
+
+    public static IEnumerator UpdateAdaptiveLearningValue(int termID, float activation_val, float decay_val, float alpha_val, string dates, string times)
+    {
+        TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
+        string adaptiveUpdateEndpoint = endpointURL + "/adaptivelearning/updatevalues";
+        WWWForm form = new WWWForm();
+        form.AddField("termID", termID);
+        form.AddField("activation_val", activation_val.ToString());
+        form.AddField("decay_val", decay_val.ToString());
+        form.AddField("alpha_val", alpha_val.ToString());
+        form.AddField("dates", dates);
+        form.AddField("times", times);
+
+        using (UnityWebRequest adaptiveUpdateRequest = UnityWebRequest.Post(adaptiveUpdateEndpoint, form))
+        {
+            adaptiveUpdateRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
+
+            yield return adaptiveUpdateRequest.SendWebRequest();
+
+            // If a connection error is received, print the result.
+            if (adaptiveUpdateRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log(adaptiveUpdateRequest.error);
+            }
+            else
+            {
+                Debug.Log(adaptiveUpdateRequest.downloadHandler.text);
+            }
+        }
+    }
+
+
 
     public QuestionJson[] GetQuestions()
     {

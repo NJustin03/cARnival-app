@@ -56,10 +56,16 @@ public class ModuleManager : MonoBehaviour
             List<int> answerIDList = new List<int>();
             foreach (AnswerJson a in q.answers)
             {
-                Answer value = new Answer(a.termID, a.front, a.back, a.type, a.gender, a.language, a.audioLocation, a.imageLocation, a.activation, a.decay, a.dateTime, a.presentationTimes);
+                // Creates an answer object and adds it to the list of terms and to the the question's list of answers.
+                Answer value = new Answer(a.termID, a.front, a.back, a.type, a.gender, a.language, a.audioLocation, a.imageLocation);
                 answerIDList.Add(value.GetTermID());
                 currentQuestionAnswers.Add(a.termID, value);
+
+                // Downloads extra information (AudioVisual and Adaptive Values) for the terms/answers.
                 StartCoroutine(DownloadAudioVisuals(value));
+                StartCoroutine(DownloadAdaptiveLearningValues(value));
+
+                // If it's a new term add it to the module manager's database of terms/answers that we haven't seen before.
                 if (!currentModuleAnswers.ContainsKey(a.termID))
                 {
                     currentModuleAnswers.Add(a.termID, value);
@@ -68,10 +74,13 @@ public class ModuleManager : MonoBehaviour
                 }
 
             }
+
+            // Create the question object and download/add the important values and information.
             Question newQuestion = new(q.questionID, q.type, q.questionText, answerIDList, currentQuestionAnswers, q.audioLocation, q.imageLocation);
             StartCoroutine(DownloadAudioVisuals(newQuestion));
             currentModuleQuestions.Add(q.questionID, newQuestion);
             questionIDs.Add(q.questionID);
+
         }
     }
 
@@ -103,6 +112,12 @@ public class ModuleManager : MonoBehaviour
             yield return StartCoroutine(APIManager.RetrieveImage(question.GetImageLocation()));
             question.SetQuestionImage(APIManager.currentImage);
         }
+    }
+
+    private IEnumerator DownloadAdaptiveLearningValues(Answer answer)
+    {
+        yield return StartCoroutine(APIManager.RetrieveAdaptiveLearningValue(answer.GetTermID()));
+        answer.SetAdaptiveValues(APIManager.adaptiveValuesJson);
     }
 
 }
