@@ -56,7 +56,7 @@ public class ModuleManager : MonoBehaviour
             List<int> answerIDList = new List<int>();
             foreach (AnswerJson a in q.answers)
             {
-                Answer value = new Answer(a.termID, a.front, a.back, a.type, a.gender, a.language, a.audioLocation, a.imageLocation);
+                Answer value = new Answer(a.termID, a.front, a.back, a.type, a.gender, a.language, a.audioLocation, a.imageLocation, a.activation, a.decay, a.dateTime, a.presentationTimes);
                 answerIDList.Add(value.GetTermID());
                 currentQuestionAnswers.Add(a.termID, value);
                 StartCoroutine(DownloadAudioVisuals(value));
