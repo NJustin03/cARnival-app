@@ -36,6 +36,8 @@ public class APIManager : MonoBehaviour
     public static AudioClip currentAudio;
 
     public static ModulesJson[] ModulesJsonObjects;
+    public static ModuleStatsJson[] moduleStats;
+
 
     private void Awake()
     {
@@ -223,7 +225,7 @@ public class APIManager : MonoBehaviour
     {
         TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
 
-        string statsEndpoint = endpointURL + "/termsperformance";
+        string statsEndpoint = endpointURL + "/allmodulestats";
 
         using (UnityWebRequest statsSessionRequest = UnityWebRequest.Get(statsEndpoint))
         {
@@ -238,7 +240,7 @@ public class APIManager : MonoBehaviour
             }
 
             string stats = statsSessionRequest.downloadHandler.text;
-            Debug.Log(stats);
+            moduleStats = GetJsonArray<ModuleStatsJson>(stats);
         }
     }
 

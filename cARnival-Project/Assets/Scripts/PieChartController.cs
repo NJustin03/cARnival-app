@@ -7,19 +7,19 @@ using TMPro;
 public class PieChartController : MonoBehaviour
 {
     public Image fill;
-    public float score;
+    //public float score;
     public TextMeshProUGUI num_percentage;
     // Start is called before the first frame update
-    void Start()
+    /*void Start()
     {
         setValues(score);
         setPercentage(score);
-    }
+    }*/
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateStats(float score)
     {
-        
+        setPercentage(score);
+        setValues(score);
     }
 
     public void setValues(float score)
