@@ -252,7 +252,8 @@ public class APIManager : MonoBehaviour
         WWWForm form = new WWWForm();
 
         form.AddField("termID", termID);
-        form.AddField("playerScore", isCorrect ? 1 : 0);
+        form.AddField("sessionID", sessionID);
+        form.AddField("correct", isCorrect ? 1 : 0);
 
         using (UnityWebRequest endSessionRequest = UnityWebRequest.Post(sessionEndpoint, form))
         {
