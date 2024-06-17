@@ -244,6 +244,30 @@ public class APIManager : MonoBehaviour
         }
     }
 
+    public static IEnumerator LogAnswer(int termID, bool isCorrect)
+    {
+        TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
+
+        string sessionEndpoint = endpointURL + "/loggedanswer";
+        WWWForm form = new WWWForm();
+
+        form.AddField("termID", termID);
+        form.AddField("playerScore", isCorrect ? 1 : 0);
+
+        using (UnityWebRequest endSessionRequest = UnityWebRequest.Post(sessionEndpoint, form))
+        {
+            endSessionRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
+
+            yield return endSessionRequest.SendWebRequest();
+
+            // If a connection error is received, print the result.
+            if (endSessionRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log(endSessionRequest.error);
+            }
+        }
+    }
+
     public static IEnumerator RetrieveImage(string imgURL)
     {
         currentImage = null;
