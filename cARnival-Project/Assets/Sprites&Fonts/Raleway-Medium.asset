@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: Raleway-Medium
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: -840466939
   material: {fileID: 4533007051613022787}
-  materialHashCode: 0
+  materialHashCode: -1203553147
   m_Version: 1.1.0
   m_SourceFontFileGUID: 293272a388fa04953bf7c9be40060858
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 293272a388fa04953bf7c9be40060858,
@@ -2786,9 +2786,9 @@ Material:
     - _OutlineWidth: 0
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 1
-    - _ScaleRatioB: 1
-    - _ScaleRatioC: 1
+    - _ScaleRatioA: 0.8333333
+    - _ScaleRatioB: 0.6770833
+    - _ScaleRatioC: 0.6770833
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
