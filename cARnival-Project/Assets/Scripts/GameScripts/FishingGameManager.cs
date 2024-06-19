@@ -169,7 +169,7 @@ public class FishingGameManager : MonoBehaviour
     {
         // TODO: Add the summary functionality if needed
         // TODO: Make sure the loading of the scene is the correct scene GameScene?
-        SceneSwapper.SwapSceneStatic("GamesPage(Draft)");
+        SceneSwapper.SwapSceneStatic("GamesPage");
     }
 
     public void ShowSettings()
