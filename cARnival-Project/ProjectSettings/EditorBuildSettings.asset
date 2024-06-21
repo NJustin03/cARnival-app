@@ -5,30 +5,33 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Non-gameScenes/StartPage.unity
     guid: 62bc1df30905d4d1482f748e8865a2e6
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Non-gameScenes/LoginPage.unity
     guid: b9f377129cc9442c99ceb58923466719
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Non-gameScenes/GamesPage.unity
     guid: 7b43eff2a70504e3cb87dcac9e9a2d91
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Non-gameScenes/ModulesSelectionPage.unity
     guid: f13eb1ae4d10b4d4987c2f4cd765a10e
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Game Scenes/FishingGame.unity
     guid: 4755b35b590504809a7525fd2109c2e2
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Game Scenes/BasketballGame.unity
     guid: 8058105fc2bc443759fb353448aee19f
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Non-gameScenes/StatsPage.unity
     guid: 9e3b09e9edf6b4c10957424322c56e29
   - enabled: 1
     path: Assets/Scenes/Game Scenes/ArcheryGame.unity
     guid: ad0e7aa89d1b44875a3a881f76cd2197
+  - enabled: 1
+    path: Assets/Scenes/Game Scenes/TennisGame.unity
+    guid: 2e3f2ad60b6174a06b0616c346118fd8
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af,
       type: 2}

@@ -7,8 +7,6 @@ public class ModuleScrollLoader : MonoBehaviour
 
     public GameObject moduleBoxPrefab;
     public GameObject modulesContainer;
-    public string gameScene;
-
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +25,7 @@ public class ModuleScrollLoader : MonoBehaviour
         foreach (ModulesJson module in APIManager.ModulesJsonObjects)
         {
             GameObject temp = Instantiate(moduleBoxPrefab, modulesContainer.transform);
-            temp.GetComponent<UpdateModuleBoxScript>().UpdateModuleBox(module, gameScene);
+            temp.GetComponent<UpdateModuleBoxScript>().UpdateModuleBox(module);
         }
     }
 }
