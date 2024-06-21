@@ -36,6 +36,7 @@ public class ModuleManager : MonoBehaviour
     public IEnumerator LoadQuestionsAndAnswers(int moduleID)
     {
         yield return StartCoroutine(APIManager.GetModule(moduleID));
+        Debug.Log("loading");
         LoadToManager();
     }
 
