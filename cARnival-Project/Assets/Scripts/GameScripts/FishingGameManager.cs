@@ -146,10 +146,10 @@ public class FishingGameManager : MonoBehaviour
         {
             if (numErrors == 0)
             {
-                canSelectDuck = false;
+               // canSelectDuck = false;
                 selectedDuck.SetActive(false);
-                incorrectCard.SetActive(true);
-                Time.timeScale = 0;
+              //  incorrectCard.SetActive(true);
+              //  Time.timeScale = 0;
                 numErrors++;
                 return;
             }

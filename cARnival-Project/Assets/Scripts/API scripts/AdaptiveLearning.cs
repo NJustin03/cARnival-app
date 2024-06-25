@@ -140,6 +140,8 @@ public class AdaptiveLearning
 
         if (result)
             currentTimeDays = (int)((TimeSpan)(currentTime - initialTime)).TotalDays;
+        else
+            answer.SetInitialTime(currentTime.ToString());
        
         foreach (var presentationTime in answer.GetPresentationTimes())
         {
