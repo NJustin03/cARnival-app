@@ -26,6 +26,7 @@ public class LanguageHoopsManager : MonoBehaviour
 
     public static LanguageHoopsManager shared;
     public Answer newWord = null;
+    public FishingGameQuestionBoard QuestionBoard;
 
     private bool HoldingBall = false;
     private bool LaunchingBall = false;
@@ -38,10 +39,10 @@ public class LanguageHoopsManager : MonoBehaviour
 
     private void Awake()
     {
-        // module = FindAnyObjectByType<ModuleManager>();
-        //TermsList = module.terms;
-        //  Debug.Log(TermsList.Count);
-        // shared = this;
+        module = FindAnyObjectByType<ModuleManager>();
+        TermsList = module.terms;
+        Debug.Log(TermsList.Count);
+        shared = this;
         StoredMovement = new List<Vector2>(Enumerable.Repeat(Vector2.zero, MaxStoredMovement));
 
         Rigidbody ballRigidbody = Ball.GetComponent<Rigidbody>();
@@ -51,7 +52,7 @@ public class LanguageHoopsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       // PlayNewWord();
+       PlayNewWord();
     }
 
     private void Update()
@@ -200,28 +201,38 @@ public class LanguageHoopsManager : MonoBehaviour
         List<Answer> tempWords = new List<Answer>();
         for (int i = 0; i <= 2; i++)
         {
-            randomIndex = UnityEngine.Random.Range(0, TermsList.Count - 1);
+            randomIndex = UnityEngine.Random.Range(0, TermsList.Count);
             tempWords.Add(TermsList[randomIndex]);
             TermsList.RemoveAt(randomIndex);
         }
+
+        tempWords.Insert(0, newWord); // Insert newWord at the start of tempWords
 
         List<BasketBallHoopPrefab> hoops = new List<BasketBallHoopPrefab>
         {
             HoopA, HoopB, HoopC
         };
 
+        // Shuffle hoops to assign words randomly
+        ShuffleList(hoops);
+
+        // Assign words to hoops
         for (int i = 0; i < hoops.Count; i++)
         {
-            int randomHoopIndex = UnityEngine.Random.Range(0, hoops.Count);
-            BasketBallHoopPrefab hoop = hoops[randomHoopIndex];
+            hoops[i].ConfigureHoop(tempWords[i].GetBack());
+        }
 
-            if (i == 0)
-                hoop.ConfigureHoop(newWord.GetBack());
-            else
-                hoop.ConfigureHoop(tempWords[0].GetBack());
+        QuestionBoard.ConfigureWithWord(newWord);
+    }
 
-            hoops.Remove(hoop);
-            tempWords.RemoveAt(0);
+    void ShuffleList<T>(List<T> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, list.Count);
+            T temp = list[i];
+            list[i] = list[randomIndex];
+            list[randomIndex] = temp;
         }
     }
 
