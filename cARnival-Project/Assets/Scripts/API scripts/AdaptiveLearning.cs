@@ -21,12 +21,12 @@ public class AdaptiveLearning
     /// A value, when exceeded, will determine whether or not an unseen Answer needs to be presented to the player.
     /// Needs some testing to come to a conclusion on this value.
     /// </summary>
-    private const float ActivationThreshold = 1f;
+    private const float ActivationThreshold = 2.1f;
 
     /// <summary>
     /// A constant to represent the default activation threshold for an unseen Answer.
     /// </summary>
-    private const float UnseedWordActivation = Mathf.NegativeInfinity;
+    private const float UnseedWordActivation = -9999;
 
     /// <summary>
     /// Constant to represent the base of natural log
@@ -82,12 +82,6 @@ public class AdaptiveLearning
         return nextAnswer;
     }
 
-    public static void SelectAnswer(Answer answer, bool isCorrect, float responseTime, float fixedTimeCost = 300f)
-    {
-        CalculateDecay(answer, isCorrect, responseTime, fixedTimeCost);
-        CalculateActivationValue(answer);
-    }
-
     /// <summary>
     /// Calculates the Decay value for a given Answer. The calculated decay will be different whether or not the Answer was correct
     /// or incorrect as well as within the proper response time. An incorrect selection will have a change in the decay of 0.01 while
@@ -101,10 +95,18 @@ public class AdaptiveLearning
     /// <param name="isCorrect">Boolean value to determine if the selection was correct or incorrect</param>
     /// <param name="responseTime">The observed response time for a player to respond to a given answer. This value is measured in miliseconds.</param>
     /// <param name="fixedTimeCost">The default time before an Answer receives a score with diminishing return. This value is in milliseconds.</param>
-    public static void CalculateDecay(Answer answer, bool isCorrect, float responseTime, float fixedTimeCost = 300f)
+    public static void CalculateDecayContinuous(Answer answer, bool isCorrect, float responseTime, float fixedTimeCost = 300f)
     {
-        var initialDateTime = DateTime.Parse(answer.GetInitialTime());
-        var daysSinceInitial = (int)(DateTime.UtcNow - initialDateTime).TotalDays;
+        DateTime initialDateTime;
+        var initialDateTimeBool = DateTime.TryParse(answer.GetInitialTime(), out initialDateTime);
+        DateTime currentTime = DateTime.UtcNow;
+        if (initialDateTimeBool == false)
+        {
+            answer.SetInitialTime(currentTime.ToString());
+            initialDateTime = currentTime;
+        }
+
+        var daysSinceInitial = (int)(currentTime - initialDateTime).TotalDays;
         answer.AddPresentationTime(daysSinceInitial);
 
         var alpha = answer.GetIntercept();
@@ -124,6 +126,25 @@ public class AdaptiveLearning
         answer.SetDecay(decay);
     }
 
+    public static void CalculateDecayBinary(Answer answer, bool isCorrect)
+    {
+        var alpha = answer.GetIntercept();
+
+        if (!isCorrect)
+        {
+            alpha += 0.01f;
+        }
+        else
+        {
+            alpha -= 0.01f;
+        }
+
+        answer.SetIntercept(alpha);
+        var decay = c * Mathf.Pow(e, answer.GetActivation()) + alpha;
+        answer.SetDecay(decay);
+    }
+
+
     /// <summary>
     /// Calculates the activation value for a given Answer.
     ///
@@ -140,13 +161,20 @@ public class AdaptiveLearning
 
         if (result)
             currentTimeDays = (int)((TimeSpan)(currentTime - initialTime)).TotalDays;
-        else
-            answer.SetInitialTime(currentTime.ToString());
+       
        
         foreach (var presentationTime in answer.GetPresentationTimes())
         {
             float timeDiff = (currentTimeDays - presentationTime);
+
+            if (timeDiff == 0)
+            {
+                timeDiff = 0.001f;
+            } 
+            
             totalTime += Mathf.Pow(timeDiff, -answer.GetDecay());
+
+            
         }
 
         var activationValue = Mathf.Log(totalTime);
