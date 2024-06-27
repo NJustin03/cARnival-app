@@ -10,16 +10,14 @@ public class UpdateModuleBoxScript : MonoBehaviour
     public TMP_Text moduleComplexity;
     public int moduleID;
     private ModuleManager moduleManager;
-    public string gameToLoad;
 
     public void Start()
     {
         moduleManager = FindAnyObjectByType<ModuleManager>();
     }
 
-    public void UpdateModuleBox(ModulesJson module, string gameScene)
+    public void UpdateModuleBox(ModulesJson module)
     {
-        gameToLoad = gameScene;
         moduleID = module.moduleID;
         moduleName.SetText(module.name);
         moduleLanguage.SetText("Language: " + module.language);
@@ -35,6 +33,6 @@ public class UpdateModuleBoxScript : MonoBehaviour
     {
         yield return StartCoroutine(moduleManager.LoadQuestionsAndAnswers(moduleID));
         Debug.Log("Loaded module number: " + moduleID + "\n Number of Terms: " + moduleManager.answerIDs.Count);
-        SceneSwapper.SwapSceneStatic(gameToLoad);
+        SceneSwapper.SwapToChosenGame();
     }
 }

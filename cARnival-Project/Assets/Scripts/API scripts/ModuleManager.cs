@@ -33,13 +33,17 @@ public class ModuleManager : MonoBehaviour
         }
     }
 
+    // Function which takes in the ID of the module to retrieve, then calls the API to retrieve all terms associated with the module and populates the respective list.
     public IEnumerator LoadQuestionsAndAnswers(int moduleID)
     {
         yield return StartCoroutine(APIManager.GetModule(moduleID));
-        LoadToManager();
+        yield return StartCoroutine(LoadToManager());
+        yield return StartCoroutine(APIManager.RetrieveAllALValues(terms));
+        AssignAdaptiveLearningValues();
     }
 
-    private void LoadToManager()
+    // Private Helper Function to actually load the values and terms retrieved from the API into lists.
+    private IEnumerator LoadToManager()
     {
         // Clear the current module set upon new load.
         currentModuleQuestions.Clear();
@@ -49,32 +53,38 @@ public class ModuleManager : MonoBehaviour
         terms.Clear();
 
         // Retrieve the current module from the API manager.
-        
+
         foreach( QuestionJson q in APIManager.currentQuestions)
         {
             Dictionary<int, Answer> currentQuestionAnswers = new Dictionary<int, Answer>();
             List<int> answerIDList = new List<int>();
             foreach (AnswerJson a in q.answers)
             {
-                Answer value = new Answer(a.termID, a.front, a.back, a.type, a.gender, a.language, a.audioLocation, a.imageLocation, a.activation, a.decay, a.dateTime, a.presentationTimes);
+                // Creates an answer object and adds it to the list of terms and to the the question's list of answers.
+                Answer value = new Answer(a.termID, a.front, a.back, a.type, a.gender, a.language, a.audioLocation, a.imageLocation);
                 answerIDList.Add(value.GetTermID());
                 currentQuestionAnswers.Add(a.termID, value);
-                StartCoroutine(DownloadAudioVisuals(value));
+
+                // If it's a new term add it to the module manager's database of terms/answers that we haven't seen before.
                 if (!currentModuleAnswers.ContainsKey(a.termID))
                 {
+                    yield return StartCoroutine(DownloadAudioVisuals(value));
                     currentModuleAnswers.Add(a.termID, value);
                     terms.Add(value);
                     answerIDs.Add(a.termID);
                 }
 
             }
+
+            // Create the question object and download/add the important values and information.
             Question newQuestion = new(q.questionID, q.type, q.questionText, answerIDList, currentQuestionAnswers, q.audioLocation, q.imageLocation);
-            StartCoroutine(DownloadAudioVisuals(newQuestion));
             currentModuleQuestions.Add(q.questionID, newQuestion);
             questionIDs.Add(q.questionID);
         }
+        yield return null;
     }
 
+    // Function which calls the API to download any images and audio associated with the term.
     private IEnumerator DownloadAudioVisuals(Answer answer)
     {
         if (answer.GetAudioLocation().Length > 0)
@@ -90,19 +100,19 @@ public class ModuleManager : MonoBehaviour
         }
     }
 
-    private IEnumerator DownloadAudioVisuals(Question question)
+    // Helper function which assigns the adaptive learning values to their corresponding terms.
+    private void AssignAdaptiveLearningValues()
     {
-        if (question.GetAudioLocation().Length > 0)
+        foreach (Answer a in terms)
         {
-            yield return StartCoroutine(APIManager.RetrieveAudio(question.GetAudioLocation()));
-            question.SetQuestionAudio(APIManager.currentAudio);
-        }
-
-        if (question.GetImageLocation().Length > 0)
-        {
-            yield return StartCoroutine(APIManager.RetrieveImage(question.GetImageLocation()));
-            question.SetQuestionImage(APIManager.currentImage);
+            for (int i = 0; i < terms.Count; i++)
+            {
+                if (APIManager.listOfALValues[i].termID == a.GetTermID())
+                {
+                    a.SetAdaptiveValues(APIManager.listOfALValues[i]);
+                    break;
+                }
+            }
         }
     }
-
 }

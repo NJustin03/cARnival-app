@@ -32,10 +32,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Non-gameScenes/StorePage.unity
     guid: 2c59fe7f9465d47dd93fcc90e1b758dc
+  - enabled: 1
+    path: Assets/Scenes/Game Scenes/TennisGame.unity
+    guid: 2e3f2ad60b6174a06b0616c346118fd8
+  - enabled: 1
+    path: Assets/Scenes/Game Scenes/ArcheryGame.unity
+    guid: ad0e7aa89d1b44875a3a881f76cd2197
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af,
       type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 0465d33c6aee55f44b0237db8b0e0259,
+      type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 12510682d797c8c47a97af864b0b4035,
       type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: c199e683398494f32b4cde18e73ab731,
       type: 2}

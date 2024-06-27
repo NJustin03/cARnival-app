@@ -28,7 +28,7 @@ public class Answer
 
     // Various constructors for whether or not there is an image or audio attached to the answer.
 
-    public Answer(int termID, string front, string back, string type, string gender, string language, string audioLocation, string imageLocation, float activation, float decay, string date, string presentationTimes)
+    public Answer(int termID, string front, string back, string type, string gender, string language, string audioLocation, string imageLocation)
     {
         this.termID = termID;
         answerAudio = null;
@@ -39,10 +39,10 @@ public class Answer
         this.gender = gender;
         this.language = language;
         this.audioLocation = audioLocation;
-        this.activation = activation;
-        this.decay = decay;
-        this.presentationTimes = presentationTimes;
-        this.initialTime = date;
+        // this.activation = activation;
+        // this.decay = decay;
+        // this.presentationTimes = presentationTimes;
+        // this.initialTime = date;
 
         if (audioLocation.Length == 0 )
         {
@@ -141,5 +141,14 @@ public class Answer
     public string ToString()
     {
         return "Term ID: " + termID + "\n Term Front: " + front + "\n Term Back: " + back + "\n";
+    }
+
+    public void SetAdaptiveValues(AdaptiveValuesJson adapt)
+    {
+        activation = adapt.activation_val;
+        decay = adapt.decay_val;
+        intercept = adapt.alpha_val;
+        presentationTimes = adapt.times;
+        initialTime = adapt.dates;
     }
 }

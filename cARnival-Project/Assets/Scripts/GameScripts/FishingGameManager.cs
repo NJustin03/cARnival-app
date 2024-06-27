@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class FishingGameManager : MonoBehaviour
 {
@@ -132,11 +133,11 @@ public class FishingGameManager : MonoBehaviour
     {
         //TODO: Add logic to check for response time.
         var responseTime = 0;
-        if (selectedDuck.Text.Text == currentWord)
+        if (selectedDuck.Text.Text == currentAnswer.GetBack())
         {
             score++;
             
-            AdaptiveLearning.CalculateDecay(currentAnswer, false, responseTime);
+            AdaptiveLearning.CalculateDecayContinuous(currentAnswer, true, responseTime);
             AdaptiveLearning.CalculateActivationValue(currentAnswer);
             
             correctCard.SetActive(true);
@@ -148,15 +149,14 @@ public class FishingGameManager : MonoBehaviour
             {
                 canSelectDuck = false;
                 selectedDuck.SetActive(false);
-                incorrectCard.SetActive(true);
-                Time.timeScale = 0;
                 numErrors++;
+                StartCoroutine(ShowIncorrectCard());
                 return;
             }
             //TODO: Add logic for giving correct answer after second incorrect guess
             else if (numErrors > 0)
             {
-                AdaptiveLearning.CalculateDecay(currentAnswer, false, responseTime);
+                AdaptiveLearning.CalculateDecayContinuous(currentAnswer, false, responseTime);
                 AdaptiveLearning.CalculateActivationValue(currentAnswer);
                 
                 PlayNewWord();
@@ -165,10 +165,23 @@ public class FishingGameManager : MonoBehaviour
         }
     }
 
+    private IEnumerator ShowIncorrectCard()
+    {
+        Time.timeScale = 0;
+        incorrectCard.SetActive(true);
+        yield return new WaitForSecondsRealtime(2f);
+        incorrectCard.SetActive(false);
+        Time.timeScale = 1;
+        canSelectDuck = true;
+    }
     public void QuitGame()
     {
-        // TODO: Add the summary functionality if needed
-        // TODO: Make sure the loading of the scene is the correct scene GameScene?
+        foreach (Answer answer in TermsList)
+        {
+            string times = string.Join(",", answer.GetPresentationTimes());
+            StartCoroutine(APIManager.UpdateAdaptiveLearningValue(answer.GetTermID(), answer.GetActivation(), answer.GetDecay(), answer.GetIntercept(), answer.GetInitialTime(), times));
+        }
+       
         SceneSwapper.SwapSceneStatic("GamesPage");
     }
 

@@ -12,7 +12,7 @@ public class APIFunctionTester : MonoBehaviour
 
     public void LoginTest()
     {
-        StartCoroutine(APIManager.Login("dearjerky8", "123"));
+        StartCoroutine(APIManager.Login("test", "123"));
     }
 
     public void GenerateModuleList()
@@ -69,5 +69,15 @@ public class APIFunctionTester : MonoBehaviour
             audioSource.Play();
             yield return new WaitForSeconds(3f);
         }
+    }
+
+    public void TestAdaptiveReturn()
+    {
+        StartCoroutine(APIManager.RetrieveAdaptiveLearningValue(880));
+    }
+
+    public void TestAdaptiveUpload()
+    {
+        StartCoroutine(APIManager.UpdateAdaptiveLearningValue(880, 3.4f, 0.1f, 0.2f, "test unity", "test test"));
     }
 }
