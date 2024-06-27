@@ -39,6 +39,7 @@ public class LanguageHoopsManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Game Started");
         module = FindAnyObjectByType<ModuleManager>();
         TermsList = module.terms;
         Debug.Log(TermsList.Count);
@@ -47,6 +48,7 @@ public class LanguageHoopsManager : MonoBehaviour
 
         Rigidbody ballRigidbody = Ball.GetComponent<Rigidbody>();
         ballRigidbody.isKinematic = true;
+        Debug.Log("ball.isKinematic set to true");
     }
 
     // Start is called before the first frame update
@@ -240,8 +242,8 @@ public class LanguageHoopsManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("boundary"))
         {
-            Debug.Log("Ball hit the boundary. Resetting position.");
-           // BallHitBoundary();
+           Debug.Log("Ball hit the boundary. Resetting position.");
+           BallHitBoundary();
         }
     }
     public void BallHitBoundary()
@@ -252,5 +254,12 @@ public class LanguageHoopsManager : MonoBehaviour
         ballRigidbody.isKinematic = true; // Reset the ball to kinematic state
         HoldingBall = false;
         LaunchingBall = false;
+    }
+
+    public void QuitGame()
+    {
+        // TODO: Add the summary functionality if needed
+        // TODO: Make sure the loading of the scene is the correct scene GameScene?
+        SceneSwapper.SwapSceneStatic("GamesPage");
     }
 }
