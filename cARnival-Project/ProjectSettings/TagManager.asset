@@ -8,6 +8,7 @@ TagManager:
   - ball
   - boundry
   - boundary
+  - basket
   layers:
   - Default
   - TransparentFX

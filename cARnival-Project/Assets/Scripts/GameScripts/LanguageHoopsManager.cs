@@ -24,9 +24,17 @@ public class LanguageHoopsManager : MonoBehaviour
     [SerializeField]
     private Transform BallStartPosition;
 
+
     public static LanguageHoopsManager shared;
     public Answer newWord = null;
     public FishingGameQuestionBoard QuestionBoard;
+    public GameObject incorrectCard;
+    public GameObject resultCard;
+    public TextPrefabScript scoreText;
+    public TimerPrefab timer;
+
+    private int score = 0;
+    private int numErrors = 0;
 
     private bool HoldingBall = false;
     private bool LaunchingBall = false;
@@ -48,17 +56,22 @@ public class LanguageHoopsManager : MonoBehaviour
 
         Rigidbody ballRigidbody = Ball.GetComponent<Rigidbody>();
         ballRigidbody.isKinematic = true;
-        Debug.Log("ball.isKinematic set to true");
     }
 
     // Start is called before the first frame update
     void Start()
     {
-       PlayNewWord();
+        scoreText.Text = "Score: " + score;
+        PlayNewWord();
     }
 
     private void Update()
     {
+        if (timer.timeLeft < 0)
+        {
+            Time.timeScale = 0;
+            resultCard.SetActive(true);
+        }
         if (HoldingBall && !LaunchingBall && Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -201,6 +214,7 @@ public class LanguageHoopsManager : MonoBehaviour
         TermsList.Remove(newWord);
 
         List<Answer> tempWords = new List<Answer>();
+        Debug.Log("TermList.Count = " + TermsList.Count);
         for (int i = 0; i <= 2; i++)
         {
             randomIndex = UnityEngine.Random.Range(0, TermsList.Count);
@@ -219,11 +233,13 @@ public class LanguageHoopsManager : MonoBehaviour
         ShuffleList(hoops);
 
         // Assign words to hoops
+        // Add back terms to TermList
         for (int i = 0; i < hoops.Count; i++)
         {
             hoops[i].ConfigureHoop(tempWords[i].GetBack());
+            TermsList.Add(tempWords[i]);
         }
-
+        TermsList.Add(newWord);
         QuestionBoard.ConfigureWithWord(newWord);
     }
 
@@ -238,14 +254,6 @@ public class LanguageHoopsManager : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("boundary"))
-        {
-           Debug.Log("Ball hit the boundary. Resetting position.");
-           BallHitBoundary();
-        }
-    }
     public void BallHitBoundary()
     {
         Ball.transform.position = BallStartPosition.position;
@@ -261,5 +269,59 @@ public class LanguageHoopsManager : MonoBehaviour
         // TODO: Add the summary functionality if needed
         // TODO: Make sure the loading of the scene is the correct scene GameScene?
         SceneSwapper.SwapSceneStatic("GamesPage");
+    }
+
+    public void SelectWord(BasketBallHoopPrefab enteredHoop, out bool isCorrect)
+    {
+        //TODO: Add logic to check for response time.
+        var responseTime = 0;
+        isCorrect = false;
+        Debug.Log(enteredHoop.Text.Text);
+        Debug.Log(newWord);
+        if (enteredHoop.Text.Text == newWord.GetBack())
+        {
+            score++;
+            scoreText.Text = "Score: " + score;
+            isCorrect = true;
+            AdaptiveLearning.CalculateDecayContinuous(newWord, true, responseTime);
+            AdaptiveLearning.CalculateActivationValue(newWord);
+
+            PlayNewWord();
+        }
+        else
+        {
+            if (numErrors == 0)
+            {
+                numErrors++;
+                StartCoroutine(ShowIncorrectCard());
+                isCorrect = false;
+                
+            }
+            //TODO: Add logic for giving correct answer after second incorrect guess
+            else if (numErrors > 0)
+            {
+                AdaptiveLearning.CalculateDecayContinuous(newWord, false, responseTime);
+                AdaptiveLearning.CalculateActivationValue(newWord);
+
+                PlayNewWord();
+                isCorrect = false;
+            }
+        }
+    }
+
+    private IEnumerator ShowIncorrectCard()
+    {
+        Time.timeScale = 0;
+        incorrectCard.SetActive(true);
+        yield return new WaitForSecondsRealtime(2f);
+        incorrectCard.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void PlayAgain()
+    {
+        Time.timeScale = 1;
+        resultCard.SetActive(false);
+        SceneSwapper.SwapSceneStatic("BasketballGame");
     }
 }
