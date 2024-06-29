@@ -138,6 +138,101 @@ public class APIManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Attempts to log out the user.
+    /// </summary>
+    public static IEnumerator Logout()
+    {
+        // Start with creating the url endpoint and the form.
+        string logoutEndpoint = endpointURL + "logout";
+
+        WWWForm form = new WWWForm();
+
+
+        // Create a webrequest and fire it.
+
+        using (UnityWebRequest attemptLogout = UnityWebRequest.Post(logoutEndpoint, form))
+        {
+            yield return attemptLogout.SendWebRequest();
+            Debug.Log("Server responded: " + attemptLogout.downloadHandler.text);
+
+            // If a connection error is received, print the result.
+            if (attemptLogout.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log("Error Logging out");
+            }
+            else
+            {
+                // Clear everything upon logging out.
+                authenticationString = string.Empty;
+                sessionID = null;
+                isConnected = false;
+                userModules = null;
+                currentQuestions = null;
+                currentImage = null;
+                currentAudio = null;
+                ModulesJsonObjects = null;
+                moduleStats = null;
+                adaptiveValuesJson = null;
+                listOfALValues = null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Attempts to send an email to the user with the username associated to that email.
+    /// </summary>
+    public static IEnumerator ForgotUsername(string email)
+    {
+        // Start with creating the url endpoint and the form.
+        string forgotUsernameEndpoint = endpointURL + "forgotusername";
+
+        WWWForm form = new WWWForm();
+        form.AddField("email", email);
+
+
+        // Create a webrequest and fire it.
+
+        using (UnityWebRequest forgotUsernameRequest = UnityWebRequest.Post(forgotUsernameEndpoint, form))
+        {
+            yield return forgotUsernameRequest.SendWebRequest();
+            Debug.Log("Server responded: " + forgotUsernameRequest.downloadHandler.text);
+
+            // If a connection error is received, print the result.
+            if (forgotUsernameRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log("Error with username retrieval.");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Attempts to send an email to the user with the password reset.
+    /// </summary>
+    public static IEnumerator ForgotPassword(string email)
+    {
+        // Start with creating the url endpoint and the form.
+        string forgotPasswordEndpoint = endpointURL + "forgotpassword";
+
+        WWWForm form = new WWWForm();
+        form.AddField("email", email);
+
+
+        // Create a webrequest and fire it.
+
+        using (UnityWebRequest forgotPasswordRequest = UnityWebRequest.Post(forgotPasswordEndpoint, form))
+        {
+            yield return forgotPasswordRequest.SendWebRequest();
+            Debug.Log("Server responded: " + forgotPasswordRequest.downloadHandler.text);
+
+            // If a connection error is received, print the result.
+            if (forgotPasswordRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log("Error with sending the password reset.");
+            }
+        }
+    }
+
+    /// <summary>
     /// Retrieves a list of modules associated with a user.
     /// </summary>
     public static IEnumerator GetAllModules()
