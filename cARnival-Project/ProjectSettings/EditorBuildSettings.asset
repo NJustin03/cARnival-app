@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game Scenes/ArcheryGame.unity
     guid: ad0e7aa89d1b44875a3a881f76cd2197
+  - enabled: 1
+    path: Assets/Scenes/Non-gameScenes/RetrievePage.unity
+    guid: b647d9f201e944d18b2998ce7d84c8de
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af,
       type: 2}

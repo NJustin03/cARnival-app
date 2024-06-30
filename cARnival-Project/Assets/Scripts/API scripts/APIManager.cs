@@ -42,7 +42,6 @@ public class APIManager : MonoBehaviour
 
 
     public static AdaptiveValuesJson adaptiveValuesJson;
-
     public static AdaptiveValuesJson[] listOfALValues;
 
     private void Awake()
