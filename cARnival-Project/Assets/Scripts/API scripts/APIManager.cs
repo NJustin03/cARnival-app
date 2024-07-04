@@ -24,8 +24,13 @@ public class APIManager : MonoBehaviour
 
     //private const string endpointURL = "https://chdr.cs.ucf.edu/elleapi/";
     private const string endpointURL = "https://www.elledevserver.xyz/elleapi/";
-    private const string filePrefixURL = "https://chdr.cs.ucf.edu/elle";
+    private const string filePrefixURL = "https://www.elledevserver.xyz/elle";
+    // private const string filePrefixURL = "https://chdr.cs.ucf.edu/elle";
+
+    private static TokenJson token;
+
     public static string authenticationString;
+
     public static string randomUsername;
     public static string sessionID;
 
@@ -42,7 +47,6 @@ public class APIManager : MonoBehaviour
 
 
     public static AdaptiveValuesJson adaptiveValuesJson;
-
     public static AdaptiveValuesJson[] listOfALValues;
 
     private void Awake()
@@ -131,8 +135,105 @@ public class APIManager : MonoBehaviour
                 }
                 else
                 {
+                    token = TokenJson.CreateTokenFromJson(authenticationString);
                     isConnected = true;
                 }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Attempts to log out the user.
+    /// </summary>
+    public static IEnumerator Logout()
+    {
+        // Start with creating the url endpoint and the form.
+        string logoutEndpoint = endpointURL + "logout";
+
+        WWWForm form = new WWWForm();
+
+
+        // Create a webrequest and fire it.
+
+        using (UnityWebRequest attemptLogout = UnityWebRequest.Post(logoutEndpoint, form))
+        {
+            yield return attemptLogout.SendWebRequest();
+            Debug.Log("Server responded: " + attemptLogout.downloadHandler.text);
+
+            // If a connection error is received, print the result.
+            if (attemptLogout.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log("Error Logging out");
+            }
+            else
+            {
+                // Clear everything upon logging out.
+                token = null;
+                authenticationString = string.Empty;
+                sessionID = null;
+                isConnected = false;
+                userModules = null;
+                currentQuestions = null;
+                currentImage = null;
+                currentAudio = null;
+                ModulesJsonObjects = null;
+                moduleStats = null;
+                adaptiveValuesJson = null;
+                listOfALValues = null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Attempts to send an email to the user with the username associated to that email.
+    /// </summary>
+    public static IEnumerator ForgotUsername(string email)
+    {
+        // Start with creating the url endpoint and the form.
+        string forgotUsernameEndpoint = endpointURL + "forgotusername";
+
+        WWWForm form = new WWWForm();
+        form.AddField("email", email);
+
+
+        // Create a webrequest and fire it.
+
+        using (UnityWebRequest forgotUsernameRequest = UnityWebRequest.Post(forgotUsernameEndpoint, form))
+        {
+            yield return forgotUsernameRequest.SendWebRequest();
+            Debug.Log("Server responded: " + forgotUsernameRequest.downloadHandler.text);
+
+            // If a connection error is received, print the result.
+            if (forgotUsernameRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log("Error with username retrieval.");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Attempts to send an email to the user with the password reset.
+    /// </summary>
+    public static IEnumerator ForgotPassword(string email)
+    {
+        // Start with creating the url endpoint and the form.
+        string forgotPasswordEndpoint = endpointURL + "forgotpassword";
+
+        WWWForm form = new WWWForm();
+        form.AddField("email", email);
+
+
+        // Create a webrequest and fire it.
+
+        using (UnityWebRequest forgotPasswordRequest = UnityWebRequest.Post(forgotPasswordEndpoint, form))
+        {
+            yield return forgotPasswordRequest.SendWebRequest();
+            Debug.Log("Server responded: " + forgotPasswordRequest.downloadHandler.text);
+
+            // If a connection error is received, print the result.
+            if (forgotPasswordRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log("Error with sending the password reset.");
             }
         }
     }
@@ -142,8 +243,7 @@ public class APIManager : MonoBehaviour
     /// </summary>
     public static IEnumerator GetAllModules()
     {
-        Debug.Log(authenticationString);
-        TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
+
         string retrieveModulesEndpoint = endpointURL + "modules";
         using (UnityWebRequest listOfModulesRequest = UnityWebRequest.Get(retrieveModulesEndpoint))
         {
@@ -161,7 +261,7 @@ public class APIManager : MonoBehaviour
     public static IEnumerator GetModule(int ID)
     {
         currentQuestions = null;
-        TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
+
         string moduleEndpoint = endpointURL + "/modulequestions";
 
         WWWForm form = new WWWForm();
@@ -190,8 +290,6 @@ public class APIManager : MonoBehaviour
     /// </summary>
     public static IEnumerator StartSession(int ID)
     {
-        TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
-
         string sessionEndpoint = endpointURL + "/session";
         WWWForm form = new WWWForm();
 
@@ -222,7 +320,7 @@ public class APIManager : MonoBehaviour
     /// </summary>
     public static IEnumerator EndSession(int points)
     {
-        TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
+
 
         string sessionEndpoint = endpointURL + "/endsession";
         WWWForm form = new WWWForm();
@@ -249,7 +347,7 @@ public class APIManager : MonoBehaviour
     /// </summary>
     public static IEnumerator RetrieveAllModuleStats()
     {
-        TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
+
 
         string statsEndpoint = endpointURL + "/allmodulestats";
 
@@ -272,7 +370,7 @@ public class APIManager : MonoBehaviour
 
     public static IEnumerator LogAnswer(int termID, bool isCorrect)
     {
-        TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
+
 
         string sessionEndpoint = endpointURL + "/loggedanswer";
         WWWForm form = new WWWForm();
@@ -302,7 +400,7 @@ public class APIManager : MonoBehaviour
     {
         currentImage = null;
         string imageLink = filePrefixURL + imgURL;
-        TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
+
 
         using (UnityWebRequest pictureRequest = UnityWebRequestTexture.GetTexture(imageLink))
         {
@@ -329,7 +427,7 @@ public class APIManager : MonoBehaviour
         currentAudio = null;
 
         string audioLink = filePrefixURL + audioURL;
-        TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
+
 
         using (UnityWebRequest audioRequest = UnityWebRequestMultimedia.GetAudioClip(audioLink, AudioType.UNKNOWN))
         {
@@ -368,7 +466,7 @@ public class APIManager : MonoBehaviour
     /// </summary>
     public static IEnumerator RetrieveAdaptiveLearningValue(int termID)
     {
-        TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
+
         string adaptiveRetrievalEndpoint = endpointURL + "/adaptivelearning/gettermvalue";
         WWWForm form = new WWWForm();
         form.AddField("termID", termID);
@@ -399,7 +497,7 @@ public class APIManager : MonoBehaviour
     // Instead of a list of answers/terms, you could replace this with a CSV list of term IDs.
     public static IEnumerator RetrieveAllALValues(List<Answer> terms)
     {
-        TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
+
         string adaptiveRetrievalEndpoint = endpointURL + "/adaptivelearning/gettermlistvalues";
         WWWForm form = new WWWForm();
         form.AddField("list_of_termIDs", ConvertTermListToCSV(terms));
@@ -427,7 +525,7 @@ public class APIManager : MonoBehaviour
     /// </summary>
     public static IEnumerator UpdateAdaptiveLearningValue(int termID, float activation_val, float decay_val, float alpha_val, string dates, string times)
     {
-        TokenJson token = TokenJson.CreateTokenFromJson(authenticationString);
+
         string adaptiveUpdateEndpoint = endpointURL + "/adaptivelearning/updatetermvalues";
         WWWForm form = new WWWForm();
         form.AddField("termID", termID);
@@ -455,6 +553,110 @@ public class APIManager : MonoBehaviour
         }
     }
 
+    // Store endpoints (need to be tested)
+    
+    public static IEnumerator RetrieveUserItems(string game)
+    {
+        string retrieveItemsEndpoint = endpointURL + "/store/user/items?game=" + game + "&userID=" + token.id;
+        WWWForm form = new WWWForm();
+
+        using (UnityWebRequest itemsRequest = UnityWebRequest.Post(retrieveItemsEndpoint, form))
+        {
+            itemsRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
+
+            yield return itemsRequest.SendWebRequest();
+
+            // If a connection error is received, print the result.
+            if (itemsRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log(itemsRequest.error);
+            }
+            else
+            {
+                Debug.Log(itemsRequest.downloadHandler.text);
+            }
+        }
+    }
+
+    public static IEnumerator WearItem(int itemID, bool isWearing, bool replaceItem)
+    {
+        string retrieveItemsEndpoint = endpointURL + "/store/wear";
+        WWWForm form = new WWWForm();
+        form.AddField("userItemID", itemID);
+        form.AddField("isWearing", isWearing.ToString());
+        form.AddField("replaceItem", replaceItem.ToString());
+
+
+
+        using (UnityWebRequest itemsRequest = UnityWebRequest.Put(retrieveItemsEndpoint, form.data))
+        {
+            itemsRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
+
+            yield return itemsRequest.SendWebRequest();
+
+            // If a connection error is received, print the result.
+            if (itemsRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log(itemsRequest.error);
+            }
+            else
+            {
+                Debug.Log(itemsRequest.downloadHandler.text);
+            }
+        }
+    }
+
+    public static IEnumerator PurchaseItem(int itemID, string game)
+    {
+        string purchaseItemsEndpoint = endpointURL + "/store/purchase";
+        WWWForm form = new WWWForm();
+        form.AddField("itemID", itemID);
+        form.AddField("game", game);
+
+
+        using (UnityWebRequest itemsRequest = UnityWebRequest.Post(purchaseItemsEndpoint, form))
+        {
+            itemsRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
+
+            yield return itemsRequest.SendWebRequest();
+
+            // If a connection error is received, print the result.
+            if (itemsRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log(itemsRequest.error);
+            }
+            else
+            {
+                Debug.Log(itemsRequest.downloadHandler.text);
+            }
+        }
+    }
+
+    public static IEnumerator LogItemUse()
+    {
+        string logItemsEndpoint = endpointURL + "/store/purchase";
+        WWWForm form = new WWWForm();
+        form.AddField("userID", token.id);
+        form.AddField("sessionID", sessionID);
+
+
+        using (UnityWebRequest itemsRequest = UnityWebRequest.Post(logItemsEndpoint, form))
+        {
+            itemsRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
+
+            yield return itemsRequest.SendWebRequest();
+
+            // If a connection error is received, print the result.
+            if (itemsRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log(itemsRequest.error);
+            }
+            else
+            {
+                Debug.Log(itemsRequest.downloadHandler.text);
+            }
+        }
+    }
 
     private static string ConvertTermListToCSV(List<Answer> termList)
     {
