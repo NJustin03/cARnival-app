@@ -12,8 +12,9 @@ public class Target : MonoBehaviour
     private bool isAnswerCorrect;
 
     public TextPrefabScript text;
-
     private ArcheryManager archeryManager;
+
+    public ParticleSystem particleEffect;
 
     // Start is called before the first frame update
     void Awake()
@@ -21,6 +22,7 @@ public class Target : MonoBehaviour
         archeryManager = FindAnyObjectByType<ArcheryManager>();
         point = centerPoint.position;
         transform.LookAt(point);
+        particleEffect = GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -47,5 +49,6 @@ public class Target : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         archeryManager.ChooseAnswer(isAnswerCorrect);
+        particleEffect.Play();
     }
 }

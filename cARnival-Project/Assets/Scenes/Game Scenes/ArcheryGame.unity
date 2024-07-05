@@ -926,7 +926,7 @@ PrefabInstance:
     - target: {fileID: 3391105745715529407, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 21.9
+      value: -0.000024796
       objectReference: {fileID: 0}
     - target: {fileID: 3391105745715529407, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
@@ -1260,7 +1260,7 @@ PrefabInstance:
     - target: {fileID: 3391105745715529407, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2
+      value: -36
       objectReference: {fileID: 0}
     - target: {fileID: 3391105745715529407, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
@@ -1276,6 +1276,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7768280566327942357, guid: f796979706fdb4b72836161b4fde3a20,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7768280566327942357, guid: f796979706fdb4b72836161b4fde3a20,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7768280566327942357, guid: f796979706fdb4b72836161b4fde3a20,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7768280566327942357, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
@@ -1857,6 +1872,11 @@ PrefabInstance:
       propertyPath: centerPoint
       value: 
       objectReference: {fileID: 395216796}
+    - target: {fileID: 8887754683309337014, guid: f40f6c1ffcdc3864fa742ee645b620d7,
+        type: 3}
+      propertyPath: particleEffect
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8887754683309337014, guid: f40f6c1ffcdc3864fa742ee645b620d7,
         type: 3}
       propertyPath: rotateSpeedMax

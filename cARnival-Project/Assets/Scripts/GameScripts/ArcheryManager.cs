@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ArcheryManager : MonoBehaviour
@@ -32,7 +33,10 @@ public class ArcheryManager : MonoBehaviour
         TermsList = module.terms;
         Debug.Log(TermsList.Count);
         shared = this;
-
+        foreach (Target target in targets)
+        {
+            Instantiate(EquippedCosmetics.archeryParticle, target.transform);
+        }
     }
 
     private void Start()

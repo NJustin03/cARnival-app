@@ -5,5 +5,4 @@ using UnityEngine;
 public class CosmeticMaterial : Cosmetic
 {
     public Material material;
-
 }
