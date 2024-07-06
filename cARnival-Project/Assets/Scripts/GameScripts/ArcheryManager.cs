@@ -35,7 +35,7 @@ public class ArcheryManager : MonoBehaviour
         shared = this;
         foreach (Target target in targets)
         {
-            Instantiate(EquippedCosmetics.archeryParticle, target.transform);
+            Instantiate(CosmeticManager.archeryParticle, target.transform);
         }
     }
 

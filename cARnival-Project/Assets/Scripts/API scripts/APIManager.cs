@@ -45,9 +45,10 @@ public class APIManager : MonoBehaviour
     public static ModulesJson[] ModulesJsonObjects;
     public static ModuleStatsJson[] moduleStats;
 
-
     public static AdaptiveValuesJson adaptiveValuesJson;
     public static AdaptiveValuesJson[] listOfALValues;
+
+    public static ItemJson[] cosmeticList;
 
     private void Awake()
     {
@@ -574,15 +575,16 @@ public class APIManager : MonoBehaviour
             else
             {
                 Debug.Log(itemsRequest.downloadHandler.text);
+                cosmeticList = GetJsonArray<ItemJson>(itemsRequest.downloadHandler.text);
             }
         }
     }
 
-    public static IEnumerator WearItem(int itemID, bool isWearing, bool replaceItem)
+    public static IEnumerator WearItem(int userItemID, bool isWearing, bool replaceItem)
     {
         string retrieveItemsEndpoint = endpointURL + "/store/wear";
         WWWForm form = new WWWForm();
-        form.AddField("userItemID", itemID);
+        form.AddField("userItemID", userItemID);
         form.AddField("isWearing", isWearing.ToString());
         form.AddField("replaceItem", replaceItem.ToString());
 
