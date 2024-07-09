@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028373, g: 0.22571398, b: 0.30692294, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3101,6 +3101,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2890cf9f756fa47618ebbd10ad53b82c,
+        type: 2}
+    - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
       propertyPath: m_fontStyle
       value: 4
       objectReference: {fileID: 0}
@@ -3108,6 +3114,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSizeBase
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1594920797035433317, guid: 2890cf9f756fa47618ebbd10ad53b82c,
+        type: 2}
+    - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
