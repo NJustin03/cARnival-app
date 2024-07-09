@@ -20,7 +20,7 @@ public class BasketBallPrefab : MonoBehaviour
     {
         if (collision.collider.tag == "boundary")
         {
-            LanguageHoopsManager.shared.BallHitBoundary();
+            LanguageHoopsManager.shared.ResetBall();
         }
     }
 }

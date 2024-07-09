@@ -11,7 +11,7 @@ public class BoundsPrefab : MonoBehaviour
     {
         if (other.CompareTag("ball"))
         {
-            gameManager.BallHitBoundary();
+            gameManager.ResetBall();
         }
     }
 }

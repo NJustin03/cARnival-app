@@ -24,6 +24,10 @@ public class LanguageHoopsManager : MonoBehaviour
     [SerializeField]
     private Transform BallStartPosition;
 
+    [SerializeField]
+    private GameObject trajectoryPointPrefab;
+    private List<GameObject> trajectoryPoints = new List<GameObject>();
+
 
     public static LanguageHoopsManager shared;
     public Answer newWord = null;
@@ -38,12 +42,15 @@ public class LanguageHoopsManager : MonoBehaviour
 
     private bool HoldingBall = false;
     private bool LaunchingBall = false;
+    private bool isTouchActive = false;
 
     private int MaxStoredMovement = 10;
     private int CurrentStoredMovementIndex = 0;
     private List<Vector2> StoredMovement;
     private Vector2 initialTouchPosition;
     private float swipeStartTime;
+    private float lastTouchTime;
+    private float maxForceMagnitude = 6f;
 
     private void Awake()
     {
@@ -67,6 +74,10 @@ public class LanguageHoopsManager : MonoBehaviour
 
     private void Update()
     {
+
+        if (Ball.transform.position.y < -0.3f)
+            ResetBall();
+
         if (timer.timeLeft < 0)
         {
             Time.timeScale = 0;
@@ -75,11 +86,17 @@ public class LanguageHoopsManager : MonoBehaviour
         if (HoldingBall && !LaunchingBall && Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
+            lastTouchTime = Time.time;
 
-            if (touch.phase == TouchPhase.Began)
+            Debug.Log(Time.time - lastTouchTime);
+
+            if (!isTouchActive && (Time.time - lastTouchTime) < 0.1f)
             {
                 initialTouchPosition = touch.position;
                 swipeStartTime = Time.time;
+                StoredMovement = new List<Vector2>(Enumerable.Repeat(Vector2.zero, MaxStoredMovement));
+                CurrentStoredMovementIndex = 0;
+                isTouchActive = true;
             }
             else if (touch.phase == TouchPhase.Moved)
             {
@@ -95,7 +112,7 @@ public class LanguageHoopsManager : MonoBehaviour
 
                 CurrentStoredMovementIndex = (CurrentStoredMovementIndex + 1) % MaxStoredMovement;
 
-                Vector3 worldPoint = arCamera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, arCamera.nearClipPlane + 1));
+                Vector3 worldPoint = arCamera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, arCamera.nearClipPlane + 0.2f));
                 Ball.transform.position = worldPoint;
             }
             else if (touch.phase == TouchPhase.Ended)
@@ -103,19 +120,23 @@ public class LanguageHoopsManager : MonoBehaviour
                 Vector2 finalTouchPosition = touch.position;
                 float swipeDuration = Time.time - swipeStartTime;
                 Vector2 swipeVector = (finalTouchPosition - initialTouchPosition) / swipeDuration;
+                
+                // Debugging the touch positions and swipe vector
 
                 // Convert screen swipe vector to world direction
                 Vector3 forceDirection = new Vector3(swipeVector.x, swipeVector.y, Mathf.Abs(swipeVector.y)).normalized;
-                float verticalMultiplier = 1.5f; // Adjust this multiplier for more vertical force
+                float verticalMultiplier = 1f; // Adjust this multiplier for more vertical force
                 forceDirection.y *= verticalMultiplier;
 
+                // Normalize the force direction again
+                forceDirection = forceDirection.normalized;
+
                 float forceMagnitude = swipeVector.magnitude * 0.01f; // Adjust the multiplier for appropriate force
+                forceMagnitude = Mathf.Clamp(forceMagnitude, 0, maxForceMagnitude);
 
                 // Aim assist logic
+                //Debug.Log("AIM ASSUST");
                 forceDirection = CalculateAimAssist(forceDirection, forceMagnitude);
-
-                // Debug the calculated force
-                Debug.Log($"Force direction: {forceDirection}, magnitude: {forceMagnitude}");
 
                 // Set the Rigidbody to non-kinematic before applying force
                 Rigidbody ballRigidbody = Ball.GetComponent<Rigidbody>();
@@ -123,12 +144,31 @@ public class LanguageHoopsManager : MonoBehaviour
                 ballRigidbody.velocity = Vector3.zero; // Reset velocity before applying force
                 ballRigidbody.angularVelocity = Vector3.zero; // Reset angular velocity
 
-                ballRigidbody.AddForce(forceDirection * forceMagnitude, ForceMode.Impulse);
-                Debug.Log($"Applied force: {forceDirection * forceMagnitude}");
+                var impulseForce = forceDirection * forceMagnitude;
+
+              //  if (impulseForce.y < 2.5f)
+              //  {
+             //      ResetBall();
+             //       return;
+             //   }
+
+                impulseForce.x = Mathf.Clamp(impulseForce.x, -2f, 2f);
+
+                // if Y force is less than 2.5 then reset the ball 
+                // clamp x force to be between -2 and 2
+
+                Debug.Log($"BasketBallGame -- ForceApplied: {impulseForce}");
+
+                ballRigidbody.AddForce(impulseForce, ForceMode.Impulse);
 
                 HoldingBall = false;
                 LaunchingBall = true;
+                isTouchActive = false;
             }
+        }
+        else
+        {
+            isTouchActive = false;
         }
 
         // Check if the ball is picked up
@@ -143,10 +183,10 @@ public class LanguageHoopsManager : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hitObject))
                 {
-                    Debug.Log($"Raycast hit: {hitObject.collider.name}");
+
                     if (hitObject.collider != null && hitObject.collider.gameObject.CompareTag("ball"))
                     {
-                        Debug.Log("Ball tapped");
+
                         HoldingBall = true;
                         Rigidbody ballRigidbody = Ball.GetComponent<Rigidbody>();
                         ballRigidbody.isKinematic = true; // Disable physics while holding
@@ -163,22 +203,31 @@ public class LanguageHoopsManager : MonoBehaviour
 
 
 
+
     private Vector3 CalculateAimAssist(Vector3 forceDirection, float forceMagnitude)
     {
-        const int numPoints = 30; // Number of trajectory points to simulate
-        const float timeStep = 0.1f; // Time between each trajectory point
+        const int numPoints = 3; // Number of trajectory points to simulate
+        const float timeStep = 0.05f; // Time between each trajectory point
 
         Vector3 currentPosition = Ball.transform.position;
-        Vector3 velocity = forceDirection * forceMagnitude / Ball.GetComponent<Rigidbody>().mass;
+        Vector3 velocity = forceDirection * forceMagnitude / (Ball.GetComponent<Rigidbody>().mass + 0.2f);
         Vector3 gravity = Physics.gravity;
         RaycastHit hit;
+
+        // Layer mask to ignore everything except hoops
+        int layerMask = LayerMask.GetMask("Default");
 
         for (int i = 0; i < numPoints; i++)
         {
             Vector3 nextPosition = currentPosition + velocity * timeStep;
-            if (Physics.Raycast(currentPosition, nextPosition - currentPosition, out hit, (nextPosition - currentPosition).magnitude))
+
+            // Instantiate a trajectory point at the simulated position
+            //GameObject trajectoryPoint = Instantiate(trajectoryPointPrefab, nextPosition, Quaternion.identity);
+            //trajectoryPoints.Add(trajectoryPoint);
+
+            if (Physics.Raycast(currentPosition, nextPosition - currentPosition, out hit, (nextPosition - currentPosition).magnitude, layerMask))
             {
-                Debug.Log($"Aim assist collision detected with {hit.collider.name}");
+                Debug.Log($"Aim assist collision detected with {hit.collider.name} at point {hit.point}");
                 // Adjust the aim towards this object
                 return (hit.point - Ball.transform.position).normalized;
             }
@@ -187,20 +236,40 @@ public class LanguageHoopsManager : MonoBehaviour
             velocity += gravity * timeStep;
         }
 
-        return forceDirection; // Return the original direction if no collisions detected
+        Vector3 closestHoopPosition = GetClosestHoopPosition(currentPosition);
+
+        Vector3 assistedDirection = (closestHoopPosition - Ball.transform.position).normalized;
+
+        return new Vector3(assistedDirection.x, Mathf.Abs(assistedDirection.y), Mathf.Abs(assistedDirection.z));
     }
 
 
-    private Vector3 GetClosestHoopPosition(Vector3 predictedLandingPosition)
+    private Vector3 GetClosestHoopPosition(Vector3 predictedLandingPosition, float distanceThreshold = 0.15f)
     {
-        List<BasketBallHoopPrefab> hoops = new List<BasketBallHoopPrefab> { HoopA, HoopB, HoopC };
+        List<Transform> hoops = new List<Transform>
+        {
+            HoopA.transform.Find("Hoop_02"),
+            HoopB.transform.Find("Hoop_02"),
+            HoopC.transform.Find("Hoop_02")
+        };
 
+        Debug.Log($"Hoop A:{hoops[0].position}, Hoop B:{hoops[1].position}, Hoop C:{hoops[2].position}, predicted {predictedLandingPosition}");
         // Find the closest hoop based on the predicted landing position
-        BasketBallHoopPrefab closestHoop = hoops
-            .OrderBy(hoop => Vector3.Distance(predictedLandingPosition, hoop.transform.position))
+        Transform closestHoop = hoops
+            .OrderBy(hoop => Vector3.Distance(predictedLandingPosition, hoop.position))
             .FirstOrDefault();
 
-        return closestHoop != null ? closestHoop.transform.position : Vector3.zero;
+        if (closestHoop == null)
+            return Vector3.zero;
+
+        var distance = Vector3.Distance(predictedLandingPosition, closestHoop.position);
+
+        Debug.Log($"Closest hoop {closestHoop.parent.name}, Distance: {distance}, Threshold: {distanceThreshold}");
+
+        if (distance > distanceThreshold)
+            return Vector3.zero;
+
+        return closestHoop.transform.position;
     }
 
     private void PlayNewWord()
@@ -254,7 +323,7 @@ public class LanguageHoopsManager : MonoBehaviour
         }
     }
 
-    public void BallHitBoundary()
+    public void ResetBall()
     {
         Ball.transform.position = BallStartPosition.position;
         Rigidbody ballRigidbody = Ball.GetComponent<Rigidbody>();
@@ -287,6 +356,7 @@ public class LanguageHoopsManager : MonoBehaviour
             AdaptiveLearning.CalculateActivationValue(newWord);
 
             PlayNewWord();
+            ResetBall();
         }
         else
         {
@@ -295,7 +365,7 @@ public class LanguageHoopsManager : MonoBehaviour
                 numErrors++;
                 StartCoroutine(ShowIncorrectCard());
                 isCorrect = false;
-                
+
             }
             //TODO: Add logic for giving correct answer after second incorrect guess
             else if (numErrors > 0)
@@ -316,6 +386,7 @@ public class LanguageHoopsManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
         incorrectCard.SetActive(false);
         Time.timeScale = 1;
+        ResetBall();
     }
 
     public void PlayAgain()
