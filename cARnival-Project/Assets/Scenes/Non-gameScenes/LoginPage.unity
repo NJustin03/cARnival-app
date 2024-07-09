@@ -4208,12 +4208,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1680165829}
     - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
@@ -4223,12 +4238,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: RetrieveUserCosmetics
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: LoginButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: CosmeticManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7270015004753053831, guid: 537cc452af6394ba2affadae1f7802db,
@@ -4417,6 +4447,8 @@ MonoBehaviour:
   api: {fileID: 0}
   sceneSwapper: {fileID: 1680165830}
   nextScene: GamesPage
+  cosmeticManager: {fileID: 4131625736415534360, guid: 90d8beb38643cca48a059ebc99d1d289,
+    type: 3}
   username: {fileID: 1241473737}
   password: {fileID: 905128447}
   errorText: {fileID: 1887585751}

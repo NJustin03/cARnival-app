@@ -27,7 +27,7 @@ public class APIManager : MonoBehaviour
     private const string filePrefixURL = "https://www.elledevserver.xyz/elle";
     // private const string filePrefixURL = "https://chdr.cs.ucf.edu/elle";
 
-    private static TokenJson token;
+    public static TokenJson token;
 
     public static string authenticationString;
 
@@ -49,6 +49,7 @@ public class APIManager : MonoBehaviour
     public static AdaptiveValuesJson[] listOfALValues;
 
     public static ItemJson[] cosmeticList;
+    public static PurchaseJson purchase;
 
     private void Awake()
     {
@@ -559,9 +560,7 @@ public class APIManager : MonoBehaviour
     public static IEnumerator RetrieveUserItems(string game)
     {
         string retrieveItemsEndpoint = endpointURL + "/store/user/items?game=" + game + "&userID=" + token.id;
-        WWWForm form = new WWWForm();
-
-        using (UnityWebRequest itemsRequest = UnityWebRequest.Post(retrieveItemsEndpoint, form))
+        using (UnityWebRequest itemsRequest = UnityWebRequest.Get(retrieveItemsEndpoint))
         {
             itemsRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
 
@@ -574,7 +573,7 @@ public class APIManager : MonoBehaviour
             }
             else
             {
-                Debug.Log(itemsRequest.downloadHandler.text);
+                // Debug.Log(itemsRequest.downloadHandler.text);
                 cosmeticList = GetJsonArray<ItemJson>(itemsRequest.downloadHandler.text);
             }
         }
@@ -630,6 +629,7 @@ public class APIManager : MonoBehaviour
             else
             {
                 Debug.Log(itemsRequest.downloadHandler.text);
+                purchase = PurchaseJson.FromJson(itemsRequest.downloadHandler.text);
             }
         }
     }
