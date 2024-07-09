@@ -375,6 +375,7 @@ public class LanguageHoopsManager : MonoBehaviour
 
                 PlayNewWord();
                 isCorrect = false;
+                numErrors = 0;
             }
         }
     }
