@@ -140,7 +140,7 @@ public class FishingGameManager : MonoBehaviour
             AdaptiveLearning.CalculateDecayContinuous(currentAnswer, true, responseTime);
             AdaptiveLearning.CalculateActivationValue(currentAnswer);
             
-            correctCard.SetActive(true);
+            StartCoroutine(ShowCorrectCard());
             PlayNewWord();
         }
         else
@@ -171,6 +171,16 @@ public class FishingGameManager : MonoBehaviour
         incorrectCard.SetActive(true);
         yield return new WaitForSecondsRealtime(2f);
         incorrectCard.SetActive(false);
+        Time.timeScale = 1;
+        canSelectDuck = true;
+    }
+
+    private IEnumerator ShowCorrectCard()
+    {
+        Time.timeScale = 0;
+        correctCard.SetActive(true);
+        yield return new WaitForSecondsRealtime(2f);
+        correctCard.SetActive(false);
         Time.timeScale = 1;
         canSelectDuck = true;
     }

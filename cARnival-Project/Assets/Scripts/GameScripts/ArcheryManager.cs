@@ -22,6 +22,8 @@ public class ArcheryManager : MonoBehaviour
 
     public TextPrefabScript questionText;
     public TextPrefabScript scoreText;
+    public TimerPrefab timerText;
+    public GameObject resultCard;
 
 
     private void Awake()
@@ -43,6 +45,15 @@ public class ArcheryManager : MonoBehaviour
     {
         // TODO: Start the game
         PlayNewWord();
+    }
+
+    private void Update()
+    {
+        if (timerText.timeLeft < 0)
+        {
+            Time.timeScale = 0;
+            resultCard.SetActive(true);
+        }
     }
 
     void ResetTargets(List<Answer> tempWords)
@@ -100,5 +111,12 @@ public class ArcheryManager : MonoBehaviour
             PlayNewWord();
         }
 
+    }
+
+    public void PlayAgain()
+    {
+        Time.timeScale = 1;
+        resultCard.SetActive(false);
+        SceneSwapper.SwapSceneStatic("ArcheryGame");
     }
 }

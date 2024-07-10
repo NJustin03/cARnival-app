@@ -5,7 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - duck
-  - Arrow
+  - ball
+  - boundry
+  - boundary
+  - basket
   layers:
   - Default
   - TransparentFX
