@@ -374,6 +374,7 @@ MonoBehaviour:
   moduleBoxPrefab: {fileID: 3624952443612419657, guid: 4d326610130364d98ab829232f35362c,
     type: 3}
   modulesContainer: {fileID: 497024402}
+  gameScene: BasketballGame
 --- !u!114 &497024406
 MonoBehaviour:
   m_ObjectHideFlags: 0
