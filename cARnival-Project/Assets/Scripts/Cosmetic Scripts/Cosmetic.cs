@@ -21,9 +21,4 @@ public class Cosmetic : MonoBehaviour
         game = c.game;
         userItemID = c.userItemID;
     }
-    public IEnumerator PurchaseItem()
-    {
-        yield return StartCoroutine(APIManager.PurchaseItem(itemID, game));
-        CosmeticManager.AddToOwned(itemID);
-    }
 }

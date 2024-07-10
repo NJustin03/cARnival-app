@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.Networking;
+
 
 public class APIManager : MonoBehaviour
 {
@@ -579,20 +581,23 @@ public class APIManager : MonoBehaviour
         }
     }
 
-    public static IEnumerator WearItem(int userItemID, bool isWearing, bool replaceItem)
+    public static IEnumerator WearItem(int userItemID, int isWearing, int replaceItem)
     {
         string retrieveItemsEndpoint = endpointURL + "/store/wear";
-        WWWForm form = new WWWForm();
-        form.AddField("userItemID", userItemID);
-        form.AddField("isWearing", isWearing.ToString());
-        form.AddField("replaceItem", replaceItem.ToString());
+        WearItemJson wearItemJson = new WearItemJson();
+        wearItemJson.userItemID = userItemID;
+        wearItemJson.isWearing = isWearing;
+        wearItemJson.replaceItem = replaceItem;
 
+        string body = wearItemJson.CreateWearJSON();
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(body);
 
-
-        using (UnityWebRequest itemsRequest = UnityWebRequest.Put(retrieveItemsEndpoint, form.data))
+        using (UnityWebRequest itemsRequest = UnityWebRequest.Put(retrieveItemsEndpoint, bodyRaw))
         {
             itemsRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
-
+            UploadHandlerRaw uploadHandlerRaw = new UploadHandlerRaw(bodyRaw);
+            itemsRequest.uploadHandler = uploadHandlerRaw;
+            itemsRequest.uploadHandler.contentType = "application/json";
             yield return itemsRequest.SendWebRequest();
 
             // If a connection error is received, print the result.
@@ -605,14 +610,16 @@ public class APIManager : MonoBehaviour
                 Debug.Log(itemsRequest.downloadHandler.text);
             }
         }
+
     }
 
-    public static IEnumerator PurchaseItem(int itemID, string game)
+    public static IEnumerator PurchaseItem(int itemID, string game, int isWearing)
     {
         string purchaseItemsEndpoint = endpointURL + "/store/purchase";
         WWWForm form = new WWWForm();
         form.AddField("itemID", itemID);
         form.AddField("game", game);
+        form.AddField("isWearing", isWearing);
 
 
         using (UnityWebRequest itemsRequest = UnityWebRequest.Post(purchaseItemsEndpoint, form))
@@ -670,5 +677,19 @@ public class APIManager : MonoBehaviour
         }
         listOfIds.Length--;
         return listOfIds.ToString();
+    }
+}
+
+[System.Serializable]
+public class WearItemJson
+{
+
+    public int isWearing;
+    public int replaceItem;
+    public int userItemID;
+
+    public string CreateWearJSON()
+    {
+        return JsonUtility.ToJson(this);
     }
 }
