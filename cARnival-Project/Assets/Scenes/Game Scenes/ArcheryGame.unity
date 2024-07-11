@@ -1999,7 +1999,7 @@ PrefabInstance:
     - target: {fileID: 3370148552229051353, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
       propertyPath: m_text
-      value: 'Score:'
+      value: Score
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
@@ -2146,27 +2146,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8eb69fafe4f719b49bb2dd1a7358aaaa,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 8290569475625047299, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
       propertyPath: m_Color.a
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8290569475625047299, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8290569475625047299, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8290569475625047299, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8291759194527336719, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
@@ -2529,7 +2528,7 @@ PrefabInstance:
     - target: {fileID: 3370148552229051353, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
       propertyPath: m_text
-      value: 
+      value: what is up
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
@@ -3533,9 +3532,9 @@ RectTransform:
   - {fileID: 1307434225}
   - {fileID: 1142889769}
   - {fileID: 1354318586}
+  - {fileID: 1682572335}
   - {fileID: 1833430998}
   - {fileID: 1998581786}
-  - {fileID: 1682572335}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
