@@ -176,7 +176,7 @@ public class APIManager : MonoBehaviour
                 authenticationString = string.Empty;
                 sessionID = null;
                 isConnected = false;
-                userModules = null;
+                userModules.Clear();
                 currentQuestions = null;
                 currentImage = null;
                 currentAudio = null;
@@ -184,6 +184,9 @@ public class APIManager : MonoBehaviour
                 moduleStats = null;
                 adaptiveValuesJson = null;
                 listOfALValues = null;
+                randomUsername = string.Empty;
+                cosmeticList = null;
+                purchase = null;
             }
         }
     }
@@ -457,7 +460,7 @@ public class APIManager : MonoBehaviour
 
                 if (myClip != null)
                 {
-                    // Debug.Log("Saving myClip: " + "\"" + audioURL + "\"");
+                    Debug.Log("Saving myClip: " + "\"" + audioURL + "\"");
                     currentAudio = myClip;
                 }
             }

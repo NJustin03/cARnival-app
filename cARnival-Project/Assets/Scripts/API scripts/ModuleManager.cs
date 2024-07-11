@@ -115,4 +115,14 @@ public class ModuleManager : MonoBehaviour
             }
         }
     }
+
+    public void ClearModules()
+    {
+        // Clear the current module set upon new load.
+        currentModuleQuestions.Clear();
+        currentModuleAnswers.Clear();
+        questionIDs.Clear();
+        answerIDs.Clear();
+        terms.Clear();
+    }
 }

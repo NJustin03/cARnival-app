@@ -169,6 +169,16 @@ public class CosmeticManager : MonoBehaviour
         return false;
     }
 
+    public static int FindEquippedItemID(string game)
+    {
+        if (game == "duck")
+            return duckMaterial.itemID;
+        else if (game == "archery")
+            return archeryParticle.itemID;
+        else 
+            return basketballMaterial.itemID;
+    }
+
     private static void ClearCosmeticList()
     {
         duckMaterial = null;
