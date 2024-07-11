@@ -52,12 +52,13 @@ public class FishingGameManager : MonoBehaviour
         TermsList = module.terms;
         Debug.Log(TermsList.Count);
         shared = this;
-        
+
         //Adding a few terms for testing
     }
 
     private void Start()
     {
+        StartCoroutine(APIManager.StartSession(module.currentModuleID));
         // TODO: Start the game
         PlayNewWord();
         incorrectCard.SetActive(false);
@@ -99,12 +100,12 @@ public class FishingGameManager : MonoBehaviour
     }
 
     private void PlayNewWord()
-    {   
+    {
         numErrors = 0;
 
         //Get the new word randomly from a term array for now
 
-        int randomIndex = 0; 
+        int randomIndex = 0;
 
         //Do not destroy the value this holds when mofiying code
         newWord = AdaptiveLearning.GetNextAnswer(TermsList);
@@ -140,10 +141,12 @@ public class FishingGameManager : MonoBehaviour
         if (selectedDuck.Text.Text == currentAnswer.GetBack())
         {
             score++;
+            StoreManager.AddCoins(1);
+            StartCoroutine(APIManager.LogAnswer(currentAnswer.GetTermID(), true));
             scoreText.Text = "Score: " + score;
             AdaptiveLearning.CalculateDecayContinuous(currentAnswer, true, responseTime);
             AdaptiveLearning.CalculateActivationValue(currentAnswer);
-            
+
             StartCoroutine(ShowCorrectCard());
             PlayNewWord();
         }
@@ -162,7 +165,8 @@ public class FishingGameManager : MonoBehaviour
             {
                 AdaptiveLearning.CalculateDecayContinuous(currentAnswer, false, responseTime);
                 AdaptiveLearning.CalculateActivationValue(currentAnswer);
-                
+                StartCoroutine(APIManager.LogAnswer(currentAnswer.GetTermID(), false));
+
                 PlayNewWord();
                 return;
             }
@@ -196,11 +200,13 @@ public class FishingGameManager : MonoBehaviour
             string times = string.Join(",", answer.GetPresentationTimes());
             StartCoroutine(APIManager.UpdateAdaptiveLearningValue(answer.GetTermID(), answer.GetActivation(), answer.GetDecay(), answer.GetIntercept(), answer.GetInitialTime(), times));
         }
+        StartCoroutine(APIManager.EndSession(score));
+        SceneSwapper.SwapSceneStatic("GamesPage");
     }
 
     public void ShowSettings()
     {
-        // TODO: Show the Settings Prefab 
+        // TODO: Show the Settings Prefab
         // Ex: SetActive call on a settings prefab
 
         // TODO: Pause the game

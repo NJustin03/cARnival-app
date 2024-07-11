@@ -50,6 +50,7 @@ MonoBehaviour:
   rotateSpeedMin: 1
   rotateSpeedMax: 2
   text: {fileID: 8699344154563501927}
+  particleEffect: {fileID: 0}
 --- !u!65 &4390738637166008780
 BoxCollider:
   m_ObjectHideFlags: 0

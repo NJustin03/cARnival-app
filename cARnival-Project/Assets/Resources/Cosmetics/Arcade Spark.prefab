@@ -46,11 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 4985f4e0bf459fd4cbb15ad592af3b31, type: 3}
-  isPurchased: 0
   cost: 25
   game: archery
   itemID: 122
-  userItemID: 0
   particles: {fileID: 2349864950364102005}
 --- !u!1001 &2381770177049231670
 PrefabInstance:
@@ -60,6 +58,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1704543213308316665}
     m_Modifications:
+    - target: {fileID: 113112137361284163, guid: 1d59572aca90032448b8c4f0c6e24914,
+        type: 3}
+      propertyPath: stopAction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 206510848940762242, guid: 1d59572aca90032448b8c4f0c6e24914,
+        type: 3}
+      propertyPath: stopAction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3401090020296251069, guid: 1d59572aca90032448b8c4f0c6e24914,
+        type: 3}
+      propertyPath: stopAction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695629428490920091, guid: 1d59572aca90032448b8c4f0c6e24914,
+        type: 3}
+      propertyPath: stopAction
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5814112656674776335, guid: 1d59572aca90032448b8c4f0c6e24914,
         type: 3}
       propertyPath: m_Name

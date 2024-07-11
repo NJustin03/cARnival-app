@@ -22,7 +22,7 @@ public class Target : MonoBehaviour
         archeryManager = FindAnyObjectByType<ArcheryManager>();
         point = centerPoint.position;
         transform.LookAt(point);
-        particleEffect = GetComponent<ParticleSystem>();
+        particleEffect = CosmeticManager.archeryParticle.particles;
     }
 
     // Update is called once per frame
@@ -43,12 +43,17 @@ public class Target : MonoBehaviour
     private Vector3 RandomPoint()
     {
         Vector2 randomPointInUnitCircle2D = Random.insideUnitCircle;
-        return new Vector3((randomPointInUnitCircle2D.x * 1.5f) + 1, Random.value, (randomPointInUnitCircle2D.y * 1.5f) + 1);
+        return new Vector3((randomPointInUnitCircle2D.x * 1.5f) + 3, Random.value, (randomPointInUnitCircle2D.y * 1.5f) + 1);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (isAnswerCorrect)
+        {
+            ParticleSystem temp = Instantiate(particleEffect, transform.position, Quaternion.identity);
+            temp.Play();
+            Debug.Log("I am here");
+        }
         archeryManager.ChooseAnswer(isAnswerCorrect);
-        particleEffect.Play();
     }
 }

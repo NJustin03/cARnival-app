@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using Unity.VisualScripting;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -176,7 +175,7 @@ public class APIManager : MonoBehaviour
                 authenticationString = string.Empty;
                 sessionID = null;
                 isConnected = false;
-                userModules.Clear();
+                userModules = null;
                 currentQuestions = null;
                 currentImage = null;
                 currentAudio = null;
@@ -377,7 +376,6 @@ public class APIManager : MonoBehaviour
 
     public static IEnumerator LogAnswer(int termID, bool isCorrect)
     {
-
 
         string sessionEndpoint = endpointURL + "/loggedanswer";
         WWWForm form = new WWWForm();

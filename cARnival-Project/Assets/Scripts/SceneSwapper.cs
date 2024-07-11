@@ -12,7 +12,6 @@ public class SceneSwapper : MonoBehaviour
         SceneManager.LoadSceneAsync(scene);
     }
 
-    
     public static void SwapSceneStatic(string scene)
     {
         SceneManager.LoadSceneAsync(scene);
