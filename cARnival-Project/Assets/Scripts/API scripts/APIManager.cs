@@ -377,7 +377,6 @@ public class APIManager : MonoBehaviour
     public static IEnumerator LogAnswer(int termID, bool isCorrect)
     {
 
-
         string sessionEndpoint = endpointURL + "/loggedanswer";
         WWWForm form = new WWWForm();
 

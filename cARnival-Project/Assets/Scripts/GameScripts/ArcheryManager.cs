@@ -32,6 +32,7 @@ public class ArcheryManager : MonoBehaviour
         // Front is the word in the foreign language (prompt),
         // Back is the word in the native language(answer)
         module = FindAnyObjectByType<ModuleManager>();
+        StartCoroutine(APIManager.StartSession(module.currentModuleID));
         TermsList = module.terms;
         Debug.Log(TermsList.Count);
         shared = this;
@@ -99,11 +100,14 @@ public class ArcheryManager : MonoBehaviour
         if (isAnswerCorrect)
         {
             score++;
+            StoreManager.AddCoins(1);
+            StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), true));
             scoreText.Text = "Score: " + score;
             PlayNewWord();
         }
         else
         {
+            StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), false));
             PlayNewWord();
         }
 

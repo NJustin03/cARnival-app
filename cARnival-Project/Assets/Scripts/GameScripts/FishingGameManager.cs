@@ -55,6 +55,7 @@ public class FishingGameManager : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(APIManager.StartSession(module.currentModuleID));
         // TODO: Start the game
         PlayNewWord();
         incorrectCard.SetActive(false);
@@ -136,7 +137,8 @@ public class FishingGameManager : MonoBehaviour
         if (selectedDuck.Text.Text == currentAnswer.GetBack())
         {
             score++;
-            
+            StoreManager.AddCoins(1);
+            StartCoroutine(APIManager.LogAnswer(currentAnswer.GetTermID(), true));
             AdaptiveLearning.CalculateDecayContinuous(currentAnswer, true, responseTime);
             AdaptiveLearning.CalculateActivationValue(currentAnswer);
             
@@ -158,7 +160,8 @@ public class FishingGameManager : MonoBehaviour
             {
                 AdaptiveLearning.CalculateDecayContinuous(currentAnswer, false, responseTime);
                 AdaptiveLearning.CalculateActivationValue(currentAnswer);
-                
+                StartCoroutine(APIManager.LogAnswer(currentAnswer.GetTermID(), false));
+
                 PlayNewWord();
                 return;
             }
@@ -191,7 +194,7 @@ public class FishingGameManager : MonoBehaviour
             string times = string.Join(",", answer.GetPresentationTimes());
             StartCoroutine(APIManager.UpdateAdaptiveLearningValue(answer.GetTermID(), answer.GetActivation(), answer.GetDecay(), answer.GetIntercept(), answer.GetInitialTime(), times));
         }
-       
+        StartCoroutine(APIManager.EndSession(score));
         SceneSwapper.SwapSceneStatic("GamesPage");
     }
 

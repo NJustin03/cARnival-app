@@ -60,7 +60,7 @@ public class LanguageHoopsManager : MonoBehaviour
         Debug.Log(TermsList.Count);
         shared = this;
         StoredMovement = new List<Vector2>(Enumerable.Repeat(Vector2.zero, MaxStoredMovement));
-
+        StartCoroutine(APIManager.StartSession(module.currentModuleID));
         Rigidbody ballRigidbody = Ball.GetComponent<Rigidbody>();
         ballRigidbody.isKinematic = true;
     }
@@ -337,6 +337,7 @@ public class LanguageHoopsManager : MonoBehaviour
     {
         // TODO: Add the summary functionality if needed
         // TODO: Make sure the loading of the scene is the correct scene GameScene?
+        StartCoroutine(APIManager.EndSession(score));
         SceneSwapper.SwapSceneStatic("GamesPage");
     }
 
@@ -350,6 +351,8 @@ public class LanguageHoopsManager : MonoBehaviour
         if (enteredHoop.Text.Text == newWord.GetBack())
         {
             score++;
+            StoreManager.AddCoins(1);
+            StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), true));
             scoreText.Text = "Score: " + score;
             isCorrect = true;
             AdaptiveLearning.CalculateDecayContinuous(newWord, true, responseTime);
@@ -372,6 +375,7 @@ public class LanguageHoopsManager : MonoBehaviour
             {
                 AdaptiveLearning.CalculateDecayContinuous(newWord, false, responseTime);
                 AdaptiveLearning.CalculateActivationValue(newWord);
+                StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), false));
 
                 PlayNewWord();
                 isCorrect = false;
