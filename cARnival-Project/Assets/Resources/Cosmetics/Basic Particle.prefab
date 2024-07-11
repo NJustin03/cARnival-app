@@ -46,11 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: c8bb61e85a175b14fbaa65404a3d6fb1, type: 3}
-  isPurchased: 0
   cost: 0
   game: archery
   itemID: 112
-  userItemID: 0
   particles: {fileID: 5145343318073875080}
 --- !u!1001 &3421673795915402550
 PrefabInstance:
@@ -60,6 +58,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1944045934060004670}
     m_Modifications:
+    - target: {fileID: 2200641554738023582, guid: 3a33861f64e4c2a43bd4892424f3bb20,
+        type: 3}
+      propertyPath: stopAction
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5181545366774624174, guid: 3a33861f64e4c2a43bd4892424f3bb20,
         type: 3}
       propertyPath: m_Name
@@ -114,6 +117,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501823030821509054, guid: 3a33861f64e4c2a43bd4892424f3bb20,
+        type: 3}
+      propertyPath: stopAction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8633567939232876699, guid: 3a33861f64e4c2a43bd4892424f3bb20,
+        type: 3}
+      propertyPath: stopAction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8813770057047190943, guid: 3a33861f64e4c2a43bd4892424f3bb20,
+        type: 3}
+      propertyPath: stopAction
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

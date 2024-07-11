@@ -416,6 +416,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1369682584}
+    - targetCorrespondingSourceObject: {fileID: 982913838981139367, guid: 537cc452af6394ba2affadae1f7802db,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1369682585}
   m_SourcePrefab: {fileID: 100100000, guid: 537cc452af6394ba2affadae1f7802db, type: 3}
 --- !u!224 &82037139 stripped
 RectTransform:
@@ -1273,7 +1277,7 @@ PrefabInstance:
     - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
         type: 3}
@@ -1284,7 +1288,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 552930748}
+      objectReference: {fileID: 552930746}
     - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -1303,12 +1307,17 @@ PrefabInstance:
     - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ActiveBackground
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BackgroundManager, Assembly-CSharp
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 537cc452af6394ba2affadae1f7802db,
         type: 3}
@@ -3061,6 +3070,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e0e578472be85140bb4d23521446659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swapper: {fileID: 1369682585}
+--- !u!114 &1369682585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1369682583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac1aca269bad08e44bcf5f0af312f023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1482684087

@@ -46,11 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 8001683ca933a374fac3c9457009b76e, type: 3}
-  isPurchased: 0
   cost: 20
   game: archery
   itemID: 113
-  userItemID: 0
   particles: {fileID: 119462901517368884}
 --- !u!1001 &7582742563280250376
 PrefabInstance:
@@ -64,6 +62,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BirthdayConfetti
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535431266201131068, guid: 0de2aa91dae156a408bf75f90b35bd29,
+        type: 3}
+      propertyPath: stopAction
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9036023990657489365, guid: 0de2aa91dae156a408bf75f90b35bd29,
         type: 3}

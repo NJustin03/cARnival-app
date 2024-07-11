@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class LogOut : MonoBehaviour
 {
+    public SceneSwapper swapper;
     public void ReloadAll()
     {
         StoreManager.ResetCoins();
@@ -19,6 +20,6 @@ public class LogOut : MonoBehaviour
     private IEnumerator APILogOut()
     {
         yield return StartCoroutine(APIManager.Logout());
-        SceneSwapper.SwapSceneStatic("StartPage");
+        swapper.SwapScene("StartPage");
     }
 }

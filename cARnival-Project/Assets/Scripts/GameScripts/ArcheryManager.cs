@@ -35,10 +35,6 @@ public class ArcheryManager : MonoBehaviour
         TermsList = module.terms;
         Debug.Log(TermsList.Count);
         shared = this;
-        foreach (Target target in targets)
-        {
-            Instantiate(CosmeticManager.archeryParticle, target.transform);
-        }
     }
 
     private void Start()
