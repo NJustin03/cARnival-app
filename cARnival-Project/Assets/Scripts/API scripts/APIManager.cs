@@ -457,7 +457,7 @@ public class APIManager : MonoBehaviour
 
                 if (myClip != null)
                 {
-                    // Debug.Log("Saving myClip: " + "\"" + audioURL + "\"");
+                    Debug.Log("Saving myClip: " + "\"" + audioURL + "\"");
                     currentAudio = myClip;
                 }
             }

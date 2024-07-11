@@ -17,51 +17,79 @@ public class ItemShopBox : MonoBehaviour
     public TextPrefabScript statusText;
 
     public Image itemDisplay;
-    
+    public CosmeticManager cosmeticManager;
+
+    public bool isOwned;
+    public bool isEquipped;
+
+    public ItemTab parentTab;
+    public Button itemShopButton;
 
     void Awake()
     {
+        cosmeticManager = FindAnyObjectByType<CosmeticManager>();
         item = CosmeticManager.RetrieveItem(itemID);
         if (item == null )
         {
             Debug.Log("No Item Found");
             return;
         }
-        else
-        {
-            Debug.Log("Here!");
-
-        }
         itemDisplay.sprite = item.icon;
         if (CosmeticManager.userCosmeticInfo.ContainsKey(itemID))
         {
+            isOwned = true;
             costBox.SetActive(false);
             if (CosmeticManager.CheckIfEquipped(itemID))
             {
                 statusText.Text = "Equipped";
+                isEquipped = true;
             }
             else
             {
                 statusText.Text = "Owned";
+                isEquipped = false;
             }
             statusBox.SetActive(true);
+            SetButtonToEquip();
         }
         else
         {
+            isOwned = false;
             costText.Text = item.cost.ToString();
         }
     }
 
-    public void PurchaseItem(ref int userCurrency)
+    public IEnumerator PurchaseItem()
     {
-        if (userCurrency >= item.cost && !CosmeticManager.userCosmeticInfo.ContainsKey(itemID))
+        yield return StartCoroutine(APIManager.PurchaseItem(item.itemID, item.game, 0));
+        CosmeticManager.AddToOwned(item.itemID);
+        statusText.Text = "Owned";
+        isOwned = true;
+        costBox.SetActive(false);
+        statusBox.SetActive(true);
+        SetButtonToEquip();
+    }
+
+    public void SetToOwned()
+    {
+        isEquipped = false;
+        statusText.Text = "Owned";
+    }
+
+    public void SetToEquipped()
+    {
+        parentTab.SetBoxesToOwned(this);
+        isEquipped = true;
+        statusText.Text = "Equipped";
+        cosmeticManager.EquipCosmetic(item);
+    }
+
+    private void SetButtonToEquip()
+    {
+        for (int i = 0; i < itemShopButton.onClick.GetPersistentEventCount(); i++)
         {
-            userCurrency -= item.cost;
-            StartCoroutine(APIManager.PurchaseItem(item.itemID, item.game, 0));
-            CosmeticManager.AddToOwned(item.itemID);
-            statusText.Text = "Owned";
-            costBox.SetActive(false);
-            statusBox.SetActive(true);
+            itemShopButton.onClick.SetPersistentListenerState(i, UnityEngine.Events.UnityEventCallState.Off);
         }
+        itemShopButton.onClick.AddListener(SetToEquipped);
     }
 }

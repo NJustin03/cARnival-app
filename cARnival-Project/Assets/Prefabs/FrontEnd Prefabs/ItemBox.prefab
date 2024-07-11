@@ -143,6 +143,11 @@ MonoBehaviour:
   statusBox: {fileID: 7812700188255898453}
   statusText: {fileID: 8737536197485660902}
   itemDisplay: {fileID: 2588348735739199819}
+  cosmeticManager: {fileID: 0}
+  isOwned: 0
+  isEquipped: 0
+  parentTab: {fileID: 0}
+  itemShopButton: {fileID: 7072853875866054679}
 --- !u!1 &1123551036986232407
 GameObject:
   m_ObjectHideFlags: 0
