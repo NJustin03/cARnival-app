@@ -339,7 +339,17 @@ public class LanguageHoopsManager : MonoBehaviour
     {
         // TODO: Add the summary functionality if needed
         // TODO: Make sure the loading of the scene is the correct scene GameScene?
+        StartCoroutine(SendALToDatabase());
+    }
+
+    private IEnumerator SendALToDatabase()
+    {
         Time.timeScale = 1;
+        foreach (Answer answer in TermsList)
+        {
+            string times = string.Join(",", answer.GetPresentationTimes());
+            yield return StartCoroutine(APIManager.UpdateAdaptiveLearningValue(answer.GetTermID(), answer.GetActivation(), answer.GetDecay(), answer.GetIntercept(), answer.GetInitialTime(), times));
+        }
         StartCoroutine(APIManager.EndSession(score));
         SceneSwapper.SwapSceneStatic("GamesPage");
     }
