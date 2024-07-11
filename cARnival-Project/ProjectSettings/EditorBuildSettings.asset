@@ -41,6 +41,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Non-gameScenes/RetrievePage.unity
     guid: b647d9f201e944d18b2998ce7d84c8de
+  - enabled: 1
+    path: Assets/Scenes/Non-gameScenes/SignUpPage.unity
+    guid: 907535771483849f7971a9c4c886bd21
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af,
       type: 2}

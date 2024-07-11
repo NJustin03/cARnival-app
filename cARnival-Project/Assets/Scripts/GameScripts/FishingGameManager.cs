@@ -29,6 +29,9 @@ public class FishingGameManager : MonoBehaviour
     [SerializeField]
     private GameObject correctCard;
 
+    public GameObject settingsCard;
+    public TextPrefabScript scoreText;
+
     private int score = 0;
     private int numErrors = 0;
     private string currentWord = null;
@@ -59,6 +62,7 @@ public class FishingGameManager : MonoBehaviour
         PlayNewWord();
         incorrectCard.SetActive(false);
         correctCard.SetActive(false);
+        scoreText.Text = "Score: " + score;
     }
 
     private void Update()
@@ -136,7 +140,7 @@ public class FishingGameManager : MonoBehaviour
         if (selectedDuck.Text.Text == currentAnswer.GetBack())
         {
             score++;
-            
+            scoreText.Text = "Score: " + score;
             AdaptiveLearning.CalculateDecayContinuous(currentAnswer, true, responseTime);
             AdaptiveLearning.CalculateActivationValue(currentAnswer);
             
@@ -186,13 +190,12 @@ public class FishingGameManager : MonoBehaviour
     }
     public void QuitGame()
     {
+        SceneSwapper.SwapSceneStatic("GamesPage");
         foreach (Answer answer in TermsList)
         {
             string times = string.Join(",", answer.GetPresentationTimes());
             StartCoroutine(APIManager.UpdateAdaptiveLearningValue(answer.GetTermID(), answer.GetActivation(), answer.GetDecay(), answer.GetIntercept(), answer.GetInitialTime(), times));
         }
-       
-        SceneSwapper.SwapSceneStatic("GamesPage");
     }
 
     public void ShowSettings()
@@ -202,6 +205,7 @@ public class FishingGameManager : MonoBehaviour
 
         // TODO: Pause the game
         Time.timeScale = 0;
+        settingsCard.SetActive(true);
     }
 
     public void UnPause()
@@ -209,6 +213,7 @@ public class FishingGameManager : MonoBehaviour
         Time.timeScale = 1;
         incorrectCard.SetActive(false);
         correctCard.SetActive(false);
+        settingsCard.SetActive(false);
         canSelectDuck = true;
     }
 }

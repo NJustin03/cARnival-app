@@ -34,8 +34,10 @@ public class LanguageHoopsManager : MonoBehaviour
     public FishingGameQuestionBoard QuestionBoard;
     public GameObject incorrectCard;
     public GameObject resultCard;
+    public GameObject settingsCard;
     public TextPrefabScript scoreText;
     public TimerPrefab timer;
+    public List<Material> basketballColors;
 
     private int score = 0;
     private int numErrors = 0;
@@ -338,6 +340,22 @@ public class LanguageHoopsManager : MonoBehaviour
         // TODO: Add the summary functionality if needed
         // TODO: Make sure the loading of the scene is the correct scene GameScene?
         SceneSwapper.SwapSceneStatic("GamesPage");
+    }
+
+    public void ShowSettings()
+    {
+        // TODO: Show the Settings Prefab 
+        // Ex: SetActive call on a settings prefab
+
+        // TODO: Pause the game
+        Time.timeScale = 0;
+        settingsCard.SetActive(true);
+    }
+
+    public void UnPause()
+    {
+        Time.timeScale = 1;
+        settingsCard.SetActive(false);
     }
 
     public void SelectWord(BasketBallHoopPrefab enteredHoop, out bool isCorrect)

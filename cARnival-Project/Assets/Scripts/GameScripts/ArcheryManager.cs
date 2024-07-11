@@ -24,6 +24,7 @@ public class ArcheryManager : MonoBehaviour
     public TextPrefabScript scoreText;
     public TimerPrefab timerText;
     public GameObject resultCard;
+    public GameObject settingsCard;
 
 
     private void Awake()
@@ -118,5 +119,28 @@ public class ArcheryManager : MonoBehaviour
         Time.timeScale = 1;
         resultCard.SetActive(false);
         SceneSwapper.SwapSceneStatic("ArcheryGame");
+    }
+
+    public void QuitGame()
+    {
+        // TODO: Add the summary functionality if needed
+        // TODO: Make sure the loading of the scene is the correct scene GameScene?
+        SceneSwapper.SwapSceneStatic("GamesPage");
+    }
+
+    public void ShowSettings()
+    {
+        // TODO: Show the Settings Prefab 
+        // Ex: SetActive call on a settings prefab
+
+        // TODO: Pause the game
+        Time.timeScale = 0;
+        settingsCard.SetActive(true);
+    }
+
+    public void UnPause()
+    {
+        Time.timeScale = 1;
+        settingsCard.SetActive(false);
     }
 }
