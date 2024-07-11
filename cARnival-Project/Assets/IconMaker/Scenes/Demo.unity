@@ -123,6 +123,80 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &292013947
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 142786036298663730, guid: 0dd4d82d2d9ad4cafb5923555a17efbf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.013
+      objectReference: {fileID: 0}
+    - target: {fileID: 142786036298663730, guid: 0dd4d82d2d9ad4cafb5923555a17efbf,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.059
+      objectReference: {fileID: 0}
+    - target: {fileID: 142786036298663730, guid: 0dd4d82d2d9ad4cafb5923555a17efbf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.254
+      objectReference: {fileID: 0}
+    - target: {fileID: 142786036298663730, guid: 0dd4d82d2d9ad4cafb5923555a17efbf,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.37702796
+      objectReference: {fileID: 0}
+    - target: {fileID: 142786036298663730, guid: 0dd4d82d2d9ad4cafb5923555a17efbf,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 142786036298663730, guid: 0dd4d82d2d9ad4cafb5923555a17efbf,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.92620194
+      objectReference: {fileID: 0}
+    - target: {fileID: 142786036298663730, guid: 0dd4d82d2d9ad4cafb5923555a17efbf,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 142786036298663730, guid: 0dd4d82d2d9ad4cafb5923555a17efbf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 142786036298663730, guid: 0dd4d82d2d9ad4cafb5923555a17efbf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 135.701
+      objectReference: {fileID: 0}
+    - target: {fileID: 142786036298663730, guid: 0dd4d82d2d9ad4cafb5923555a17efbf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4749551767012876234, guid: 0dd4d82d2d9ad4cafb5923555a17efbf,
+        type: 3}
+      propertyPath: m_Name
+      value: BlueDuck
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0dd4d82d2d9ad4cafb5923555a17efbf, type: 3}
+--- !u!1 &292013948 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4749551767012876234, guid: 0dd4d82d2d9ad4cafb5923555a17efbf,
+    type: 3}
+  m_PrefabInstance: {fileID: 292013947}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &326103194
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,85 +325,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!1001 &670788995
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1704543213308316665, guid: b44fd33be3da95746a8261f5a8651671,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704543213308316665, guid: b44fd33be3da95746a8261f5a8651671,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704543213308316665, guid: b44fd33be3da95746a8261f5a8651671,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704543213308316665, guid: b44fd33be3da95746a8261f5a8651671,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704543213308316665, guid: b44fd33be3da95746a8261f5a8651671,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704543213308316665, guid: b44fd33be3da95746a8261f5a8651671,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704543213308316665, guid: b44fd33be3da95746a8261f5a8651671,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704543213308316665, guid: b44fd33be3da95746a8261f5a8651671,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704543213308316665, guid: b44fd33be3da95746a8261f5a8651671,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704543213308316665, guid: b44fd33be3da95746a8261f5a8651671,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6908156590454410434, guid: b44fd33be3da95746a8261f5a8651671,
-        type: 3}
-      propertyPath: m_Name
-      value: Arcade Spark
-      objectReference: {fileID: 0}
-    - target: {fileID: 8760105759497737247, guid: b44fd33be3da95746a8261f5a8651671,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b44fd33be3da95746a8261f5a8651671, type: 3}
---- !u!1 &670788996 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6908156590454410434, guid: b44fd33be3da95746a8261f5a8651671,
-    type: 3}
-  m_PrefabInstance: {fileID: 670788995}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &829871125
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,9 +355,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderCamera: {fileID: 326103195}
-  target: {fileID: 670788996}
+  target: {fileID: 292013948}
   fileExtension: 0
-  path: C:/Users/Miguel/Documents/cARnival-app/cARnival-Project/Assets/SavedIcons/
+  path: /Users/nathan/Documents/GitHub/cARnival-app/cARnival-Project/Assets/SavedIcons/
   preview: 0
   transparent: 0
   width: 1024
@@ -507,7 +502,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.02e-43, y: 5.6e-43, z: 1.927e-42, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 1e-45, z: 1.02e-43, w: 2.7e-44}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -540,4 +535,4 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 829871128}
-  - {fileID: 670788995}
+  - {fileID: 292013947}
