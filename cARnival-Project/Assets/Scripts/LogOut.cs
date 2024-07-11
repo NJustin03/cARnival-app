@@ -14,6 +14,7 @@ public class LogOut : MonoBehaviour
             ModuleManager temp = FindAnyObjectByType<ModuleManager>();
             temp.ClearModules();
         }
+        CosmeticManager.ClearCosmeticList();
         StartCoroutine(APILogOut());
     }
 

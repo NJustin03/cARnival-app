@@ -194,11 +194,16 @@ public class FishingGameManager : MonoBehaviour
     }
     public void QuitGame()
     {
-        SceneSwapper.SwapSceneStatic("GamesPage");
+        StartCoroutine(SendALToDatabase());
+    }
+
+    private IEnumerator SendALToDatabase()
+    {
+        Time.timeScale = 1;
         foreach (Answer answer in TermsList)
         {
             string times = string.Join(",", answer.GetPresentationTimes());
-            StartCoroutine(APIManager.UpdateAdaptiveLearningValue(answer.GetTermID(), answer.GetActivation(), answer.GetDecay(), answer.GetIntercept(), answer.GetInitialTime(), times));
+            yield return StartCoroutine(APIManager.UpdateAdaptiveLearningValue(answer.GetTermID(), answer.GetActivation(), answer.GetDecay(), answer.GetIntercept(), answer.GetInitialTime(), times));
         }
         StartCoroutine(APIManager.EndSession(score));
         SceneSwapper.SwapSceneStatic("GamesPage");

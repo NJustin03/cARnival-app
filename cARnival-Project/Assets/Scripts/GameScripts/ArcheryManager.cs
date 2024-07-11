@@ -9,7 +9,7 @@ public class ArcheryManager : MonoBehaviour
 
     public static ArcheryManager shared;
 
-    private int score = 0;
+    private static int score = 0;
     private string currentWord = null;
     public Answer newWord = null;
 
@@ -25,6 +25,7 @@ public class ArcheryManager : MonoBehaviour
     public TimerPrefab timerText;
     public GameObject resultCard;
     public GameObject settingsCard;
+    public StandardizedBow bow;
 
 
     private void Awake()
@@ -125,6 +126,9 @@ public class ArcheryManager : MonoBehaviour
     {
         // TODO: Add the summary functionality if needed
         // TODO: Make sure the loading of the scene is the correct scene GameScene?
+        Time.timeScale = 1;
+        StartCoroutine(APIManager.EndSession(score));
+        score = 0;
         SceneSwapper.SwapSceneStatic("GamesPage");
     }
 
@@ -134,12 +138,14 @@ public class ArcheryManager : MonoBehaviour
         // Ex: SetActive call on a settings prefab
 
         // TODO: Pause the game
+        bow.isPaused = true;
         Time.timeScale = 0;
         settingsCard.SetActive(true);
     }
 
     public void UnPause()
     {
+        bow.isPaused = false;
         Time.timeScale = 1;
         settingsCard.SetActive(false);
     }

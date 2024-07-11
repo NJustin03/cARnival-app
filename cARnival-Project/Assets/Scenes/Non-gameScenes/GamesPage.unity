@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028373, g: 0.22571398, b: 0.30692294, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -331,12 +331,12 @@ PrefabInstance:
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SwapScene
+      value: SetNextGameScene
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetNextGameScene
+      value: SwapScene
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
@@ -351,12 +351,12 @@ PrefabInstance:
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: ModulesSelectionPage
+      value: BasketballGame
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: BasketballGame
+      value: ModulesSelectionPage
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
@@ -981,12 +981,12 @@ PrefabInstance:
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SwapScene
+      value: SetNextGameScene
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetNextGameScene
+      value: SwapScene
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
@@ -1001,12 +1001,12 @@ PrefabInstance:
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: ModulesSelectionPage
+      value: ArcheryGame
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: ArcheryGame
+      value: ModulesSelectionPage
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
@@ -3123,12 +3123,12 @@ PrefabInstance:
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SwapScene
+      value: SetNextGameScene
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetNextGameScene
+      value: SwapScene
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
@@ -3143,12 +3143,12 @@ PrefabInstance:
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: ModulesSelectionPage
+      value: FishingGame
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: FishingGame
+      value: ModulesSelectionPage
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}

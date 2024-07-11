@@ -83,7 +83,7 @@ public class CosmeticManager : MonoBehaviour
     private IEnumerator RetrievePlayerCosmetics()
     {
         int index = 0;
-        /*yield return StartCoroutine(APIManager.RetrieveUserItems("duck"));
+        yield return StartCoroutine(APIManager.RetrieveUserItems("duck"));
         if (APIManager.cosmeticList.Length == 0)    // If nothing is owned, purchase and equip default.
         {
             index = cosmetics.FindIndex(cos => cos.itemID == defaultDuckID);
@@ -108,7 +108,6 @@ public class CosmeticManager : MonoBehaviour
         {
             MarkAsOwned(APIManager.cosmeticList);
         }
-        */
 
         yield return StartCoroutine(APIManager.RetrieveUserItems("archery"));
         if (APIManager.cosmeticList.Length == 0)    // If nothing is owned, purchase and equip default.
@@ -161,8 +160,7 @@ public class CosmeticManager : MonoBehaviour
     public static bool CheckIfEquipped(int itemID)
     {
 
-        // if (duckMaterial.itemID == itemID || basketballMaterial.itemID == itemID || archeryParticle.itemID == itemID)
-        if (archeryParticle.itemID == itemID)
+        if (duckMaterial.itemID == itemID || basketballMaterial.itemID == itemID || archeryParticle.itemID == itemID)
         {
             return true;
         }
@@ -179,7 +177,7 @@ public class CosmeticManager : MonoBehaviour
             return basketballMaterial.itemID;
     }
 
-    private static void ClearCosmeticList()
+    public static void ClearCosmeticList()
     {
         duckMaterial = null;
         basketballMaterial = null;

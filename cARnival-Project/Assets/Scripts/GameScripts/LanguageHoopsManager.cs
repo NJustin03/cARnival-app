@@ -90,7 +90,7 @@ public class LanguageHoopsManager : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             lastTouchTime = Time.time;
 
-            Debug.Log(Time.time - lastTouchTime);
+            // Debug.Log(Time.time - lastTouchTime);
 
             if (!isTouchActive && (Time.time - lastTouchTime) < 0.1f)
             {
@@ -159,7 +159,7 @@ public class LanguageHoopsManager : MonoBehaviour
                 // if Y force is less than 2.5 then reset the ball 
                 // clamp x force to be between -2 and 2
 
-                Debug.Log($"BasketBallGame -- ForceApplied: {impulseForce}");
+                // Debug.Log($"BasketBallGame -- ForceApplied: {impulseForce}");
 
                 ballRigidbody.AddForce(impulseForce, ForceMode.Impulse);
 
@@ -339,6 +339,7 @@ public class LanguageHoopsManager : MonoBehaviour
     {
         // TODO: Add the summary functionality if needed
         // TODO: Make sure the loading of the scene is the correct scene GameScene?
+        Time.timeScale = 1;
         StartCoroutine(APIManager.EndSession(score));
         SceneSwapper.SwapSceneStatic("GamesPage");
     }
