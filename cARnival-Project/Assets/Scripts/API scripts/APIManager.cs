@@ -170,23 +170,24 @@ public class APIManager : MonoBehaviour
             }
             else
             {
-                // Clear everything upon logging out.
-                token = null;
-                authenticationString = string.Empty;
-                sessionID = null;
-                isConnected = false;
-                userModules = null;
-                currentQuestions = null;
-                currentImage = null;
-                currentAudio = null;
-                ModulesJsonObjects = null;
-                moduleStats = null;
-                adaptiveValuesJson = null;
-                listOfALValues = null;
-                randomUsername = string.Empty;
-                cosmeticList = null;
-                purchase = null;
+
             }
+            // Clear everything upon logging out.
+            token = null;
+            authenticationString = string.Empty;
+            sessionID = null;
+            isConnected = false;
+            userModules = null;
+            currentQuestions = null;
+            currentImage = null;
+            currentAudio = null;
+            ModulesJsonObjects = null;
+            moduleStats = null;
+            adaptiveValuesJson = null;
+            listOfALValues = null;
+            randomUsername = string.Empty;
+            cosmeticList = null;
+            purchase = null;
         }
     }
 

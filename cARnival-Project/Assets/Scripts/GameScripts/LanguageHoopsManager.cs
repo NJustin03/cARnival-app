@@ -65,6 +65,7 @@ public class LanguageHoopsManager : MonoBehaviour
         StartCoroutine(APIManager.StartSession(module.currentModuleID));
         Rigidbody ballRigidbody = Ball.GetComponent<Rigidbody>();
         ballRigidbody.isKinematic = true;
+        basketballColors = new List<Material>(CosmeticManager.basketballMaterial.materials);
     }
 
     // Start is called before the first frame update

@@ -119,10 +119,10 @@ public class FishingGameManager : MonoBehaviour
             TermsList.RemoveAt(randomIndex);
         }
         //configure all the ducks
-        DuckA.ConfigureDuck(newWord.GetBack(), DuckColor);
-        DuckB.ConfigureDuck(tempWords[0].GetBack(), DuckColor);
-        DuckC.ConfigureDuck(tempWords[1].GetBack(), DuckColor);
-        DuckD.ConfigureDuck(tempWords[2].GetBack(), DuckColor);
+        DuckA.ConfigureDuck(newWord.GetBack());
+        DuckB.ConfigureDuck(tempWords[0].GetBack());
+        DuckC.ConfigureDuck(tempWords[1].GetBack());
+        DuckD.ConfigureDuck(tempWords[2].GetBack());
         //TODO: configure question board
         QuestionBoard.ConfigureWithWord(newWord);
         //Add terms back into main term list
