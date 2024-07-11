@@ -13,7 +13,6 @@ public class ArcheryManager : MonoBehaviour
     private string currentWord = null;
     public Answer newWord = null;
 
-
     [SerializeField]
     private ModuleManager module;
 
@@ -59,9 +58,9 @@ public class ArcheryManager : MonoBehaviour
     {
         for (int i = 0; i < tempWords.Count; i++)
         {
-            targets[i].ResetTarget(tempWords[i].GetBack(), false);
+            targets[i].ResetTarget(tempWords[i], false);
         }
-        targets[3].ResetTarget(newWord.GetBack(), true);
+        targets[3].ResetTarget(newWord, true);
     }
 
     private void PlayNewWord()
@@ -97,7 +96,7 @@ public class ArcheryManager : MonoBehaviour
         TermsList.Add(tempWords[2]);
     }
 
-    public void ChooseAnswer(bool isAnswerCorrect)
+    public void ChooseAnswer(bool isAnswerCorrect, Answer answer)
     {
         if (isAnswerCorrect)
         {
@@ -105,11 +104,15 @@ public class ArcheryManager : MonoBehaviour
             StoreManager.AddCoins(1);
             StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), true));
             scoreText.Text = "Score: " + score;
+            AdaptiveLearning.CalculateDecayContinuous(answer, true, 0);
+            AdaptiveLearning.CalculateActivationValue(answer);
             PlayNewWord();
         }
         else
         {
             StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), false));
+            AdaptiveLearning.CalculateDecayContinuous(answer, false, 0);
+            AdaptiveLearning.CalculateActivationValue(answer);
             PlayNewWord();
         }
 

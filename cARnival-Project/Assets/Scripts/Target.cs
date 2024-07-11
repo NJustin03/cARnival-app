@@ -15,6 +15,7 @@ public class Target : MonoBehaviour
     private ArcheryManager archeryManager;
 
     public ParticleSystem particleEffect;
+    public Answer currentAnswer;
 
     // Start is called before the first frame update
     void Awake()
@@ -32,11 +33,12 @@ public class Target : MonoBehaviour
         transform.LookAt(point);
     }
 
-    public void ResetTarget(string newWord, bool correctAnswer)
+    public void ResetTarget(Answer answer, bool correctAnswer)
     {
         rotateSpeed = Random.Range(rotateSpeedMin, rotateSpeedMax);
         gameObject.transform.SetPositionAndRotation(RandomPoint(), Quaternion.identity);
-        text.Text = newWord;
+        currentAnswer = answer;
+        text.Text = answer.GetBack();
         isAnswerCorrect = correctAnswer;
     }
 
@@ -54,6 +56,6 @@ public class Target : MonoBehaviour
             temp.Play();
             Debug.Log("I am here");
         }
-        archeryManager.ChooseAnswer(isAnswerCorrect);
+        archeryManager.ChooseAnswer(isAnswerCorrect, currentAnswer);
     }
 }
