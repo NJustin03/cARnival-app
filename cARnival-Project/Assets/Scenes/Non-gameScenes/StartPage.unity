@@ -980,6 +980,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: SignupButton
       objectReference: {fileID: 0}
+    - target: {fileID: 1506482696289094553, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: ButtonImage
+      value: 
+      objectReference: {fileID: 21300000, guid: cba2ca74b51ef224fb46a4ee60ca3a3f,
+        type: 3}
     - target: {fileID: 2936477552355934114, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -999,7 +1005,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: cba2ca74b51ef224fb46a4ee60ca3a3f,
+        type: 3}
     - target: {fileID: 3458775240581756532, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_Color.a
@@ -1008,22 +1015,37 @@ PrefabInstance:
     - target: {fileID: 3458775240581756532, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.9803922
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3458775240581756532, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.97647065
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3458775240581756532, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.8745099
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458775240581756532, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3466702766724409976, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: m_Transition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636345140730137525, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
@@ -1195,6 +1217,12 @@ PrefabInstance:
       propertyPath: _Text
       value: Sign Up
       objectReference: {fileID: 0}
+    - target: {fileID: 7856913891096508561, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: BackgroundImage
+      value: 
+      objectReference: {fileID: 21300000, guid: cba2ca74b51ef224fb46a4ee60ca3a3f,
+        type: 3}
     - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_text

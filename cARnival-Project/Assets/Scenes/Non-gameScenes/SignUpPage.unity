@@ -288,7 +288,8 @@ PrefabInstance:
     - target: {fileID: 3316709040213122022, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
       propertyPath: _Text
-      value: 'Sign up now at ELLE by visiting https://chdr.cs.ucf.edu/elle/signup. '
+      value: Sign up now at ELLE by visiting https://chdr.cs.ucf.edu/elle/signup
+        or pressing the button down below.
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
@@ -857,8 +858,14 @@ PrefabInstance:
     - target: {fileID: 982913838981139367, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_Name
-      value: SignupButton
+      value: GoToLoginButton
       objectReference: {fileID: 0}
+    - target: {fileID: 1506482696289094553, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: ButtonImage
+      value: 
+      objectReference: {fileID: 21300000, guid: cba2ca74b51ef224fb46a4ee60ca3a3f,
+        type: 3}
     - target: {fileID: 2936477552355934114, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -1082,7 +1089,7 @@ PrefabInstance:
     - target: {fileID: 7856913891096508561, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: _Text
-      value: Login here
+      value: Login
       objectReference: {fileID: 0}
     - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
@@ -1225,6 +1232,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackButton
       objectReference: {fileID: 0}
+    - target: {fileID: 1506482696289094553, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: ButtonImage
+      value: 
+      objectReference: {fileID: 21300000, guid: cba2ca74b51ef224fb46a4ee60ca3a3f,
+        type: 3}
     - target: {fileID: 2936477552355934114, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_SizeDelta.x

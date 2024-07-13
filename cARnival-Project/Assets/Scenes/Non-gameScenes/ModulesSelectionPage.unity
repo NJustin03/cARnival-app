@@ -969,6 +969,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackButton
       objectReference: {fileID: 0}
+    - target: {fileID: 1506482696289094553, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: ButtonImage
+      value: 
+      objectReference: {fileID: 21300000, guid: cba2ca74b51ef224fb46a4ee60ca3a3f,
+        type: 3}
     - target: {fileID: 2936477552355934114, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_SizeDelta.x
