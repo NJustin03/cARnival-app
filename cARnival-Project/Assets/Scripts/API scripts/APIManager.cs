@@ -160,6 +160,8 @@ public class APIManager : MonoBehaviour
 
         using (UnityWebRequest attemptLogout = UnityWebRequest.Post(logoutEndpoint, form))
         {
+            attemptLogout.SetRequestHeader("Authorization", "Bearer " + token.access_token);
+
             yield return attemptLogout.SendWebRequest();
             Debug.Log("Server responded: " + attemptLogout.downloadHandler.text);
 

@@ -183,5 +183,7 @@ public class CosmeticManager : MonoBehaviour
         basketballMaterial = null;
         archeryParticle = null;
         cosmeticsRetrieved = false;
+        cosmetics = null;
+        userCosmeticInfo.Clear();
     }
 }
