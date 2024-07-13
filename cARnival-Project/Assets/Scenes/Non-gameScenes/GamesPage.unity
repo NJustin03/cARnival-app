@@ -1911,6 +1911,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CancelButton
       objectReference: {fileID: 0}
+    - target: {fileID: 3458775240581756532, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458775240581756532, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458775240581756532, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458775240581756532, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3466702766724409976, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -3115,7 +3135,7 @@ PrefabInstance:
         type: 3}
       propertyPath: BackgroundImage
       value: 
-      objectReference: {fileID: 21300000, guid: 912780cc9d02a41aeaf568878563448b,
+      objectReference: {fileID: 21300000, guid: a601a836fb1134d4abab65a775578c66,
         type: 3}
     - target: {fileID: 3370148552229051353, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
@@ -4108,7 +4128,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BackGroundColor: {r: 0.8745098, g: 0.9764706, b: 0.98039216, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
