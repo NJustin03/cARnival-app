@@ -370,6 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b782048739ffa4847b51d103cfb3f01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: Green & Purple
   icon: {fileID: 21300000, guid: 82d7186b7fd5b4660a4711bceb60b291, type: 3}
   cost: 30
   game: basketball

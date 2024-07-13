@@ -614,6 +614,11 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4288198432
       objectReference: {fileID: 0}
+    - target: {fileID: 8991677450693903260, guid: f17d190a02158184882cd81d055dc864,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

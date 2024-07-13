@@ -512,7 +512,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 93575e40451c741a9854536bce80cdfe,
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
         type: 2}
     - target: {fileID: 7911452914725533870, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
@@ -528,8 +528,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 6276947752496670763, guid: 93575e40451c741a9854536bce80cdfe,
-        type: 2}
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 7911452914725533870, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -1162,7 +1161,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 93575e40451c741a9854536bce80cdfe,
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
         type: 2}
     - target: {fileID: 7911452914725533870, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
@@ -1178,8 +1177,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 6276947752496670763, guid: 93575e40451c741a9854536bce80cdfe,
-        type: 2}
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 7911452914725533870, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -1323,7 +1321,7 @@ PrefabInstance:
     - target: {fileID: 3370148552229051353, guid: 5647adc168cf54850a9183393e6512dc,
         type: 3}
       propertyPath: m_text
-      value: Fishing
+      value: Archery
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: 5647adc168cf54850a9183393e6512dc,
         type: 3}
@@ -2914,7 +2912,7 @@ PrefabInstance:
     - target: {fileID: 3370148552229051353, guid: 5647adc168cf54850a9183393e6512dc,
         type: 3}
       propertyPath: m_text
-      value: Fishing
+      value: Tennis
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: 5647adc168cf54850a9183393e6512dc,
         type: 3}
@@ -3304,7 +3302,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 93575e40451c741a9854536bce80cdfe,
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
         type: 2}
     - target: {fileID: 7911452914725533870, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
@@ -3320,8 +3318,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 6276947752496670763, guid: 93575e40451c741a9854536bce80cdfe,
-        type: 2}
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 7911452914725533870, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -3735,7 +3732,7 @@ PrefabInstance:
     - target: {fileID: 3370148552229051353, guid: 5647adc168cf54850a9183393e6512dc,
         type: 3}
       propertyPath: m_text
-      value: Fishing
+      value: Basketball
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: 5647adc168cf54850a9183393e6512dc,
         type: 3}

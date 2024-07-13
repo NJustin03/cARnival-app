@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf911da949447143a54b0f7ab7b2335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: Arcade Particle
   icon: {fileID: 21300000, guid: 4985f4e0bf459fd4cbb15ad592af3b31, type: 3}
   cost: 25
   game: archery
