@@ -25,6 +25,8 @@ public class ItemShopBox : MonoBehaviour
     public ItemTab parentTab;
     public Button itemShopButton;
 
+    public TextPrefabScript itemName;
+
     void Awake()
     {
         cosmeticManager = FindAnyObjectByType<CosmeticManager>();
@@ -35,6 +37,7 @@ public class ItemShopBox : MonoBehaviour
             return;
         }
         itemDisplay.sprite = item.icon;
+        itemName.Text = item.itemName;
         if (CosmeticManager.userCosmeticInfo.ContainsKey(itemID))
         {
             isOwned = true;

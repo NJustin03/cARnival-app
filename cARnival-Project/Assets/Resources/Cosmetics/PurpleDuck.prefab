@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b782048739ffa4847b51d103cfb3f01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: Purple
   icon: {fileID: 21300000, guid: 6a79843a11040408a9f5cb5ba4814e2a, type: 3}
   cost: 30
   game: duck

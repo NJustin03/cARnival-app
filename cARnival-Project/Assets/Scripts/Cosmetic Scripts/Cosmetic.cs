@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Cosmetic : MonoBehaviour
 {
-
+    public string itemName;
     public Sprite icon;
     public int cost;
     public string game;
@@ -12,6 +12,7 @@ public class Cosmetic : MonoBehaviour
 
     public Cosmetic (Cosmetic c)
     {
+        itemName = c.itemName;
         itemID = c.itemID;
         icon = c.icon;
         cost = c.cost;

@@ -13,6 +13,12 @@ public class LogOut : MonoBehaviour
         {
             ModuleManager temp = FindAnyObjectByType<ModuleManager>();
             temp.ClearModules();
+            Destroy(temp);
+        }
+        if (FindAnyObjectByType(typeof(CosmeticManager)))
+        {
+            CosmeticManager temp = FindAnyObjectByType<CosmeticManager>();
+            Destroy(temp);
         }
         CosmeticManager.ClearCosmeticList();
         StartCoroutine(APILogOut());

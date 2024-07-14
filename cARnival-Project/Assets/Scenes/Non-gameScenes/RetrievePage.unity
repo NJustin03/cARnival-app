@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028373, g: 0.22571398, b: 0.30692294, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -366,7 +366,7 @@ PrefabInstance:
     - target: {fileID: 3370148552229051353, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
       propertyPath: m_text
-      value: 'Do you want to log out from ELLE? '
+      value: Please ask your professor or the super admin to help you.
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
@@ -1582,7 +1582,7 @@ PrefabInstance:
     - target: {fileID: 7911452914725533870, guid: 537cc452af6394ba2affadae1f7802db,
         type: 3}
       propertyPath: m_text
-      value: OK
+      value: Close
       objectReference: {fileID: 0}
     - target: {fileID: 7911452914725533870, guid: 537cc452af6394ba2affadae1f7802db,
         type: 3}
@@ -1956,6 +1956,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: HelpButton
       objectReference: {fileID: 0}
+    - target: {fileID: 1506482696289094553, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: ButtonImage
+      value: 
+      objectReference: {fileID: 21300000, guid: cba2ca74b51ef224fb46a4ee60ca3a3f,
+        type: 3}
     - target: {fileID: 2936477552355934114, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -1980,7 +1986,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: cba2ca74b51ef224fb46a4ee60ca3a3f,
+        type: 3}
     - target: {fileID: 3458775240581756532, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_Color.a
@@ -2550,6 +2557,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackButton
       objectReference: {fileID: 0}
+    - target: {fileID: 1506482696289094553, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: ButtonImage
+      value: 
+      objectReference: {fileID: 21300000, guid: cba2ca74b51ef224fb46a4ee60ca3a3f,
+        type: 3}
     - target: {fileID: 2936477552355934114, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -2570,6 +2583,12 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 46.442627
       objectReference: {fileID: 0}
+    - target: {fileID: 3458775240581756532, guid: 917afa8871c7245f6bf4161f86998371,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cba2ca74b51ef224fb46a4ee60ca3a3f,
+        type: 3}
     - target: {fileID: 3458775240581756532, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_Color.a
@@ -2876,7 +2895,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1542464741
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3467,7 +3486,7 @@ PrefabInstance:
     - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
       propertyPath: m_text
-      value: CANCEL
+      value: Close
       objectReference: {fileID: 0}
     - target: {fileID: 7911452914725533870, guid: 917afa8871c7245f6bf4161f86998371,
         type: 3}
@@ -3540,7 +3559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1796877890
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3614,7 +3633,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BackGroundColor: {r: 0.8745098, g: 0.9764706, b: 0.98039216, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
