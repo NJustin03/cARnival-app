@@ -49,7 +49,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 6a79843a11040408a9f5cb5ba4814e2a, type: 3}
   cost: 30
   game: duck
-  itemID: 121
+  itemID: 142
   materials:
   - {fileID: 2100000, guid: ea1843db603b5e543aa4ebe2deeaaae7, type: 2}
 --- !u!1001 &2754717404802333583

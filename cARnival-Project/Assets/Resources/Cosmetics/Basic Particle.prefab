@@ -49,7 +49,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: c8bb61e85a175b14fbaa65404a3d6fb1, type: 3}
   cost: 0
   game: archery
-  itemID: 112
+  itemID: 143
   particles: {fileID: 5145343318073875080}
 --- !u!1001 &3421673795915402550
 PrefabInstance:
