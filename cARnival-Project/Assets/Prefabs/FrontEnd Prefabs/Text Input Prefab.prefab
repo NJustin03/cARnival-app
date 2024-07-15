@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eac67a588c6692742af9a01e05087e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundImage: {fileID: 21300000, guid: 2ef4e4a94fe29466f9e6168b3be27a04, type: 3}
+  BackgroundImage: {fileID: 21300000, guid: b9f3a6eb397397745994ebf599f061ed, type: 3}
   Input: {fileID: 4717541225812176819}
   InputText: 
 --- !u!1 &6207302492665821728
@@ -326,9 +326,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 93575e40451c741a9854536bce80cdfe, type: 2}
-  m_sharedMaterial: {fileID: 6276947752496670763, guid: 93575e40451c741a9854536bce80cdfe,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -461,7 +460,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2ef4e4a94fe29466f9e6168b3be27a04, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b9f3a6eb397397745994ebf599f061ed, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
