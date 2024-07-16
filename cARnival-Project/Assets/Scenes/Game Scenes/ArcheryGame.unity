@@ -348,6 +348,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 88090327}
+  - component: {fileID: 88090328}
   m_Layer: 0
   m_Name: Target Holder
   m_TagString: Untagged
@@ -374,6 +375,19 @@ Transform:
   - {fileID: 1809655417}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &88090328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88090326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb898793194e03f4bb10dba03ec2cb70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DestroyOnRemoval: 1
 --- !u!1 &230193234
 GameObject:
   m_ObjectHideFlags: 0
@@ -4907,3 +4921,4 @@ SceneRoots:
   - {fileID: 1535456963}
   - {fileID: 1015835758}
   - {fileID: 246465048}
+  - {fileID: 1162094434}
