@@ -128,6 +128,7 @@ public class AdaptiveLearning
 
     public static void CalculateDecayBinary(Answer answer, bool isCorrect)
     {
+
         var alpha = answer.GetIntercept();
 
         if (!isCorrect)
@@ -169,7 +170,7 @@ public class AdaptiveLearning
 
             if (timeDiff == 0)
             {
-                timeDiff = 0.001f;
+                timeDiff = 2f;
             } 
             
             totalTime += Mathf.Pow(timeDiff, -answer.GetDecay());

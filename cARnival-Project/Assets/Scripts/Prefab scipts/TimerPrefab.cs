@@ -14,6 +14,7 @@ public class TimerPrefab : MonoBehaviour
     void Start()
     {
         timerOn = true;
+        timeLeft = 60;
     }
 
     // Update is called once per frame

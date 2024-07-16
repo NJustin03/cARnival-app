@@ -207,7 +207,7 @@ public class LanguageHoopsManager : MonoBehaviour
     private Vector3 CalculateAimAssist(Vector3 forceDirection, float forceMagnitude)
     {
         const int numPoints = 3; // Number of trajectory points to simulate
-        const float timeStep = 0.05f; // Time between each trajectory point
+        const float timeStep = 0.03f; // Time between each trajectory point
 
         Vector3 currentPosition = Ball.transform.position;
         Vector3 velocity = forceDirection * forceMagnitude / (Ball.GetComponent<Rigidbody>().mass + 0.2f);
@@ -248,9 +248,9 @@ public class LanguageHoopsManager : MonoBehaviour
     {
         List<Transform> hoops = new List<Transform>
         {
-            HoopA.transform.Find("Hoop_02"),
-            HoopB.transform.Find("Hoop_02"),
-            HoopC.transform.Find("Hoop_02")
+            HoopA.transform.Find("Hoop_02/Hoop_B/Hoop_C"),
+            HoopB.transform.Find("Hoop_02/Hoop_B/Hoop_C"),
+            HoopC.transform.Find("Hoop_02/Hoop_B/Hoop_C")
         };
 
         Debug.Log($"Hoop A:{hoops[0].position}, Hoop B:{hoops[1].position}, Hoop C:{hoops[2].position}, predicted {predictedLandingPosition}");
@@ -286,7 +286,7 @@ public class LanguageHoopsManager : MonoBehaviour
         Debug.Log("TermList.Count = " + TermsList.Count);
         for (int i = 0; i <= 2; i++)
         {
-            randomIndex = UnityEngine.Random.Range(0, TermsList.Count);
+            randomIndex = UnityEngine.Random.Range(0, TermsList.Count - 1);
             tempWords.Add(TermsList[randomIndex]);
             TermsList.RemoveAt(randomIndex);
         }
