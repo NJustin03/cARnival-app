@@ -85,7 +85,7 @@ public class FishingGameManager : MonoBehaviour
 
                 Ray ray = arCamera.ScreenPointToRay(touch.position);
                 RaycastHit hitObject;
-
+                Debug.Log("Raycasting from screen position: " + touch.position);
                 if (Physics.Raycast(ray, out hitObject))
                 {
                     if (hitObject.collider != null && hitObject.collider.gameObject.CompareTag("duck"))
