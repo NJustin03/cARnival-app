@@ -26,6 +26,7 @@ public class ItemShopBox : MonoBehaviour
     public Button itemShopButton;
 
     public TextPrefabScript itemName;
+    [SerializeField] private GameObject selectionArrow;
 
     void Awake()
     {
@@ -45,12 +46,16 @@ public class ItemShopBox : MonoBehaviour
             if (CosmeticManager.CheckIfEquipped(itemID))
             {
                 statusText.Text = "Equipped";
+                statusText.GetComponentInChildren<TMP_Text>().color = new Color32(81, 80, 81, 255);
+                selectionArrow.SetActive(true);
                 isEquipped = true;
             }
             else
             {
                 statusText.Text = "Owned";
                 isEquipped = false;
+                statusText.GetComponentInChildren<TMP_Text>().color = new Color32(254, 171, 0, 255);
+                selectionArrow.SetActive(false);
             }
             statusBox.SetActive(true);
             SetButtonToEquip();
@@ -70,6 +75,8 @@ public class ItemShopBox : MonoBehaviour
         isOwned = true;
         costBox.SetActive(false);
         statusBox.SetActive(true);
+        statusText.GetComponentInChildren<TMP_Text>().color = new Color32(81, 80, 81, 255);
+        selectionArrow.SetActive(false);
         SetButtonToEquip();
     }
 
@@ -77,6 +84,8 @@ public class ItemShopBox : MonoBehaviour
     {
         isEquipped = false;
         statusText.Text = "Owned";
+        statusText.GetComponentInChildren<TMP_Text>().color = new Color32(254, 171, 0, 255);
+        selectionArrow.SetActive(false);
     }
 
     public void SetToEquipped()
@@ -84,6 +93,8 @@ public class ItemShopBox : MonoBehaviour
         parentTab.SetBoxesToOwned(this);
         isEquipped = true;
         statusText.Text = "Equipped";
+        statusText.GetComponentInChildren<TMP_Text>().color = new Color32(81, 80, 81, 255);
+        selectionArrow.SetActive(true);
         cosmeticManager.EquipCosmetic(item);
     }
 
