@@ -237,6 +237,10 @@ public class StandardizedProjectile : MonoBehaviour
                 collisionHappened = true;
             }            
         }
+        if (other.GetComponent<Target>() != null) 
+        {
+            other.GetComponent<Target>().OnImpact();
+        }
     }
 
     // Particles are pooled too - The starting projectile pool size in Standardize Bows is important. Make it high enough that, 

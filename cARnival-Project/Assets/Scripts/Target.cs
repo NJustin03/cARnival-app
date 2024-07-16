@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    public Transform centerPoint;
-    public float rotateSpeedMin;
-    public float rotateSpeedMax;
-    private float rotateSpeed;
-    private Vector3 point;
+
     private bool isAnswerCorrect;
 
     public TextPrefabScript text;
@@ -21,8 +17,6 @@ public class Target : MonoBehaviour
     void Awake()
     {
         archeryManager = FindAnyObjectByType<ArcheryManager>();
-        point = centerPoint.position;
-        transform.LookAt(point);
         particleEffect = CosmeticManager.archeryParticle.particles;
     }
 
@@ -33,6 +27,15 @@ public class Target : MonoBehaviour
         isAnswerCorrect = correctAnswer;
     }
 
+    public void OnImpact()
+    {
+        if (isAnswerCorrect)
+        {
+            ParticleSystem temp = Instantiate(particleEffect, transform.position, Quaternion.identity);
+            temp.Play();
+        }
+        archeryManager.ChooseAnswer(isAnswerCorrect, currentAnswer);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {

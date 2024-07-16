@@ -33,9 +33,9 @@ public class LoginButton : MonoBehaviour
         }
         else
         {
+            Instantiate(cosmeticManager);
             Debug.Log("Successfully logged in");
             sceneSwapper.SwapScene(nextScene);
         }
-        Instantiate(cosmeticManager);
     }
 }

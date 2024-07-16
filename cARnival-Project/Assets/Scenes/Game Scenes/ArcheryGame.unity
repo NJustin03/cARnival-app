@@ -727,6 +727,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2642016786834309506, guid: 0a88424819892344da1dc7ac30de6a9c,
         type: 3}
+      propertyPath: isPosOffsetLocal
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642016786834309506, guid: 0a88424819892344da1dc7ac30de6a9c,
+        type: 3}
       propertyPath: stringMoveAmount
       value: 0.2
       objectReference: {fileID: 0}
@@ -743,12 +748,12 @@ PrefabInstance:
     - target: {fileID: 2642016786834309506, guid: 0a88424819892344da1dc7ac30de6a9c,
         type: 3}
       propertyPath: stringMovementChoice
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2642016786834309506, guid: 0a88424819892344da1dc7ac30de6a9c,
         type: 3}
       propertyPath: projectileHoldPosOffset.x
-      value: 0.001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2642016786834309506, guid: 0a88424819892344da1dc7ac30de6a9c,
         type: 3}
