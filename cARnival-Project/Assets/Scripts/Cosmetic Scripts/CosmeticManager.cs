@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class CosmeticManager : MonoBehaviour
 {
-    public const int defaultDuckID = 110;
-    public const int defaultBasketballID = 115;
-    public const int defaultArcheryID = 112;
+    public const int defaultDuckID = 139;
+    public const int defaultBasketballID = 147;
+    public const int defaultArcheryID = 143;
 
     public static CosmeticMaterial duckMaterial;
     public static CosmeticMaterial basketballMaterial;
@@ -130,8 +130,6 @@ public class CosmeticManager : MonoBehaviour
         {
             int index = cosmetics.FindIndex(cos => cos.itemID == item.itemID);
             userCosmeticInfo.Add(item.itemID, item.userItemID);
-            Debug.Log(item.itemID);
-            Debug.Log(item.userItemID);
             if (item.isWearing == 1)
             {
                 EquipCosmetic(cosmetics[index]);

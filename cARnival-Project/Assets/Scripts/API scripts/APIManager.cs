@@ -23,10 +23,10 @@ public class APIManager : MonoBehaviour
         public T[] array;
     }
 
-    //private const string endpointURL = "https://chdr.cs.ucf.edu/elleapi/";
-    private const string endpointURL = "https://www.elledevserver.xyz/elleapi/";
-    private const string filePrefixURL = "https://www.elledevserver.xyz/elle";
-    // private const string filePrefixURL = "https://chdr.cs.ucf.edu/elle";
+    private const string endpointURL = "https://chdr.cs.ucf.edu/elleapi/";
+    // private const string endpointURL = "https://www.elledevserver.xyz/elleapi/";
+    // private const string filePrefixURL = "https://www.elledevserver.xyz/elle";
+    private const string filePrefixURL = "https://chdr.cs.ucf.edu/elle";
 
     public static TokenJson token;
 

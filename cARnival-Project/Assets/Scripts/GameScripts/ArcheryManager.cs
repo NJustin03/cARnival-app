@@ -56,11 +56,27 @@ public class ArcheryManager : MonoBehaviour
 
     void ResetTargets(List<Answer> tempWords)
     {
+        List<Answer> temp = new List<Answer>();
+        temp.AddRange(tempWords);
+
+        List<Answer> shuffled = new List<Answer>();
+
         for (int i = 0; i < tempWords.Count; i++)
         {
-            targets[i].ResetTarget(tempWords[i], false);
+            int index = Random.Range(0, temp.Count);
+            shuffled.Add(temp[index]);
+            temp.RemoveAt(index);
         }
-        targets[3].ResetTarget(newWord, true);
+
+        for (int i = 0; i < shuffled.Count;i++)
+        {
+            bool isCurrentTermCorrect = false;
+            if (shuffled[i].GetTermID() == newWord.GetTermID())
+            {
+                isCurrentTermCorrect = true;
+            }
+            targets[i].ResetTarget(shuffled[i], isCurrentTermCorrect);
+        }
     }
 
     private void PlayNewWord()
@@ -81,10 +97,9 @@ public class ArcheryManager : MonoBehaviour
             tempWords.Add(TermsList[randomIndex]);
             TermsList.RemoveAt(randomIndex);
         }
-
+        tempWords.Add(newWord);
         //configure all the targets
         ResetTargets(tempWords);
-
 
         //TODO: configure question board
         questionText.Text = newWord.GetFront();
@@ -94,6 +109,7 @@ public class ArcheryManager : MonoBehaviour
         TermsList.Add(tempWords[0]);
         TermsList.Add(tempWords[1]);
         TermsList.Add(tempWords[2]);
+
     }
 
     public void ChooseAnswer(bool isAnswerCorrect, Answer answer)
