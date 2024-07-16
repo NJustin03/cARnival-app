@@ -26,27 +26,13 @@ public class Target : MonoBehaviour
         particleEffect = CosmeticManager.archeryParticle.particles;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        transform.RotateAround(point, new Vector3(0.0f, 1.0f, 0.0f), 20 * Time.deltaTime * rotateSpeed);
-        transform.LookAt(point);
-    }
-
     public void ResetTarget(Answer answer, bool correctAnswer)
     {
-        rotateSpeed = Random.Range(rotateSpeedMin, rotateSpeedMax);
-        gameObject.transform.SetPositionAndRotation(RandomPoint(), Quaternion.identity);
         currentAnswer = answer;
         text.Text = answer.GetBack();
         isAnswerCorrect = correctAnswer;
     }
 
-    private Vector3 RandomPoint()
-    {
-        Vector2 randomPointInUnitCircle2D = Random.insideUnitCircle;
-        return new Vector3((randomPointInUnitCircle2D.x * 1.5f) + 3, Random.value, (randomPointInUnitCircle2D.y * 1.5f) + 1);
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -54,8 +40,8 @@ public class Target : MonoBehaviour
         {
             ParticleSystem temp = Instantiate(particleEffect, transform.position, Quaternion.identity);
             temp.Play();
-            Debug.Log("I am here");
         }
+        Debug.Log("Here");
         archeryManager.ChooseAnswer(isAnswerCorrect, currentAnswer);
     }
 }

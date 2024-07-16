@@ -130,8 +130,6 @@ public class CosmeticManager : MonoBehaviour
         {
             int index = cosmetics.FindIndex(cos => cos.itemID == item.itemID);
             userCosmeticInfo.Add(item.itemID, item.userItemID);
-            Debug.Log(item.itemID);
-            Debug.Log(item.userItemID);
             if (item.isWearing == 1)
             {
                 EquipCosmetic(cosmetics[index]);
