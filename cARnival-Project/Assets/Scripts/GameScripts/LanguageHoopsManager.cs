@@ -53,6 +53,7 @@ public class LanguageHoopsManager : MonoBehaviour
     private float swipeStartTime;
     private float lastTouchTime;
     private float maxForceMagnitude = 6f;
+    private System.Random rng;
 
     private void Awake()
     {
@@ -66,6 +67,7 @@ public class LanguageHoopsManager : MonoBehaviour
         Rigidbody ballRigidbody = Ball.GetComponent<Rigidbody>();
         ballRigidbody.isKinematic = true;
         basketballColors = new List<Material>(CosmeticManager.basketballMaterial.materials);
+        rng = new System.Random();
     }
 
     // Start is called before the first frame update
@@ -317,12 +319,14 @@ public class LanguageHoopsManager : MonoBehaviour
 
     void ShuffleList<T>(List<T> list)
     {
-        for (int i = 0; i < list.Count; i++)
+        int n = list.Count;
+        while (n > 1)
         {
-            int randomIndex = UnityEngine.Random.Range(0, list.Count);
-            T temp = list[i];
-            list[i] = list[randomIndex];
-            list[randomIndex] = temp;
+            n--;
+            int k = rng.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
         }
     }
 
