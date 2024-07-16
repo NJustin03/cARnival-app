@@ -53,7 +53,6 @@ public class LanguageHoopsManager : MonoBehaviour
     private float swipeStartTime;
     private float lastTouchTime;
     private float maxForceMagnitude = 6f;
-    private System.Random rng;
 
     private void Awake()
     {
@@ -67,7 +66,6 @@ public class LanguageHoopsManager : MonoBehaviour
         Rigidbody ballRigidbody = Ball.GetComponent<Rigidbody>();
         ballRigidbody.isKinematic = true;
         basketballColors = new List<Material>(CosmeticManager.basketballMaterial.materials);
-        rng = new System.Random();
     }
 
     // Start is called before the first frame update
@@ -289,7 +287,7 @@ public class LanguageHoopsManager : MonoBehaviour
 
         List<Answer> tempWords = new List<Answer>();
         Debug.Log("TermList.Count = " + TermsList.Count);
-        for (int i = 0; i <= 2; i++)
+        for (int i = 0; i < 2; i++)
         {
             randomIndex = UnityEngine.Random.Range(0, TermsList.Count);
             tempWords.Add(TermsList[randomIndex]);
@@ -304,7 +302,7 @@ public class LanguageHoopsManager : MonoBehaviour
         };
 
         // Shuffle hoops to assign words randomly
-        ShuffleList(hoops);
+        ShuffleList(tempWords);
 
         // Assign words to hoops
         // Add back terms to TermList
@@ -313,20 +311,17 @@ public class LanguageHoopsManager : MonoBehaviour
             hoops[i].ConfigureHoop(tempWords[i].GetBack());
             TermsList.Add(tempWords[i]);
         }
-        TermsList.Add(newWord);
         QuestionBoard.ConfigureWithWord(newWord);
     }
 
     void ShuffleList<T>(List<T> list)
     {
-        int n = list.Count;
-        while (n > 1)
+        for (int i = 0; i < list.Count - 1; i++)
         {
-            n--;
-            int k = rng.Next(n + 1);
-            T value = list[k];
-            list[k] = list[n];
-            list[n] = value;
+            T temp = list[i];
+            int rand = Random.Range(i, list.Count);
+            list[i] = list[rand];
+            list[rand] = temp;
         }
     }
 
