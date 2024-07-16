@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Cosmic Pop
-  icon: {fileID: 21300000, guid: 4985f4e0bf459fd4cbb15ad592af3b31, type: 3}
+  icon: {fileID: 21300000, guid: 3a7038f279aab8b428a66ce8ea299cdb, type: 3}
   cost: 25
   game: archery
   itemID: 145

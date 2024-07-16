@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Purple
-  icon: {fileID: 21300000, guid: 6a79843a11040408a9f5cb5ba4814e2a, type: 3}
+  icon: {fileID: 21300000, guid: e6c8202d1f26dff47a843652605819a6, type: 3}
   cost: 30
   game: duck
   itemID: 142

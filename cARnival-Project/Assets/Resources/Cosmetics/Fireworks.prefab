@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Fireworks
-  icon: {fileID: 21300000, guid: d6843dcb2c9cc2e42b9cfc29b86f329e, type: 3}
+  icon: {fileID: 21300000, guid: d10d9408990605d46a1f36f80771ae87, type: 3}
   cost: 30
   game: archery
   itemID: 146

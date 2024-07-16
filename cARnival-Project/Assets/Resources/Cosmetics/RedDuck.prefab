@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Dark Red
-  icon: {fileID: 21300000, guid: 9f118a7e54bc94f58973854056977ef3, type: 3}
+  icon: {fileID: 21300000, guid: 034e015a27c327e47817463d4a3976ab, type: 3}
   cost: 15
   game: duck
   itemID: 140

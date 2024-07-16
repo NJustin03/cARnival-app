@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Basic Yellow
-  icon: {fileID: 21300000, guid: 774a701875a6e4939994a798bf30177c, type: 3}
+  icon: {fileID: 21300000, guid: 853bbc0fbab0048458a59bd5c28e89ff, type: 3}
   cost: 0
   game: duck
   itemID: 139

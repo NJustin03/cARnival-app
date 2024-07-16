@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf911da949447143a54b0f7ab7b2335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Default Particle
-  icon: {fileID: 21300000, guid: c8bb61e85a175b14fbaa65404a3d6fb1, type: 3}
+  itemName: Sparkle
+  icon: {fileID: 21300000, guid: 99f2c68adca31f44aa914b61198f7a9c, type: 3}
   cost: 0
   game: archery
   itemID: 143

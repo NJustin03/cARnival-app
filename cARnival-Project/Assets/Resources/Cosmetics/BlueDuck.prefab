@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Midnight Blue
-  icon: {fileID: 21300000, guid: f699af32de7834da6927153af21e4408, type: 3}
+  icon: {fileID: 21300000, guid: 80448ced342e96f459b9a239c122f6c2, type: 3}
   cost: 20
   game: duck
   itemID: 141
