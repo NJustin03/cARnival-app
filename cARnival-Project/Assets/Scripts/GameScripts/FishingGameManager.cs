@@ -29,8 +29,12 @@ public class FishingGameManager : MonoBehaviour
     [SerializeField]
     private GameObject correctCard;
 
+    [SerializeField]
+    private GameObject incorrectCard2;
+
     public GameObject settingsCard;
     public TextPrefabScript scoreText;
+    public TextPrefabScript correctAnswer;
 
     private int score = 0;
     private int numErrors = 0;
@@ -63,6 +67,7 @@ public class FishingGameManager : MonoBehaviour
         PlayNewWord();
         incorrectCard.SetActive(false);
         correctCard.SetActive(false);
+
         scoreText.Text = "Score: " + score;
     }
 
@@ -163,6 +168,8 @@ public class FishingGameManager : MonoBehaviour
             //TODO: Add logic for giving correct answer after second incorrect guess
             else if (numErrors > 0)
             {
+                canSelectDuck = false;
+                StartCoroutine(ShowIncorrectCard2());
                 AdaptiveLearning.CalculateDecayContinuous(currentAnswer, false, responseTime);
                 AdaptiveLearning.CalculateActivationValue(currentAnswer);
                 StartCoroutine(APIManager.LogAnswer(currentAnswer.GetTermID(), false));
@@ -179,6 +186,17 @@ public class FishingGameManager : MonoBehaviour
         incorrectCard.SetActive(true);
         yield return new WaitForSecondsRealtime(2f);
         incorrectCard.SetActive(false);
+        Time.timeScale = 1;
+        canSelectDuck = true;
+    }
+
+    private IEnumerator ShowIncorrectCard2()
+    {
+        Time.timeScale = 0;
+        incorrectCard2.SetActive(true);
+        correctAnswer.Text = "Incorrect\n" + "\nCorrect Answer: \n" + "\n" + newWord.GetBack();
+        yield return new WaitForSecondsRealtime(2f);
+        incorrectCard2.SetActive(false);
         Time.timeScale = 1;
         canSelectDuck = true;
     }
