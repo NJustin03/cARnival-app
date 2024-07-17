@@ -359,14 +359,21 @@ public class LanguageHoopsManager : MonoBehaviour
         // TODO: Show the Settings Prefab 
         // Ex: SetActive call on a settings prefab
 
-        // TODO: Pause the game
         Time.timeScale = 0;
         settingsCard.SetActive(true);
+        settingsCard.GetComponent<Animator>().SetTrigger("SlideIn");
     }
 
     public void UnPause()
     {
         Time.timeScale = 1;
+        StartCoroutine(UnpauseAnimation());
+    }
+
+    private IEnumerator UnpauseAnimation()
+    {
+        settingsCard.GetComponent<Animator>().SetTrigger("SlideOut");
+        yield return new WaitForSeconds(1.5f);
         settingsCard.SetActive(false);
     }
 

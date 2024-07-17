@@ -185,7 +185,7 @@ public class ArcheryManager : MonoBehaviour
     private IEnumerator UnpauseAnimation()
     {
         settingsCard.GetComponent<Animator>().SetTrigger("SlideOut");
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1.5f);
         settingsCard.SetActive(false);
     }
 }

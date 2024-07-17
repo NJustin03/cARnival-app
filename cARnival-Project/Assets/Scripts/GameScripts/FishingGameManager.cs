@@ -235,6 +235,7 @@ public class FishingGameManager : MonoBehaviour
         // TODO: Pause the game
         Time.timeScale = 0;
         settingsCard.SetActive(true);
+        settingsCard.GetComponent<Animator>().SetTrigger("SlideIn");
     }
 
     public void UnPause()
@@ -242,7 +243,14 @@ public class FishingGameManager : MonoBehaviour
         Time.timeScale = 1;
         incorrectCard.SetActive(false);
         correctCard.SetActive(false);
-        settingsCard.SetActive(false);
+        StartCoroutine(UnpauseAnimation());
         canSelectDuck = true;
+    }
+
+    private IEnumerator UnpauseAnimation()
+    {
+        settingsCard.GetComponent<Animator>().SetTrigger("SlideOut");
+        yield return new WaitForSeconds(1.5f);
+        settingsCard.SetActive(false);
     }
 }
