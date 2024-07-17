@@ -28,10 +28,16 @@ public class LanguageHoopsManager : MonoBehaviour
     private GameObject trajectoryPointPrefab;
     private List<GameObject> trajectoryPoints = new List<GameObject>();
 
+    [SerializeField]
+    private MusicManager musicManager = null;
+
+    [SerializeField]
+    private AudioSource BasketBallGameAudioSource = null;
+
 
     public static LanguageHoopsManager shared;
     public Answer newWord = null;
-    public FishingGameQuestionBoard QuestionBoard;
+    public BasketBallGameQuestionBoard QuestionBoard;
     public GameObject incorrectCard;
     public GameObject resultCard;
     public GameObject settingsCard;
@@ -77,6 +83,15 @@ public class LanguageHoopsManager : MonoBehaviour
 
     private void Update()
     {
+
+        if (BasketBallGameAudioSource.isPlaying)
+        {
+            musicManager.audioSource.volume = 0.1f;
+        }
+        else
+        {
+            musicManager.audioSource.volume = 1f;
+        }
 
         if (Ball.transform.position.y < -0.3f)
             ResetBall();
@@ -205,7 +220,7 @@ public class LanguageHoopsManager : MonoBehaviour
 
 
 
-
+    public void PlayAudioClip(AudioClip clip) => BasketBallGameAudioSource.PlayOneShot(clip);
 
     private Vector3 CalculateAimAssist(Vector3 forceDirection, float forceMagnitude)
     {

@@ -13,7 +13,6 @@ public class FishingGameManager : MonoBehaviour
     public Material DuckColor;
     //DuckA to be used as correct term
     public DuckPrefab DuckA, DuckB, DuckC, DuckD, duckSelected;
-    public FishingGameQuestionBoard QuestionBoard;
     public Answer newWord = null;
 
 
@@ -45,6 +44,9 @@ public class FishingGameManager : MonoBehaviour
     private ModuleManager module;
 
     [SerializeField]
+    private MusicManager musicManager = null;
+
+    [SerializeField]
     private List<Answer> TermsList;
 
     private void Awake()
@@ -73,6 +75,15 @@ public class FishingGameManager : MonoBehaviour
 
     private void Update()
     {
+        if (FishingGameAudioSource.isPlaying)
+        {
+            musicManager.audioSource.volume = 0.1f;
+        }
+        else
+        {
+            musicManager.audioSource.volume = 1f;
+        }
+
         if (!canSelectDuck) return;
         // TODO: Perform raycast to see if we are clicking on a duck and determine if we need to select this word?
         if (Input.touchCount > 0)
@@ -129,7 +140,7 @@ public class FishingGameManager : MonoBehaviour
         DuckC.ConfigureDuck(tempWords[1].GetBack());
         DuckD.ConfigureDuck(tempWords[2].GetBack());
         //TODO: configure question board
-        QuestionBoard.ConfigureWithWord(newWord);
+        fishingGameQuestionBoard.ConfigureWithWord(newWord);
         //Add terms back into main term list
         TermsList.Add(newWord);
         TermsList.Add(tempWords[0]);
