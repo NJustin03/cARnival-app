@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ArcheryManager : MonoBehaviour
@@ -8,10 +9,9 @@ public class ArcheryManager : MonoBehaviour
 
     public static ArcheryManager shared;
 
-    private int score = 0;
+    private static int score = 0;
     private string currentWord = null;
     public Answer newWord = null;
-
 
     [SerializeField]
     private ModuleManager module;
@@ -23,6 +23,11 @@ public class ArcheryManager : MonoBehaviour
     public TextPrefabScript scoreText;
     public TimerPrefab timerText;
     public GameObject resultCard;
+    public GameObject settingsCard;
+    public StandardizedBow bow;
+
+    public AnimationClip slideIn;
+    public AnimationClip slideOut;
 
 
     private void Awake()
@@ -31,10 +36,10 @@ public class ArcheryManager : MonoBehaviour
         // Front is the word in the foreign language (prompt),
         // Back is the word in the native language(answer)
         module = FindAnyObjectByType<ModuleManager>();
+        StartCoroutine(APIManager.StartSession(module.currentModuleID));
         TermsList = module.terms;
         Debug.Log(TermsList.Count);
         shared = this;
-
     }
 
     private void Start()
@@ -54,11 +59,27 @@ public class ArcheryManager : MonoBehaviour
 
     void ResetTargets(List<Answer> tempWords)
     {
+        List<Answer> temp = new List<Answer>();
+        temp.AddRange(tempWords);
+
+        List<Answer> shuffled = new List<Answer>();
+
         for (int i = 0; i < tempWords.Count; i++)
         {
-            targets[i].ResetTarget(tempWords[i].GetBack(), false);
+            int index = Random.Range(0, temp.Count);
+            shuffled.Add(temp[index]);
+            temp.RemoveAt(index);
         }
-        targets[3].ResetTarget(newWord.GetBack(), true);
+
+        for (int i = 0; i < shuffled.Count;i++)
+        {
+            bool isCurrentTermCorrect = false;
+            if (shuffled[i].GetTermID() == newWord.GetTermID())
+            {
+                isCurrentTermCorrect = true;
+            }
+            targets[i].ResetTarget(shuffled[i], isCurrentTermCorrect);
+        }
     }
 
     private void PlayNewWord()
@@ -79,10 +100,9 @@ public class ArcheryManager : MonoBehaviour
             tempWords.Add(TermsList[randomIndex]);
             TermsList.RemoveAt(randomIndex);
         }
-
+        tempWords.Add(newWord);
         //configure all the targets
         ResetTargets(tempWords);
-
 
         //TODO: configure question board
         questionText.Text = newWord.GetFront();
@@ -92,18 +112,26 @@ public class ArcheryManager : MonoBehaviour
         TermsList.Add(tempWords[0]);
         TermsList.Add(tempWords[1]);
         TermsList.Add(tempWords[2]);
+
     }
 
-    public void ChooseAnswer(bool isAnswerCorrect)
+    public void ChooseAnswer(bool isAnswerCorrect, Answer answer)
     {
         if (isAnswerCorrect)
         {
             score++;
+            StoreManager.AddCoins(1);
+            StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), true));
             scoreText.Text = "Score: " + score;
+            AdaptiveLearning.CalculateDecayContinuous(answer, true, 0);
+            AdaptiveLearning.CalculateActivationValue(answer);
             PlayNewWord();
         }
         else
         {
+            StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), false));
+            AdaptiveLearning.CalculateDecayContinuous(answer, false, 0);
+            AdaptiveLearning.CalculateActivationValue(answer);
             PlayNewWord();
         }
 
@@ -114,5 +142,50 @@ public class ArcheryManager : MonoBehaviour
         Time.timeScale = 1;
         resultCard.SetActive(false);
         SceneSwapper.SwapSceneStatic("ArcheryGame");
+    }
+
+    public void QuitGame()
+    {
+        StartCoroutine(SendALToDatabase());
+    }
+
+    private IEnumerator SendALToDatabase()
+    {
+        Time.timeScale = 1;
+        foreach (Answer answer in TermsList)
+        {
+            string times = string.Join(",", answer.GetPresentationTimes());
+            yield return StartCoroutine(APIManager.UpdateAdaptiveLearningValue(answer.GetTermID(), answer.GetActivation(), answer.GetDecay(), answer.GetIntercept(), answer.GetInitialTime(), times));
+        }
+        StartCoroutine(APIManager.EndSession(score));
+        SceneSwapper.SwapSceneStatic("GamesPage");
+    }
+
+
+    public void ShowSettings()
+    {
+        // TODO: Show the Settings Prefab 
+        // Ex: SetActive call on a settings prefab
+
+        // TODO: Pause the game
+        bow.isPaused = true;
+        Time.timeScale = 0;
+        settingsCard.SetActive(true);
+        settingsCard.GetComponent<Animator>().SetTrigger("SlideIn");
+
+    }
+
+    public void UnPause()
+    {
+        bow.isPaused = false;
+        Time.timeScale = 1;
+        StartCoroutine(UnpauseAnimation());
+    }
+
+    private IEnumerator UnpauseAnimation()
+    {
+        settingsCard.GetComponent<Animator>().SetTrigger("SlideOut");
+        yield return new WaitForSeconds(1.5f);
+        settingsCard.SetActive(false);
     }
 }

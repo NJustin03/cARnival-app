@@ -6,16 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Non-gameScenes/StartPage.unity
+    path: Assets/Scenes/Game Scenes/Non-gameScenes/StartPage.unity
     guid: 62bc1df30905d4d1482f748e8865a2e6
   - enabled: 1
-    path: Assets/Scenes/Non-gameScenes/LoginPage.unity
+    path: Assets/Scenes/Game Scenes/Non-gameScenes/LoginPage.unity
     guid: b9f377129cc9442c99ceb58923466719
   - enabled: 1
-    path: Assets/Scenes/Non-gameScenes/GamesPage.unity
+    path: Assets/Scenes/Game Scenes/Non-gameScenes/GamesPage.unity
     guid: 7b43eff2a70504e3cb87dcac9e9a2d91
   - enabled: 1
-    path: Assets/Scenes/Non-gameScenes/ModulesSelectionPage.unity
+    path: Assets/Scenes/Game Scenes/Non-gameScenes/ModulesSelectionPage.unity
     guid: f13eb1ae4d10b4d4987c2f4cd765a10e
   - enabled: 1
     path: Assets/Scenes/Game Scenes/FishingGame.unity
@@ -24,13 +24,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Game Scenes/BasketballGame.unity
     guid: 8058105fc2bc443759fb353448aee19f
   - enabled: 1
-    path: Assets/Scenes/Non-gameScenes/StatsPage.unity
+    path: Assets/Scenes/Game Scenes/Non-gameScenes/StatsPage.unity
     guid: 9e3b09e9edf6b4c10957424322c56e29
   - enabled: 1
-    path: Assets/Scenes/Non-gameScenes/ProfilePage.unity
+    path: Assets/Scenes/Game Scenes/Non-gameScenes/ProfilePage.unity
     guid: 146731ad3df304e14bc56564c75db9a0
   - enabled: 1
-    path: Assets/Scenes/Non-gameScenes/StorePage.unity
+    path: Assets/Scenes/Game Scenes/Non-gameScenes/StorePage.unity
     guid: 2c59fe7f9465d47dd93fcc90e1b758dc
   - enabled: 1
     path: Assets/Scenes/Game Scenes/TennisGame.unity
@@ -39,8 +39,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Game Scenes/ArcheryGame.unity
     guid: ad0e7aa89d1b44875a3a881f76cd2197
   - enabled: 1
-    path: Assets/Scenes/Non-gameScenes/RetrievePage.unity
+    path: Assets/Scenes/Game Scenes/Non-gameScenes/RetrievePage.unity
     guid: b647d9f201e944d18b2998ce7d84c8de
+  - enabled: 1
+    path: Assets/Scenes/Game Scenes/Non-gameScenes/SignUpPage.unity
+    guid: 907535771483849f7971a9c4c886bd21
+  - enabled: 1
+    path: Assets/Scenes/Game Scenes/Non-gameScenes/StorePageNew.unity
+    guid: bd0b40c161ed6eb47b7851431c79eb93
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af,
       type: 2}

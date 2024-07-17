@@ -28,14 +28,22 @@ public class LanguageHoopsManager : MonoBehaviour
     private GameObject trajectoryPointPrefab;
     private List<GameObject> trajectoryPoints = new List<GameObject>();
 
+    [SerializeField]
+    private MusicManager musicManager = null;
+
+    [SerializeField]
+    private AudioSource BasketBallGameAudioSource = null;
+
 
     public static LanguageHoopsManager shared;
     public Answer newWord = null;
-    public FishingGameQuestionBoard QuestionBoard;
+    public BasketBallGameQuestionBoard QuestionBoard;
     public GameObject incorrectCard;
     public GameObject resultCard;
+    public GameObject settingsCard;
     public TextPrefabScript scoreText;
     public TimerPrefab timer;
+    public List<Material> basketballColors;
 
     private int score = 0;
     private int numErrors = 0;
@@ -60,9 +68,10 @@ public class LanguageHoopsManager : MonoBehaviour
         Debug.Log(TermsList.Count);
         shared = this;
         StoredMovement = new List<Vector2>(Enumerable.Repeat(Vector2.zero, MaxStoredMovement));
-
+        StartCoroutine(APIManager.StartSession(module.currentModuleID));
         Rigidbody ballRigidbody = Ball.GetComponent<Rigidbody>();
         ballRigidbody.isKinematic = true;
+        basketballColors = new List<Material>(CosmeticManager.basketballMaterial.materials);
     }
 
     // Start is called before the first frame update
@@ -74,6 +83,15 @@ public class LanguageHoopsManager : MonoBehaviour
 
     private void Update()
     {
+
+        if (BasketBallGameAudioSource.isPlaying)
+        {
+            musicManager.audioSource.volume = 0.1f;
+        }
+        else
+        {
+            musicManager.audioSource.volume = 1f;
+        }
 
         if (Ball.transform.position.y < -0.3f)
             ResetBall();
@@ -88,7 +106,7 @@ public class LanguageHoopsManager : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             lastTouchTime = Time.time;
 
-            Debug.Log(Time.time - lastTouchTime);
+            // Debug.Log(Time.time - lastTouchTime);
 
             if (!isTouchActive && (Time.time - lastTouchTime) < 0.1f)
             {
@@ -157,7 +175,7 @@ public class LanguageHoopsManager : MonoBehaviour
                 // if Y force is less than 2.5 then reset the ball 
                 // clamp x force to be between -2 and 2
 
-                Debug.Log($"BasketBallGame -- ForceApplied: {impulseForce}");
+                // Debug.Log($"BasketBallGame -- ForceApplied: {impulseForce}");
 
                 ballRigidbody.AddForce(impulseForce, ForceMode.Impulse);
 
@@ -202,7 +220,7 @@ public class LanguageHoopsManager : MonoBehaviour
 
 
 
-
+    public void PlayAudioClip(AudioClip clip) => BasketBallGameAudioSource.PlayOneShot(clip);
 
     private Vector3 CalculateAimAssist(Vector3 forceDirection, float forceMagnitude)
     {
@@ -284,7 +302,7 @@ public class LanguageHoopsManager : MonoBehaviour
 
         List<Answer> tempWords = new List<Answer>();
         Debug.Log("TermList.Count = " + TermsList.Count);
-        for (int i = 0; i <= 2; i++)
+        for (int i = 0; i < 2; i++)
         {
             randomIndex = UnityEngine.Random.Range(0, TermsList.Count - 1);
             tempWords.Add(TermsList[randomIndex]);
@@ -299,7 +317,7 @@ public class LanguageHoopsManager : MonoBehaviour
         };
 
         // Shuffle hoops to assign words randomly
-        ShuffleList(hoops);
+        ShuffleList(tempWords);
 
         // Assign words to hoops
         // Add back terms to TermList
@@ -308,18 +326,17 @@ public class LanguageHoopsManager : MonoBehaviour
             hoops[i].ConfigureHoop(tempWords[i].GetBack());
             TermsList.Add(tempWords[i]);
         }
-        TermsList.Add(newWord);
         QuestionBoard.ConfigureWithWord(newWord);
     }
 
     void ShuffleList<T>(List<T> list)
     {
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < list.Count - 1; i++)
         {
-            int randomIndex = UnityEngine.Random.Range(0, list.Count);
             T temp = list[i];
-            list[i] = list[randomIndex];
-            list[randomIndex] = temp;
+            int rand = Random.Range(i, list.Count);
+            list[i] = list[rand];
+            list[rand] = temp;
         }
     }
 
@@ -337,7 +354,42 @@ public class LanguageHoopsManager : MonoBehaviour
     {
         // TODO: Add the summary functionality if needed
         // TODO: Make sure the loading of the scene is the correct scene GameScene?
+        StartCoroutine(SendALToDatabase());
+    }
+
+    private IEnumerator SendALToDatabase()
+    {
+        Time.timeScale = 1;
+        foreach (Answer answer in TermsList)
+        {
+            string times = string.Join(",", answer.GetPresentationTimes());
+            yield return StartCoroutine(APIManager.UpdateAdaptiveLearningValue(answer.GetTermID(), answer.GetActivation(), answer.GetDecay(), answer.GetIntercept(), answer.GetInitialTime(), times));
+        }
+        StartCoroutine(APIManager.EndSession(score));
         SceneSwapper.SwapSceneStatic("GamesPage");
+    }
+
+    public void ShowSettings()
+    {
+        // TODO: Show the Settings Prefab 
+        // Ex: SetActive call on a settings prefab
+
+        Time.timeScale = 0;
+        settingsCard.SetActive(true);
+        settingsCard.GetComponent<Animator>().SetTrigger("SlideIn");
+    }
+
+    public void UnPause()
+    {
+        Time.timeScale = 1;
+        StartCoroutine(UnpauseAnimation());
+    }
+
+    private IEnumerator UnpauseAnimation()
+    {
+        settingsCard.GetComponent<Animator>().SetTrigger("SlideOut");
+        yield return new WaitForSeconds(1.5f);
+        settingsCard.SetActive(false);
     }
 
     public void SelectWord(BasketBallHoopPrefab enteredHoop, out bool isCorrect)
@@ -350,6 +402,8 @@ public class LanguageHoopsManager : MonoBehaviour
         if (enteredHoop.Text.Text == newWord.GetBack())
         {
             score++;
+            StoreManager.AddCoins(1);
+            StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), true));
             scoreText.Text = "Score: " + score;
             isCorrect = true;
             AdaptiveLearning.CalculateDecayContinuous(newWord, true, responseTime);
@@ -372,6 +426,7 @@ public class LanguageHoopsManager : MonoBehaviour
             {
                 AdaptiveLearning.CalculateDecayContinuous(newWord, false, responseTime);
                 AdaptiveLearning.CalculateActivationValue(newWord);
+                StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), false));
 
                 PlayNewWord();
                 isCorrect = false;

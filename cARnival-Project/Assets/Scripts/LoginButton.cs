@@ -11,6 +11,7 @@ public class LoginButton : MonoBehaviour
     [SerializeField] private APIManager api;
     [SerializeField] private SceneSwapper sceneSwapper;
     [SerializeField] private string nextScene;
+    [SerializeField] private GameObject cosmeticManager;
 
     public TMP_InputField username;
     public TMP_InputField password;
@@ -32,6 +33,7 @@ public class LoginButton : MonoBehaviour
         }
         else
         {
+            Instantiate(cosmeticManager);
             Debug.Log("Successfully logged in");
             sceneSwapper.SwapScene(nextScene);
         }

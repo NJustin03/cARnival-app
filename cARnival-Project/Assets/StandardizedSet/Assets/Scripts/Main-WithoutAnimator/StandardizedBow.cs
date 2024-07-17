@@ -126,11 +126,13 @@ public class StandardizedBow : MonoBehaviour
     public bool stressEffectOnSound=false;
     #endregion
 
+    public bool isPaused;
     //*****************************************************************************************************************************
     
     // Start is called before the first frame update
     void Start()
     {
+        isPaused = false;
         //--------------Axis switch for different models--------------------
         switch (stringMoveDirectionAxis)
         {
@@ -330,6 +332,8 @@ public class StandardizedBow : MonoBehaviour
             trajectoryLine.ShowTrajectoryLine(stringStartPos, lastProjectileTransform.forward * currentStressOnString);
 
         }
+        if (isPaused == true)
+            return;
         // STATE 1 - Pulling the string - Default Trigger is left mouse click
         if (Input.GetButton("Fire1"))
         {

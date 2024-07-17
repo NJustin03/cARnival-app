@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 
+
 public class APIManager : MonoBehaviour
 {
     public static T[] GetJsonArray<T>(string json)
@@ -22,12 +23,12 @@ public class APIManager : MonoBehaviour
         public T[] array;
     }
 
-    //private const string endpointURL = "https://chdr.cs.ucf.edu/elleapi/";
-    private const string endpointURL = "https://www.elledevserver.xyz/elleapi/";
-    private const string filePrefixURL = "https://www.elledevserver.xyz/elle";
-    // private const string filePrefixURL = "https://chdr.cs.ucf.edu/elle";
+    private const string endpointURL = "https://chdr.cs.ucf.edu/elleapi/";
+    // private const string endpointURL = "https://www.elledevserver.xyz/elleapi/";
+    // private const string filePrefixURL = "https://www.elledevserver.xyz/elle";
+    private const string filePrefixURL = "https://chdr.cs.ucf.edu/elle";
 
-    private static TokenJson token;
+    public static TokenJson token;
 
     public static string authenticationString;
 
@@ -45,9 +46,11 @@ public class APIManager : MonoBehaviour
     public static ModulesJson[] ModulesJsonObjects;
     public static ModuleStatsJson[] moduleStats;
 
-
     public static AdaptiveValuesJson adaptiveValuesJson;
     public static AdaptiveValuesJson[] listOfALValues;
+
+    public static ItemJson[] cosmeticList;
+    public static PurchaseJson purchase;
 
     private void Awake()
     {
@@ -87,8 +90,8 @@ public class APIManager : MonoBehaviour
 
         WWWForm form = new WWWForm();
         form.AddField("username", generatedUsername.username);
-        form.AddField("password", password);
-        form.AddField("password_confirm", password);    // Note - should only work if the frontend ensures password and password_confirm are the same before doing this call.
+        form.AddField("password", password.ToString());
+        form.AddField("password_confirm", password.ToString());    // Note - should only work if the frontend ensures password and password_confirm are the same before doing this call.
 
         using (UnityWebRequest attemptRegister = UnityWebRequest.Post(registerEndpoint, form))
         {
@@ -106,8 +109,8 @@ public class APIManager : MonoBehaviour
         string loginEndpoint = endpointURL + "login";
 
         WWWForm form = new WWWForm();
-        form.AddField("username", username);
-        form.AddField("password", password);
+        form.AddField("username", username.ToString());
+        form.AddField("password", password.ToString());
 
         // Create a webrequest and fire it.
 
@@ -157,6 +160,8 @@ public class APIManager : MonoBehaviour
 
         using (UnityWebRequest attemptLogout = UnityWebRequest.Post(logoutEndpoint, form))
         {
+            attemptLogout.SetRequestHeader("Authorization", "Bearer " + token.access_token);
+
             yield return attemptLogout.SendWebRequest();
             Debug.Log("Server responded: " + attemptLogout.downloadHandler.text);
 
@@ -167,20 +172,24 @@ public class APIManager : MonoBehaviour
             }
             else
             {
-                // Clear everything upon logging out.
-                token = null;
-                authenticationString = string.Empty;
-                sessionID = null;
-                isConnected = false;
-                userModules = null;
-                currentQuestions = null;
-                currentImage = null;
-                currentAudio = null;
-                ModulesJsonObjects = null;
-                moduleStats = null;
-                adaptiveValuesJson = null;
-                listOfALValues = null;
+
             }
+            // Clear everything upon logging out.
+            token = null;
+            authenticationString = string.Empty;
+            sessionID = null;
+            isConnected = false;
+            userModules = null;
+            currentQuestions = null;
+            currentImage = null;
+            currentAudio = null;
+            ModulesJsonObjects = null;
+            moduleStats = null;
+            adaptiveValuesJson = null;
+            listOfALValues = null;
+            randomUsername = string.Empty;
+            cosmeticList = null;
+            purchase = null;
         }
     }
 
@@ -193,7 +202,7 @@ public class APIManager : MonoBehaviour
         string forgotUsernameEndpoint = endpointURL + "forgotusername";
 
         WWWForm form = new WWWForm();
-        form.AddField("email", email);
+        form.AddField("email", email.ToString());
 
 
         // Create a webrequest and fire it.
@@ -220,7 +229,7 @@ public class APIManager : MonoBehaviour
         string forgotPasswordEndpoint = endpointURL + "forgotpassword";
 
         WWWForm form = new WWWForm();
-        form.AddField("email", email);
+        form.AddField("email", email.ToString());
 
 
         // Create a webrequest and fire it.
@@ -265,7 +274,7 @@ public class APIManager : MonoBehaviour
         string moduleEndpoint = endpointURL + "/modulequestions";
 
         WWWForm form = new WWWForm();
-        form.AddField("moduleID", ID);
+        form.AddField("moduleID", ID.ToString());
 
         using (UnityWebRequest getModuleRequest = UnityWebRequest.Post(moduleEndpoint, form))
         {
@@ -293,8 +302,8 @@ public class APIManager : MonoBehaviour
         string sessionEndpoint = endpointURL + "/session";
         WWWForm form = new WWWForm();
 
-        form.AddField("moduleID", ID);
-        form.AddField("platform", "mob");
+        form.AddField("moduleID", ID.ToString());
+        form.AddField("platform", "mb");
 
         using (UnityWebRequest startSessionRequest = UnityWebRequest.Post(sessionEndpoint, form))
         {
@@ -311,7 +320,7 @@ public class APIManager : MonoBehaviour
             string sessionJsonString = startSessionRequest.downloadHandler.text;
 
             SessionJson session = SessionJson.CreateSessionFromJson(sessionJsonString);
-            sessionID = session.sessionID;
+            sessionID = new (session.sessionID);
         }
     }
 
@@ -324,9 +333,8 @@ public class APIManager : MonoBehaviour
 
         string sessionEndpoint = endpointURL + "/endsession";
         WWWForm form = new WWWForm();
-
-        form.AddField("sessionID", sessionID);
-        form.AddField("playerScore", points);
+        form.AddField("sessionID", sessionID.ToString());
+        form.AddField("playerScore", points.ToString());
 
         using (UnityWebRequest endSessionRequest = UnityWebRequest.Post(sessionEndpoint, form))
         {
@@ -340,6 +348,7 @@ public class APIManager : MonoBehaviour
                 Debug.Log(endSessionRequest.error);
             }
         }
+        sessionID = null;
     }
 
     /// <summary>
@@ -371,13 +380,12 @@ public class APIManager : MonoBehaviour
     public static IEnumerator LogAnswer(int termID, bool isCorrect)
     {
 
-
         string sessionEndpoint = endpointURL + "/loggedanswer";
         WWWForm form = new WWWForm();
 
-        form.AddField("termID", termID);
-        form.AddField("sessionID", sessionID);
-        form.AddField("correct", isCorrect ? 1 : 0);
+        form.AddField("termID", termID.ToString());
+        form.AddField("sessionID", sessionID.ToString());
+        form.AddField("correct", (isCorrect ? 1 : 0).ToString());
 
         using (UnityWebRequest endSessionRequest = UnityWebRequest.Post(sessionEndpoint, form))
         {
@@ -453,7 +461,7 @@ public class APIManager : MonoBehaviour
 
                 if (myClip != null)
                 {
-                    // Debug.Log("Saving myClip: " + "\"" + audioURL + "\"");
+                    Debug.Log("Saving myClip: " + "\"" + audioURL + "\"");
                     currentAudio = myClip;
                 }
             }
@@ -469,7 +477,7 @@ public class APIManager : MonoBehaviour
 
         string adaptiveRetrievalEndpoint = endpointURL + "/adaptivelearning/gettermvalue";
         WWWForm form = new WWWForm();
-        form.AddField("termID", termID);
+        form.AddField("termID", termID.ToString());
 
         using (UnityWebRequest adaptiveRetrievalRequest = UnityWebRequest.Post(adaptiveRetrievalEndpoint, form))
         {
@@ -528,19 +536,17 @@ public class APIManager : MonoBehaviour
 
         string adaptiveUpdateEndpoint = endpointURL + "/adaptivelearning/updatetermvalues";
         WWWForm form = new WWWForm();
-        form.AddField("termID", termID);
+        form.AddField("termID", termID.ToString());
         form.AddField("activation_val", activation_val.ToString());
         form.AddField("decay_val", decay_val.ToString());
         form.AddField("alpha_val", alpha_val.ToString());
-        form.AddField("dates", dates);
-        form.AddField("times", times);
-
+        form.AddField("dates", dates.ToString());
+        form.AddField("times", times.ToString());
         using (UnityWebRequest adaptiveUpdateRequest = UnityWebRequest.Post(adaptiveUpdateEndpoint, form))
         {
             adaptiveUpdateRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
 
             yield return adaptiveUpdateRequest.SendWebRequest();
-
             // If a connection error is received, print the result.
             if (adaptiveUpdateRequest.result == UnityWebRequest.Result.ConnectionError)
             {
@@ -558,9 +564,7 @@ public class APIManager : MonoBehaviour
     public static IEnumerator RetrieveUserItems(string game)
     {
         string retrieveItemsEndpoint = endpointURL + "/store/user/items?game=" + game + "&userID=" + token.id;
-        WWWForm form = new WWWForm();
-
-        using (UnityWebRequest itemsRequest = UnityWebRequest.Post(retrieveItemsEndpoint, form))
+        using (UnityWebRequest itemsRequest = UnityWebRequest.Get(retrieveItemsEndpoint))
         {
             itemsRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
 
@@ -573,25 +577,29 @@ public class APIManager : MonoBehaviour
             }
             else
             {
-                Debug.Log(itemsRequest.downloadHandler.text);
+                // Debug.Log(itemsRequest.downloadHandler.text);
+                cosmeticList = GetJsonArray<ItemJson>(itemsRequest.downloadHandler.text);
             }
         }
     }
 
-    public static IEnumerator WearItem(int itemID, bool isWearing, bool replaceItem)
+    public static IEnumerator WearItem(int userItemID, int isWearing, int replaceItem)
     {
         string retrieveItemsEndpoint = endpointURL + "/store/wear";
-        WWWForm form = new WWWForm();
-        form.AddField("userItemID", itemID);
-        form.AddField("isWearing", isWearing.ToString());
-        form.AddField("replaceItem", replaceItem.ToString());
+        WearItemJson wearItemJson = new WearItemJson();
+        wearItemJson.userItemID = userItemID;
+        wearItemJson.isWearing = isWearing;
+        wearItemJson.replaceItem = replaceItem;
 
+        string body = wearItemJson.CreateWearJSON();
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(body);
 
-
-        using (UnityWebRequest itemsRequest = UnityWebRequest.Put(retrieveItemsEndpoint, form.data))
+        using (UnityWebRequest itemsRequest = UnityWebRequest.Put(retrieveItemsEndpoint, bodyRaw))
         {
             itemsRequest.SetRequestHeader("Authorization", "Bearer " + token.access_token);
-
+            UploadHandlerRaw uploadHandlerRaw = new UploadHandlerRaw(bodyRaw);
+            itemsRequest.uploadHandler = uploadHandlerRaw;
+            itemsRequest.uploadHandler.contentType = "application/json";
             yield return itemsRequest.SendWebRequest();
 
             // If a connection error is received, print the result.
@@ -604,14 +612,16 @@ public class APIManager : MonoBehaviour
                 Debug.Log(itemsRequest.downloadHandler.text);
             }
         }
+
     }
 
-    public static IEnumerator PurchaseItem(int itemID, string game)
+    public static IEnumerator PurchaseItem(int itemID, string game, int isWearing)
     {
         string purchaseItemsEndpoint = endpointURL + "/store/purchase";
         WWWForm form = new WWWForm();
-        form.AddField("itemID", itemID);
-        form.AddField("game", game);
+        form.AddField("itemID", itemID.ToString());
+        form.AddField("game", game.ToString());
+        form.AddField("isWearing", isWearing.ToString());
 
 
         using (UnityWebRequest itemsRequest = UnityWebRequest.Post(purchaseItemsEndpoint, form))
@@ -628,6 +638,7 @@ public class APIManager : MonoBehaviour
             else
             {
                 Debug.Log(itemsRequest.downloadHandler.text);
+                purchase = PurchaseJson.FromJson(itemsRequest.downloadHandler.text);
             }
         }
     }
@@ -637,7 +648,7 @@ public class APIManager : MonoBehaviour
         string logItemsEndpoint = endpointURL + "/store/purchase";
         WWWForm form = new WWWForm();
         form.AddField("userID", token.id);
-        form.AddField("sessionID", sessionID);
+        form.AddField("sessionID", sessionID.ToString());
 
 
         using (UnityWebRequest itemsRequest = UnityWebRequest.Post(logItemsEndpoint, form))
@@ -668,5 +679,19 @@ public class APIManager : MonoBehaviour
         }
         listOfIds.Length--;
         return listOfIds.ToString();
+    }
+}
+
+[System.Serializable]
+public class WearItemJson
+{
+
+    public int isWearing;
+    public int replaceItem;
+    public int userItemID;
+
+    public string CreateWearJSON()
+    {
+        return JsonUtility.ToJson(this);
     }
 }

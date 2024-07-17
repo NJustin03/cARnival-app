@@ -10,6 +10,7 @@ public class ModuleManager : MonoBehaviour
     public Dictionary<int, Question> currentModuleQuestions;
     public Dictionary<int, Answer> currentModuleAnswers;
     public List<Answer> terms;
+    public int currentModuleID;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,7 @@ public class ModuleManager : MonoBehaviour
     public IEnumerator LoadQuestionsAndAnswers(int moduleID)
     {
         yield return StartCoroutine(APIManager.GetModule(moduleID));
+        currentModuleID = moduleID;
         yield return StartCoroutine(LoadToManager());
         yield return StartCoroutine(APIManager.RetrieveAllALValues(terms));
         AssignAdaptiveLearningValues();
@@ -114,5 +116,16 @@ public class ModuleManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ClearModules()
+    {
+        // Clear the current module set upon new load.
+        currentModuleQuestions.Clear();
+        currentModuleAnswers.Clear();
+        questionIDs.Clear();
+        answerIDs.Clear();
+        terms.Clear();
+        currentModuleID = 0;
     }
 }

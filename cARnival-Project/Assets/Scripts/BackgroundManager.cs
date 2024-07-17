@@ -9,18 +9,6 @@ public class BackgroundManager : MonoBehaviour
     public Button button_active;
     public Button button_inactive;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        background.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ActiveBackground()
     {
         background.SetActive(true);

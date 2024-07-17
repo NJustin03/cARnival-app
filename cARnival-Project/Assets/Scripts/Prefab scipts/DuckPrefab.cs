@@ -5,7 +5,12 @@ public class DuckPrefab : MonoBehaviour
 {
     public TextPrefabScript Text;
 
-    public void ConfigureDuck(string word, Material material)
+    private void Awake()
+    {
+        MeshRenderer m = GetComponentInChildren<MeshRenderer>();
+        m.material = CosmeticManager.duckMaterial.materials[0];
+    }
+    public void ConfigureDuck(string word)
     {
         SetActive(true);
         Text.Text = word;
