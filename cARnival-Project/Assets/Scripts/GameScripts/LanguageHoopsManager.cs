@@ -287,7 +287,7 @@ public class LanguageHoopsManager : MonoBehaviour
 
         List<Answer> tempWords = new List<Answer>();
         Debug.Log("TermList.Count = " + TermsList.Count);
-        for (int i = 0; i <= 2; i++)
+        for (int i = 0; i < 2; i++)
         {
             randomIndex = UnityEngine.Random.Range(0, TermsList.Count);
             tempWords.Add(TermsList[randomIndex]);
@@ -302,7 +302,7 @@ public class LanguageHoopsManager : MonoBehaviour
         };
 
         // Shuffle hoops to assign words randomly
-        ShuffleList(hoops);
+        ShuffleList(tempWords);
 
         // Assign words to hoops
         // Add back terms to TermList
@@ -311,18 +311,17 @@ public class LanguageHoopsManager : MonoBehaviour
             hoops[i].ConfigureHoop(tempWords[i].GetBack());
             TermsList.Add(tempWords[i]);
         }
-        TermsList.Add(newWord);
         QuestionBoard.ConfigureWithWord(newWord);
     }
 
     void ShuffleList<T>(List<T> list)
     {
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < list.Count - 1; i++)
         {
-            int randomIndex = UnityEngine.Random.Range(0, list.Count);
             T temp = list[i];
-            list[i] = list[randomIndex];
-            list[randomIndex] = temp;
+            int rand = Random.Range(i, list.Count);
+            list[i] = list[rand];
+            list[rand] = temp;
         }
     }
 
