@@ -26,6 +26,9 @@ public class ArcheryManager : MonoBehaviour
     public GameObject settingsCard;
     public StandardizedBow bow;
 
+    public AnimationClip slideIn;
+    public AnimationClip slideOut;
+
 
     private void Awake()
     {
@@ -168,12 +171,21 @@ public class ArcheryManager : MonoBehaviour
         bow.isPaused = true;
         Time.timeScale = 0;
         settingsCard.SetActive(true);
+        settingsCard.GetComponent<Animator>().SetTrigger("SlideIn");
+
     }
 
     public void UnPause()
     {
         bow.isPaused = false;
         Time.timeScale = 1;
+        StartCoroutine(UnpauseAnimation());
+    }
+
+    private IEnumerator UnpauseAnimation()
+    {
+        settingsCard.GetComponent<Animator>().SetTrigger("SlideOut");
+        yield return new WaitForSeconds(3);
         settingsCard.SetActive(false);
     }
 }

@@ -323,9 +323,10 @@ public class StandardizedBow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (isPaused == true)
+            return;
         // STATE 1 - Pulling the string - Default Trigger is left mouse click
-        if (Input.GetButton("Fire1") && isPaused == false)
+        if (Input.GetButton("Fire1"))
         {
             // STATE 2 - The moment you just pulled the string
             if (justPulledString)
