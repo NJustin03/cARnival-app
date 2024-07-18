@@ -81,7 +81,7 @@ public class FishingGameManager : MonoBehaviour
         }
         else
         {
-            musicManager.audioSource.volume = 1f;
+            musicManager.audioSource.volume = PlayerPrefs.GetFloat("musicVolume", 0.5f);
         }
 
         if (!canSelectDuck) return;

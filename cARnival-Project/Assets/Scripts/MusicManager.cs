@@ -66,6 +66,7 @@ public class MusicManager : MonoBehaviour
     {
         volume = newVolume;
         audioSource.volume = volume;
+        PlayerPrefs.SetFloat("musicVolume", newVolume);
     }
 
     // Function to set the current music for the duck game.

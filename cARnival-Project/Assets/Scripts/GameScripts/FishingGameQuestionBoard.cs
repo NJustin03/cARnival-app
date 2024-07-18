@@ -42,7 +42,7 @@ public class FishingGameQuestionBoard : MonoBehaviour
         TermImageGameObject.SetActive(false);
         TermAudioGameObject.SetActive(false);
         //randomTermType.ToString()
-        switch ("Audio")
+        switch (randomTermType)
         {
             case "Image":
                 
