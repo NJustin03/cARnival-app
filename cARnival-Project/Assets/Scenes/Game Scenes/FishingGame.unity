@@ -3922,6 +3922,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7132805967844496207}
     m_Modifications:
+    - target: {fileID: 4236909379169467658, guid: 7647ee64e37a147c888f609e987e4570,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597484659261507420, guid: 7647ee64e37a147c888f609e987e4570,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597484659261507420, guid: 7647ee64e37a147c888f609e987e4570,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5049430458041359669, guid: 7647ee64e37a147c888f609e987e4570,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3932,6 +3947,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6785576927527290370}
+    - target: {fileID: 5641372045934952732, guid: 7647ee64e37a147c888f609e987e4570,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5641372045934952732, guid: 7647ee64e37a147c888f609e987e4570,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5641372045934952732, guid: 7647ee64e37a147c888f609e987e4570,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6063882896861530518, guid: 7647ee64e37a147c888f609e987e4570,
         type: 3}
       propertyPath: m_Pivot.x
@@ -4032,10 +4062,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7170953101881986665, guid: 7647ee64e37a147c888f609e987e4570,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170953101881986665, guid: 7647ee64e37a147c888f609e987e4570,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170953101881986665, guid: 7647ee64e37a147c888f609e987e4570,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8363965020332066612, guid: 7647ee64e37a147c888f609e987e4570,
         type: 3}
       propertyPath: m_Name
       value: SettingsCard (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8363965020332066612, guid: 7647ee64e37a147c888f609e987e4570,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8849785994414098558, guid: 7647ee64e37a147c888f609e987e4570,
         type: 3}
