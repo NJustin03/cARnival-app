@@ -108,6 +108,7 @@ public class FishingGameManager : MonoBehaviour
                         if (duckSelected != null)
                         {
                             SelectWord(duckSelected, newWord);
+                            duckSelected.PlaySound();
                         }
                     }
                 }

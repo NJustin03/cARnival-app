@@ -4,9 +4,15 @@ public class BasketBallHoopPrefab : MonoBehaviour
 {
     public TextPrefabScript Text;
     public ParticleSystem confetti;
+    private AudioSource audioSource;
 
     [SerializeField]
     private LanguageHoopsManager gameManager;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     public void ConfigureHoop(string word)
     {
@@ -28,5 +34,7 @@ public class BasketBallHoopPrefab : MonoBehaviour
         }
     }
     public void SetActive(bool active) => gameObject.SetActive(active);
+
+    public void PlaySound() => audioSource.Play();
 
 }

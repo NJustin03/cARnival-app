@@ -9,6 +9,7 @@ public class Target : MonoBehaviour
 
     public TextPrefabScript text;
     private ArcheryManager archeryManager;
+    private AudioSource audioSource;
 
     public ParticleSystem particleEffect;
     public Answer currentAnswer;
@@ -18,6 +19,7 @@ public class Target : MonoBehaviour
     {
         archeryManager = FindAnyObjectByType<ArcheryManager>();
         particleEffect = CosmeticManager.archeryParticle.particles;
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void ResetTarget(Answer answer, bool correctAnswer)
@@ -33,6 +35,7 @@ public class Target : MonoBehaviour
         {
             ParticleSystem temp = Instantiate(particleEffect, transform.position, Quaternion.identity);
             temp.Play();
+            audioSource.Play();
         }
         archeryManager.ChooseAnswer(isAnswerCorrect, currentAnswer);
     }

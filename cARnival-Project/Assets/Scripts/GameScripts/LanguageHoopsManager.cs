@@ -401,6 +401,7 @@ public class LanguageHoopsManager : MonoBehaviour
         Debug.Log(newWord);
         if (enteredHoop.Text.Text == newWord.GetBack())
         {
+            enteredHoop.PlaySound();
             score++;
             StoreManager.AddCoins(1);
             StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), true));
