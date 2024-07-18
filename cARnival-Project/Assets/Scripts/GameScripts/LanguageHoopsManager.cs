@@ -476,14 +476,23 @@ public class LanguageHoopsManager : MonoBehaviour
         }
         else
         {
-            //TODO: Add logic for giving correct answer after second incorrect guess
+            if (numErrors == 0)
+            {
+                isCorrect = false;
+                numErrors++;
+                ResetBall();
+            }
+            else
+            {
+                //TODO: Add logic for giving correct answer after second incorrect guess
                 AdaptiveLearning.CalculateDecayContinuous(newWord, false, responseTime);
                 AdaptiveLearning.CalculateActivationValue(newWord);
                 StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), false));
-
+                numErrors = 0;
                 ResetBall();
                 PlayNewWord();
                 isCorrect = false;
+            }
         }
     }
 

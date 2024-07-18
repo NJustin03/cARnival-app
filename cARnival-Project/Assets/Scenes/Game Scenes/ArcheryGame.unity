@@ -3129,6 +3129,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Timer
       objectReference: {fileID: 0}
+    - target: {fileID: 2234627206645296301, guid: 486a57a1548f84d2d81a2cf47e2869bc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3173385714625720152, guid: 486a57a1548f84d2d81a2cf47e2869bc,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -3334,12 +3339,18 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1354318585}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1354318588}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b3c81c5c26514bbd9571fdbb7bdfe8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1354318588 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2234627206645296301, guid: 486a57a1548f84d2d81a2cf47e2869bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1354318585}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1447624484
 GameObject:
   m_ObjectHideFlags: 0
@@ -4839,13 +4850,14 @@ PrefabInstance:
     - target: {fileID: 78337089693455835, guid: 4f23ab8299fe5b649bda4778453c8386,
         type: 3}
       propertyPath: m_text
-      value: 'Welcome to archery! Four hoops float before you, each with vocab to
-        choose from. Aim your device at the target you think is correct, then hold
-        and fire!
+      value: 'Welcome to archery! Four targets float before you, each with vocab
+        to choose from. Aim your device at the target you think is correct, then
+        hold and release to fire! Try to answer as many questions as you can within
+        the time limit.
 
 
-        You can quit out or adjust the audio at anytime using
-        the settings button at the top right. Most importantly, have fun!'
+        You can quit out or adjust the audio at anytime
+        using the settings button at the top right. Most importantly, have fun!'
       objectReference: {fileID: 0}
     - target: {fileID: 3991390982415745649, guid: 4f23ab8299fe5b649bda4778453c8386,
         type: 3}
@@ -4955,7 +4967,7 @@ PrefabInstance:
     - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
         type: 3}
@@ -4965,6 +4977,11 @@ PrefabInstance:
     - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
@@ -4984,7 +5001,17 @@ PrefabInstance:
       objectReference: {fileID: 2067300429}
     - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 1354318588}
+    - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
@@ -5004,12 +5031,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
@@ -5020,6 +5062,11 @@ PrefabInstance:
     - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070136061676881346, guid: 4f23ab8299fe5b649bda4778453c8386,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
