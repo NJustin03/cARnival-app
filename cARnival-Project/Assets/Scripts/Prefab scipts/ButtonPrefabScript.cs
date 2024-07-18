@@ -9,7 +9,7 @@ public class ButtonPrefabScript : MonoBehaviour
 {
     public Sprite ButtonImage = null;
     public TextPrefabScript Text;
-
+    public AudioClip buttonclick;
     private void OnValidate()
     {
         var Img = gameObject.GetComponentInChildren<Image>();
@@ -51,4 +51,8 @@ public class ButtonPrefabScript : MonoBehaviour
         return gameObject;
     }
 #endif
+    public void PlayButtonSound()
+    {
+        AudioSource.PlayClipAtPoint(buttonclick, Vector3.zero, 0.05f);
+    }
 }

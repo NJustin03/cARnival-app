@@ -81,7 +81,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1506482696289094553}
+        m_TargetAssemblyTypeName: ButtonPrefabScript, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1506482696289094553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,6 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ButtonImage: {fileID: 21300000, guid: 46da8634de2114354be217373280f00a, type: 3}
   Text: {fileID: 7856913891096508561}
+  buttonclick: {fileID: 8300000, guid: 8eaa63297f17a3149991b232073412bd, type: 3}
 --- !u!1001 &4831813480809587575
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -123,7 +136,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 93575e40451c741a9854536bce80cdfe,
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
         type: 2}
     - target: {fileID: 3370148552229051353, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
@@ -144,8 +157,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 6276947752496670763, guid: 93575e40451c741a9854536bce80cdfe,
-        type: 2}
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 3370148552229051353, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
       propertyPath: m_fontColor32.rgba
