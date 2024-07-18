@@ -21,7 +21,7 @@ public class AdaptiveLearning
     /// A value, when exceeded, will determine whether or not an unseen Answer needs to be presented to the player.
     /// Needs some testing to come to a conclusion on this value.
     /// </summary>
-    private const float ActivationThreshold = 2.1f;
+    private const float ActivationThreshold = 1.06f;
 
     /// <summary>
     /// A constant to represent the default activation threshold for an unseen Answer.
@@ -115,7 +115,7 @@ public class AdaptiveLearning
         var L = Mathf.Pow(e, -answer.GetActivation()) + fixedTimeCost;
 
         if (!isCorrect)
-            alpha += 0.01f;
+            alpha -= 0.01f;
         else if(L - responseTime > 500f)
             alpha += Mathf.Clamp(responseTime - L, -0.01f, 0.01f);
 
@@ -133,11 +133,11 @@ public class AdaptiveLearning
 
         if (!isCorrect)
         {
-            alpha += 0.01f;
+            alpha -= 0.01f;
         }
         else
         {
-            alpha -= 0.01f;
+            alpha += 0.01f;
         }
 
         answer.SetIntercept(alpha);
@@ -154,6 +154,7 @@ public class AdaptiveLearning
     /// <param name="answer">Answer object that will calculate an activation value for.</param>
     public static void CalculateActivationValue(Answer answer)
     {
+        int flag = 0;
         var totalTime = 0f;
         int currentTimeDays = 0;
 
@@ -170,15 +171,22 @@ public class AdaptiveLearning
 
             if (timeDiff == 0)
             {
-                timeDiff = 2f;
-            } 
-            
+                timeDiff = 1.2f;
+            }
+
             totalTime += Mathf.Pow(timeDiff, -answer.GetDecay());
+            if (totalTime < 10)
+            {
+                totalTime = 10 + answer.GetDecay();
+            }
+            flag++;
 
             
         }
 
-        var activationValue = Mathf.Log(totalTime);
+
+        var activationValue = Mathf.Log(totalTime, 10);
+        Debug.Log("Activation:" + activationValue + "Decay:" + answer.GetDecay());
 
         answer.SetActivation(activationValue);
     }
