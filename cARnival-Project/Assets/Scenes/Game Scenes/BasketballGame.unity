@@ -5262,15 +5262,16 @@ PrefabInstance:
     - target: {fileID: 78337089693455835, guid: 4f23ab8299fe5b649bda4778453c8386,
         type: 3}
       propertyPath: m_text
-      value: 'Welcome to basketball! In front of you are 3 hoops, each with their
-        own vocabulary above it. Your goal is to listen to the audio provided and
-        swipe the ball into the correct hoop! You''ll get two shots to guess right,
-        so make it count! Try your best to answer as many words as you can within
-        the time limit.
+      value: 'Welcome to basketball! In front of you are 3 vocab hoops. Your goal
+        is to listen to the audio provided and swipe the ball into the correct hoop!
+        You''ll get two shots to guess right, so make it count! Try your best to
+        answer as many words as you can within the time limit.
 
 
-        You can quit out or adjust the audio at anytime
-        using the settings button at the top right. Most importantly, have fun!'
+        You can
+        quit out or adjust the audio at anytime using the settings button at the
+        top right. Tap the audio logo if you need to hear a word again. Most importantly,
+        have fun!'
       objectReference: {fileID: 0}
     - target: {fileID: 3991390982415745649, guid: 4f23ab8299fe5b649bda4778453c8386,
         type: 3}

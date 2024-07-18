@@ -2290,13 +2290,13 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Welcome to fishing! In front of you lies a pond with 4 ducks, each
         carrying with them a piece of vocabulary. Your objective is to tap the duck
-        that represents your given word. This could be in the form of text, image,
-        or audio, so be aware!
+        that represents your given word in 2 tries. This could be in the form of
+        text, image, or audio, so be aware!
 
 
-        You can quit out or adjust the audio at
-        anytime using the settings button at the top right. Most importantly, have
-        fun!'
+        You can quit out or adjust
+        the audio at anytime using the settings button at the top right. Tap the
+        audio logo if you need to hear a word again. Most importantly, have fun!'
       objectReference: {fileID: 0}
     - target: {fileID: 3991390982415745649, guid: 4f23ab8299fe5b649bda4778453c8386,
         type: 3}
