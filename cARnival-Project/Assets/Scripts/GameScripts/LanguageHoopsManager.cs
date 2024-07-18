@@ -107,7 +107,7 @@ public class LanguageHoopsManager : MonoBehaviour
         }
         else
         {
-            musicManager.audioSource.volume = 1f;
+            musicManager.audioSource.volume = PlayerPrefs.GetFloat("musicVolume", 0.5f);
         }
 
         if (Ball.transform.position.y < -0.3f)

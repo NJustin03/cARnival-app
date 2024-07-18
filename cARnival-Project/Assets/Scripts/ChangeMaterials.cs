@@ -6,7 +6,7 @@ public class ChangeMaterials : MonoBehaviour
 {
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         Renderer renderer = GetComponent<Renderer>();
         Material[] newMaterials = LanguageHoopsManager.shared.basketballColors.ToArray();
