@@ -8,7 +8,7 @@ public class FloatingText : MonoBehaviour
 
     float lerpDuration = 3;
     float startValue = 0;
-    float endValue = 10000;
+    float endValue = 1;
     float valueToLerp;
 
 
