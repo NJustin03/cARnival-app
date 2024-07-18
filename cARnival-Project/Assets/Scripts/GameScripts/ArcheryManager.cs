@@ -19,6 +19,9 @@ public class ArcheryManager : MonoBehaviour
     [SerializeField]
     private List<Answer> TermsList;
 
+    [SerializeField]
+    private TextPrefabScript correctAnswerBox;
+
     public TextPrefabScript questionText;
     public TextPrefabScript scoreText;
     public TimerPrefab timerText;
@@ -129,12 +132,21 @@ public class ArcheryManager : MonoBehaviour
         }
         else
         {
+            StartCoroutine(OnAnswerIncorrect());
             StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), false));
             AdaptiveLearning.CalculateDecayContinuous(answer, false, 0);
             AdaptiveLearning.CalculateActivationValue(answer);
             PlayNewWord();
         }
 
+    }
+
+    private IEnumerator OnAnswerIncorrect()
+    {
+        correctAnswerBox.Text = "The correct answer is: " + newWord.GetBack();
+        correctAnswerBox.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(1.5f);
+        correctAnswerBox.gameObject.SetActive(false);
     }
 
     public void PlayAgain()

@@ -31,6 +31,9 @@ public class FishingGameManager : MonoBehaviour
     [SerializeField]
     private GameObject incorrectCard2;
 
+    [SerializeField]
+    private TextPrefabScript correctAnswerBox;
+
     public GameObject settingsCard;
     public TextPrefabScript scoreText;
     public TextPrefabScript correctAnswer;
@@ -184,7 +187,7 @@ public class FishingGameManager : MonoBehaviour
             {
                 // canSelectDuck = false;
                 selectedDuck.GetComponent<SpawnResultText>().AnsweredIncorrect(selectedDuck.transform.position);
-                // StartCoroutine(ShowIncorrectCard2());
+                StartCoroutine(OnAnswerIncorrect());
                 AdaptiveLearning.CalculateDecayContinuous(currentAnswer, false, responseTime);
                 AdaptiveLearning.CalculateActivationValue(currentAnswer);
                 StartCoroutine(APIManager.LogAnswer(currentAnswer.GetTermID(), false));
@@ -193,6 +196,14 @@ public class FishingGameManager : MonoBehaviour
                 return;
             }
         }
+    }
+
+    private IEnumerator OnAnswerIncorrect()
+    {
+        correctAnswerBox.Text = "The correct answer is: " + newWord.GetBack();
+        correctAnswerBox.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(1.5f);
+        correctAnswerBox.gameObject.SetActive(false);
     }
 
     private IEnumerator ShowIncorrectCard()

@@ -34,6 +34,9 @@ public class LanguageHoopsManager : MonoBehaviour
     [SerializeField]
     private AudioSource BasketBallGameAudioSource = null;
 
+    [SerializeField]
+    private TextPrefabScript correctAnswerBox;
+
 
     public static LanguageHoopsManager shared;
     public Answer newWord = null;
@@ -484,6 +487,7 @@ public class LanguageHoopsManager : MonoBehaviour
             }
             else
             {
+                StartCoroutine(OnAnswerIncorrect());
                 //TODO: Add logic for giving correct answer after second incorrect guess
                 AdaptiveLearning.CalculateDecayContinuous(newWord, false, responseTime);
                 AdaptiveLearning.CalculateActivationValue(newWord);
@@ -494,6 +498,14 @@ public class LanguageHoopsManager : MonoBehaviour
                 isCorrect = false;
             }
         }
+    }
+
+    private IEnumerator OnAnswerIncorrect()
+    {
+        correctAnswerBox.Text = "The correct answer is: " + newWord.GetBack();
+        correctAnswerBox.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(1.5f);
+        correctAnswerBox.gameObject.SetActive(false);
     }
 
     public void PlayAgain()
