@@ -46,7 +46,7 @@ public class FishingGameQuestionBoard : MonoBehaviour
         {
             case "Image":
                 
-                if (Term.hasImage)
+                if (Term.GetImage() == null)
                 {
                     Debug.Log("No image found!");
                     goto case "Word";
@@ -59,7 +59,7 @@ public class FishingGameQuestionBoard : MonoBehaviour
                 break;
                 
             case "Audio":
-                if (Term.hasAudio)
+                if (Term.GetAudio() == null)
                 {
                     Debug.Log("No sound found!");
                     goto case "Word";

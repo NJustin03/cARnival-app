@@ -28,7 +28,7 @@ public class BasketBallGameQuestionBoard : MonoBehaviour
         {
            //TODO: add logic for setting to go to word
             case "Audio":
-                if (Term.hasAudio)
+                if (Term.GetAudio() == null)
                 {
                     Debug.Log("No sound found!");
                     goto case "Word";
