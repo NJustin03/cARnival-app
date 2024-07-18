@@ -34,7 +34,7 @@ public class BasketBallHoopPrefab : MonoBehaviour
                 spawnResultText.AnsweredCorrect(spawnResultText.transform.position);
             }
             else
-            {
+-            {
                 spawnResultText.AnsweredIncorrect(spawnResultText.transform.position);
             }
         }

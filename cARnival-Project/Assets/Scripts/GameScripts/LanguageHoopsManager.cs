@@ -38,7 +38,6 @@ public class LanguageHoopsManager : MonoBehaviour
     public static LanguageHoopsManager shared;
     public Answer newWord = null;
     public BasketBallGameQuestionBoard QuestionBoard;
-    public GameObject incorrectCard;
     public GameObject resultCard;
     public GameObject settingsCard;
     public TextPrefabScript scoreText;
@@ -415,35 +414,13 @@ public class LanguageHoopsManager : MonoBehaviour
         }
         else
         {
-            if (numErrors == 0)
-            {
-                numErrors++;
-                StartCoroutine(ShowIncorrectCard());
-                isCorrect = false;
-
-            }
             //TODO: Add logic for giving correct answer after second incorrect guess
-            else if (numErrors > 0)
-            {
                 AdaptiveLearning.CalculateDecayContinuous(newWord, false, responseTime);
                 AdaptiveLearning.CalculateActivationValue(newWord);
                 StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), false));
-
                 PlayNewWord();
                 isCorrect = false;
-                numErrors = 0;
-            }
         }
-    }
-
-    private IEnumerator ShowIncorrectCard()
-    {
-        Time.timeScale = 0;
-        incorrectCard.SetActive(true);
-        yield return new WaitForSecondsRealtime(2f);
-        incorrectCard.SetActive(false);
-        Time.timeScale = 1;
-        ResetBall();
     }
 
     public void PlayAgain()
