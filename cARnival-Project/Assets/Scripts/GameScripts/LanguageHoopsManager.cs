@@ -43,6 +43,8 @@ public class LanguageHoopsManager : MonoBehaviour
     public TextPrefabScript scoreText;
     public TimerPrefab timer;
     public List<Material> basketballColors;
+    public Spline spline;
+
 
     private int score = 0;
     private int numErrors = 0;
@@ -50,6 +52,7 @@ public class LanguageHoopsManager : MonoBehaviour
     private bool HoldingBall = false;
     private bool LaunchingBall = false;
     private bool isTouchActive = false;
+    private bool isMoving = false;
 
     private int MaxStoredMovement = 10;
     private int CurrentStoredMovementIndex = 0;
@@ -58,6 +61,8 @@ public class LanguageHoopsManager : MonoBehaviour
     private float swipeStartTime;
     private float lastTouchTime;
     private float maxForceMagnitude = 6f;
+    private float moveSpeed = 1f;
+    private float splineProgress = 0f;
 
     private void Awake()
     {
@@ -82,6 +87,19 @@ public class LanguageHoopsManager : MonoBehaviour
 
     private void Update()
     {
+
+        if (isMoving)
+        {
+            splineProgress += Time.deltaTime * moveSpeed;
+            if (splineProgress >= 1f)
+            {
+                splineProgress = 1f;
+                isMoving = false;
+                ResetBall();
+            }
+            if (isMoving)
+            Ball.transform.position = spline.GetPoint(splineProgress);
+        }
 
         if (BasketBallGameAudioSource.isPlaying)
         {
@@ -135,13 +153,18 @@ public class LanguageHoopsManager : MonoBehaviour
             else if (touch.phase == TouchPhase.Ended)
             {
                 Vector2 finalTouchPosition = touch.position;
+                Vector2 finalTouchPositionvec3 = touch.position;
                 float swipeDuration = Time.time - swipeStartTime;
                 Vector2 swipeVector = (finalTouchPosition - initialTouchPosition) / swipeDuration;
-                
+
+                // Convert screen touch position to world position
+                Vector3 worldStartPosition = Ball.transform.position;
+                Vector3 worldEndPosition = arCamera.ScreenToWorldPoint(new Vector3(finalTouchPosition.x, finalTouchPosition.y, arCamera.nearClipPlane + 0.2f));
+
                 // Debugging the touch positions and swipe vector
 
                 // Convert screen swipe vector to world direction
-                Vector3 forceDirection = new Vector3(swipeVector.x, swipeVector.y, Mathf.Abs(swipeVector.y)).normalized;
+                Vector3 forceDirection = (worldEndPosition - worldStartPosition).normalized;
                 float verticalMultiplier = 1f; // Adjust this multiplier for more vertical force
                 forceDirection.y *= verticalMultiplier;
 
@@ -151,11 +174,17 @@ public class LanguageHoopsManager : MonoBehaviour
                 float forceMagnitude = swipeVector.magnitude * 0.01f; // Adjust the multiplier for appropriate force
                 forceMagnitude = Mathf.Clamp(forceMagnitude, 0, maxForceMagnitude);
 
+                Vector3 velocity = forceDirection * forceMagnitude;
+                Transform targetHoop = GetClosestHoopPosition(worldStartPosition, velocity);
+
                 // Aim assist logic
                 //Debug.Log("AIM ASSUST");
-                forceDirection = CalculateAimAssist(forceDirection, forceMagnitude);
+                //  forceDirection = CalculateAimAssist(forceDirection, forceMagnitude);
 
                 // Set the Rigidbody to non-kinematic before applying force
+                /*
+                 * 
+                 * 
                 Rigidbody ballRigidbody = Ball.GetComponent<Rigidbody>();
                 ballRigidbody.isKinematic = false; // Enable physics
                 ballRigidbody.velocity = Vector3.zero; // Reset velocity before applying force
@@ -178,6 +207,14 @@ public class LanguageHoopsManager : MonoBehaviour
 
                 ballRigidbody.AddForce(impulseForce, ForceMode.Impulse);
 
+                */
+
+                Vector3 controlPoint = CalculateControlPoint(worldStartPosition, forceDirection, targetHoop.position);
+
+                spline.GenerateSpline(worldStartPosition, targetHoop.position, controlPoint);
+
+                isMoving = true;
+                splineProgress = 0f;
                 HoldingBall = false;
                 LaunchingBall = true;
                 isTouchActive = false;
@@ -217,6 +254,13 @@ public class LanguageHoopsManager : MonoBehaviour
         }
     }
 
+    Vector3 CalculateControlPoint(Vector3 start, Vector3 direction, Vector3 hoopPosition)
+    {
+        float controlHeight = Mathf.Abs(hoopPosition.y - start.y) / 2f + start.y;
+        float controlOffset = direction.x * 0.1f;  // Adjust this value to change the curve
+
+        return new Vector3(start.x + controlOffset, controlHeight +0.1f, 0.55f);
+    }
 
 
     public void PlayAudioClip(AudioClip clip) => BasketBallGameAudioSource.PlayOneShot(clip);
@@ -224,7 +268,7 @@ public class LanguageHoopsManager : MonoBehaviour
     private Vector3 CalculateAimAssist(Vector3 forceDirection, float forceMagnitude)
     {
         const int numPoints = 3; // Number of trajectory points to simulate
-        const float timeStep = 0.05f; // Time between each trajectory point
+        const float timeStep = 0.03f; // Time between each trajectory point
 
         Vector3 currentPosition = Ball.transform.position;
         Vector3 velocity = forceDirection * forceMagnitude / (Ball.GetComponent<Rigidbody>().mass + 0.2f);
@@ -253,40 +297,57 @@ public class LanguageHoopsManager : MonoBehaviour
             velocity += gravity * timeStep;
         }
 
-        Vector3 closestHoopPosition = GetClosestHoopPosition(currentPosition);
+        // Vector3 closestHoopPosition = GetClosestHoopPosition(currentPosition);
 
-        Vector3 assistedDirection = (closestHoopPosition - Ball.transform.position).normalized;
+        // Vector3 assistedDirection = (closestHoopPosition - Ball.transform.position).normalized;
 
-        return new Vector3(assistedDirection.x, Mathf.Abs(assistedDirection.y), Mathf.Abs(assistedDirection.z));
+        //  return new Vector3(assistedDirection.x, Mathf.Abs(assistedDirection.y), Mathf.Abs(assistedDirection.z));
+
+        return Vector3.zero;
     }
 
 
-    private Vector3 GetClosestHoopPosition(Vector3 predictedLandingPosition, float distanceThreshold = 0.15f)
+    private Transform GetClosestHoopPosition(Vector3 StartPosition, Vector3 velocity, float distanceThreshold = 0.15f)
     {
+
+        float timeStep = 0.03f;
+        Vector3 currentPosition = StartPosition;
         List<Transform> hoops = new List<Transform>
         {
-            HoopA.transform.Find("Hoop_02"),
-            HoopB.transform.Find("Hoop_02"),
-            HoopC.transform.Find("Hoop_02")
+            HoopA.transform.Find("Hoop_02/Hoop_B/Hoop_C"),
+            HoopB.transform.Find("Hoop_02/Hoop_B/Hoop_C"),
+            HoopC.transform.Find("Hoop_02/Hoop_B/Hoop_C")
         };
 
-        Debug.Log($"Hoop A:{hoops[0].position}, Hoop B:{hoops[1].position}, Hoop C:{hoops[2].position}, predicted {predictedLandingPosition}");
+        for (int i = 0; i < 10; i++)
+        {
+
+
+            currentPosition += velocity * timeStep;
+            velocity += Physics.gravity * timeStep;
+
+           // GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+           // sphere.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+          //  sphere.transform.position = currentPosition;
+        }
+
+        Debug.Log($"Hoop A:{hoops[0].position}, Hoop B:{hoops[1].position}, Hoop C:{hoops[2].position}, predicted {currentPosition}");
         // Find the closest hoop based on the predicted landing position
         Transform closestHoop = hoops
-            .OrderBy(hoop => Vector3.Distance(predictedLandingPosition, hoop.position))
+            .OrderBy(hoop => Vector3.Distance(currentPosition, hoop.position))
             .FirstOrDefault();
 
         if (closestHoop == null)
-            return Vector3.zero;
+            return null;
 
-        var distance = Vector3.Distance(predictedLandingPosition, closestHoop.position);
+        var distance = Vector3.Distance(currentPosition, closestHoop.position);
 
         Debug.Log($"Closest hoop {closestHoop.parent.name}, Distance: {distance}, Threshold: {distanceThreshold}");
 
-        if (distance > distanceThreshold)
-            return Vector3.zero;
+       // if (distance > distanceThreshold)
+       //     return (0, 0, 0);
 
-        return closestHoop.transform.position;
+        return closestHoop.transform;
     }
 
     private void PlayNewWord()
@@ -303,7 +364,7 @@ public class LanguageHoopsManager : MonoBehaviour
         Debug.Log("TermList.Count = " + TermsList.Count);
         for (int i = 0; i < 2; i++)
         {
-            randomIndex = UnityEngine.Random.Range(0, TermsList.Count);
+            randomIndex = UnityEngine.Random.Range(0, TermsList.Count - 1);
             tempWords.Add(TermsList[randomIndex]);
             TermsList.RemoveAt(randomIndex);
         }
@@ -418,6 +479,8 @@ public class LanguageHoopsManager : MonoBehaviour
                 AdaptiveLearning.CalculateDecayContinuous(newWord, false, responseTime);
                 AdaptiveLearning.CalculateActivationValue(newWord);
                 StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), false));
+
+                ResetBall();
                 PlayNewWord();
                 isCorrect = false;
         }

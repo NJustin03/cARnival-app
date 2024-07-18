@@ -24,6 +24,9 @@ public class StandardizedBow : MonoBehaviour
     // Easing Constants
     private const float PI = Mathf.PI;
     private const float HALFPI = Mathf.PI / 2.0f;
+
+    [SerializeField]
+    private ArrowPathLine trajectoryLine;
     #endregion
 
     #region Public Values
@@ -323,6 +326,12 @@ public class StandardizedBow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (lastProjectileTransform != null)
+        {
+            trajectoryLine.ShowTrajectoryLine(stringStartPos, lastProjectileTransform.forward * currentStressOnString);
+
+        }
         if (isPaused == true)
             return;
         // STATE 1 - Pulling the string - Default Trigger is left mouse click
@@ -345,6 +354,8 @@ public class StandardizedBow : MonoBehaviour
                 }
             }
             //
+
+
             currentTime += Time.deltaTime;
             if (currentTime>stringMoveTime)
             {
@@ -354,6 +365,8 @@ public class StandardizedBow : MonoBehaviour
             StringPull();
             RotateDownJoints();
             RotateUpperJoints();
+
+           
         }
         else
         {
@@ -560,19 +573,19 @@ public class StandardizedBow : MonoBehaviour
             case axisDirection.XAxis:
                 lastProjectileTransform.localEulerAngles = lastProjectileTransform.localEulerAngles + Vector3.forward * x + Vector3.up * y;                
                 lastProjectileTransform.parent = null;
-                lastProjectileRigidbody.useGravity = true;
+                lastProjectileRigidbody.useGravity = false;
                 lastProjectileRigidbody.velocity = (lastProjectileTransform.right * currentPower);
                 break;
             case axisDirection.YAxis:
                 lastProjectileTransform.localEulerAngles = lastProjectileTransform.localEulerAngles + Vector3.right * x + Vector3.forward * y;
                 lastProjectileTransform.parent = null;
-                lastProjectileRigidbody.useGravity = true;
+                lastProjectileRigidbody.useGravity = false;
                 lastProjectileRigidbody.velocity = (lastProjectileTransform.up * currentPower);
                 break;
             case axisDirection.ZAxis:
                 lastProjectileTransform.localEulerAngles = lastProjectileTransform.localEulerAngles + Vector3.up * x + Vector3.right * y;                
                 lastProjectileTransform.parent = null;
-                lastProjectileRigidbody.useGravity = true;
+                lastProjectileRigidbody.useGravity = false;
                 lastProjectileRigidbody.velocity = (lastProjectileTransform.forward * currentPower);
                 break;
             default:

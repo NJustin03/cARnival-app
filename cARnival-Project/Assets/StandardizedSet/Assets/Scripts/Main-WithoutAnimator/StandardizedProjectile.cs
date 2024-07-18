@@ -134,6 +134,7 @@ public class StandardizedProjectile : MonoBehaviour
     // On Contact With Collider
     private void OnTriggerEnter(Collider other)
     {
+       
         // Current tag hash code
         contactHash = other.tag.GetHashCode();
         if (contactHash == fleshHash)
@@ -149,6 +150,7 @@ public class StandardizedProjectile : MonoBehaviour
                 fleshHitPS.emission.SetBurst(0, burstControl);
                 fleshHitPS.Play();
             }
+
             rigid.constraints = RigidbodyConstraints.FreezeAll;
             rigid.velocity = Vector3.zero;
             if (hitSoundFlesh!=null)
