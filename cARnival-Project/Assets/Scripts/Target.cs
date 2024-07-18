@@ -13,6 +13,8 @@ public class Target : MonoBehaviour
     public ParticleSystem particleEffect;
     public Answer currentAnswer;
 
+    public SpawnResultText spawnText;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -33,6 +35,11 @@ public class Target : MonoBehaviour
         {
             ParticleSystem temp = Instantiate(particleEffect, transform.position, Quaternion.identity);
             temp.Play();
+            spawnText.AnsweredCorrect(transform.position);
+        }
+        else
+        {
+            spawnText.AnsweredIncorrect(transform.position);
         }
         archeryManager.ChooseAnswer(isAnswerCorrect, currentAnswer);
     }
@@ -43,8 +50,12 @@ public class Target : MonoBehaviour
         {
             ParticleSystem temp = Instantiate(particleEffect, transform.position, Quaternion.identity);
             temp.Play();
+            spawnText.AnsweredCorrect(transform.position);
         }
-        Debug.Log("Here");
+        else
+        {
+            spawnText.AnsweredIncorrect(transform.position);
+        }
         archeryManager.ChooseAnswer(isAnswerCorrect, currentAnswer);
     }
 }
