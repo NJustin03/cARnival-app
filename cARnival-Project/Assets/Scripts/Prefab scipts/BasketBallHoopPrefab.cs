@@ -5,6 +5,7 @@ public class BasketBallHoopPrefab : MonoBehaviour
     public TextPrefabScript Text;
     public ParticleSystem confetti;
     private AudioSource audioSource;
+    public SpawnResultText spawnResultText;
 
     [SerializeField]
     private LanguageHoopsManager gameManager;
@@ -30,6 +31,11 @@ public class BasketBallHoopPrefab : MonoBehaviour
             {
                 confetti.Play();
                 isCorrect = false;
+                spawnResultText.AnsweredCorrect(spawnResultText.transform.position);
+            }
+            else
+            {
+                spawnResultText.AnsweredIncorrect(spawnResultText.transform.position);
             }
         }
     }
