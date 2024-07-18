@@ -163,24 +163,27 @@ public class FishingGameManager : MonoBehaviour
             AdaptiveLearning.CalculateDecayContinuous(currentAnswer, true, responseTime);
             AdaptiveLearning.CalculateActivationValue(currentAnswer);
 
-            StartCoroutine(ShowCorrectCard());
+            selectedDuck.GetComponent<SpawnResultText>().AnsweredCorrect(selectedDuck.transform.position);
+            // StartCoroutine(ShowCorrectCard());
             PlayNewWord();
         }
         else
         {
             if (numErrors == 0)
             {
-                canSelectDuck = false;
+                // canSelectDuck = false;
+                selectedDuck.GetComponent<SpawnResultText>().AnsweredIncorrect(selectedDuck.transform.position);
                 selectedDuck.SetActive(false);
                 numErrors++;
-                StartCoroutine(ShowIncorrectCard());
+                // StartCoroutine(ShowIncorrectCard());
                 return;
             }
             //TODO: Add logic for giving correct answer after second incorrect guess
             else if (numErrors > 0)
             {
-                canSelectDuck = false;
-                StartCoroutine(ShowIncorrectCard2());
+                // canSelectDuck = false;
+                selectedDuck.GetComponent<SpawnResultText>().AnsweredIncorrect(selectedDuck.transform.position);
+                // StartCoroutine(ShowIncorrectCard2());
                 AdaptiveLearning.CalculateDecayContinuous(currentAnswer, false, responseTime);
                 AdaptiveLearning.CalculateActivationValue(currentAnswer);
                 StartCoroutine(APIManager.LogAnswer(currentAnswer.GetTermID(), false));
