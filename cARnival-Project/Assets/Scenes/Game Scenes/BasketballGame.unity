@@ -303,6 +303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ButtonImage: {fileID: 21300000, guid: 8eb69fafe4f719b49bb2dd1a7358aaaa, type: 3}
   Text: {fileID: 531831262}
+  buttonclick: {fileID: 0}
 --- !u!114 &36524195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1090,6 +1091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ButtonImage: {fileID: 21300000, guid: 372eb67c432d14ca09d9014a7d6d4d08, type: 3}
   Text: {fileID: 398118422}
+  buttonclick: {fileID: 0}
 --- !u!114 &393439644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,6 +1388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ButtonImage: {fileID: 21300000, guid: 8eb69fafe4f719b49bb2dd1a7358aaaa, type: 3}
   Text: {fileID: 338897203}
+  buttonclick: {fileID: 0}
 --- !u!114 &451425485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1558,6 +1561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ButtonImage: {fileID: 21300000, guid: 46da8634de2114354be217373280f00a, type: 3}
   Text: {fileID: 1764066339}
+  buttonclick: {fileID: 0}
 --- !u!114 &599261491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3243,7 +3247,7 @@ Transform:
   m_GameObject: {fileID: 1022102091}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.044564158, y: 0.12234944, z: 0.7145008}
+  m_LocalPosition: {x: 0, y: 0, z: 0.7145008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4565,6 +4569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ButtonImage: {fileID: 21300000, guid: 8eb69fafe4f719b49bb2dd1a7358aaaa, type: 3}
   Text: {fileID: 939540971}
+  buttonclick: {fileID: 0}
 --- !u!114 &1346420252
 MonoBehaviour:
   m_ObjectHideFlags: 0
