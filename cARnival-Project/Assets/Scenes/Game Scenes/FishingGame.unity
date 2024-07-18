@@ -9482,8 +9482,8 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.17, y: 0.17, z: 0.17}
   m_Center: {x: 0, y: 0.09, z: 0}
---- !u!82 &5159399675408851060
-AudioSource:
+--- !u!114 &5159399675408851060
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -9897,8 +9897,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.17, y: 0.17, z: 0.17}
   m_Center: {x: 0, y: 0.09, z: 0}
---- !u!82 &6013277693979740605
-AudioSource:
 --- !u!114 &6013277693979740605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10037,8 +10035,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.17, y: 0.17, z: 0.17}
   m_Center: {x: 0, y: 0.09, z: 0}
---- !u!82 &6031883148722731000
-AudioSource:
 --- !u!114 &6031883148722731000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10822,8 +10818,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.17, y: 0.17, z: 0.17}
   m_Center: {x: 0, y: 0.09, z: 0}
---- !u!82 &8483983909679643652
-AudioSource:
 --- !u!114 &8483983909679643652
 MonoBehaviour:
   m_ObjectHideFlags: 0
