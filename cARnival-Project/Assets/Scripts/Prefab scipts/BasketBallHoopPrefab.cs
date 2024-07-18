@@ -30,11 +30,10 @@ public class BasketBallHoopPrefab : MonoBehaviour
             if (isCorrect)
             {
                 confetti.Play();
-                isCorrect = false;
                 spawnResultText.AnsweredCorrect(spawnResultText.transform.position);
             }
             else
--            {
+            {
                 spawnResultText.AnsweredIncorrect(spawnResultText.transform.position);
             }
         }

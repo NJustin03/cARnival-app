@@ -218,6 +218,7 @@ public class LanguageHoopsManager : MonoBehaviour
                 HoldingBall = false;
                 LaunchingBall = true;
                 isTouchActive = false;
+                Ball.PlaySound();
             }
         }
         else

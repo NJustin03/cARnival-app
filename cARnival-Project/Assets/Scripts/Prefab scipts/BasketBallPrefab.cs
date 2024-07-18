@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class BasketBallPrefab : MonoBehaviour
 {
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    private AudioSource audioSource;
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.tag == "boundary")
@@ -11,4 +17,8 @@ public class BasketBallPrefab : MonoBehaviour
             LanguageHoopsManager.shared.ResetBall();
         }
     }
+
+    public void PlaySound() => audioSource.Play();
+
+
 }
