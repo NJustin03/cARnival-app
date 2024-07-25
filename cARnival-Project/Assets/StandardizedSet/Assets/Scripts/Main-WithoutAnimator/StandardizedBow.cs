@@ -328,7 +328,7 @@ public class StandardizedBow : MonoBehaviour
     {
         if (lastProjectileTransform != null)
         {
-            trajectoryLine.ShowTrajectoryLine(stringEndPos, lastProjectileTransform.forward * currentStressOnString);
+            trajectoryLine.ShowTrajectoryLine(bowStringPoint.position, lastProjectileTransform.forward * currentStressOnString);
 
         }
         if (isPaused == true)
