@@ -63,9 +63,10 @@ public class LanguageHoopsManager : MonoBehaviour
     private Vector2 initialTouchPosition;
     private float swipeStartTime;
     private float lastTouchTime;
-    private float maxForceMagnitude = 6f;
-    private float moveSpeed = 1f;
+    private float maxForceMagnitude = 5f;
+    private float moveSpeed = 1.2f;
     private float splineProgress = 0f;
+    Rigidbody ballRigidbody = null;
 
     private void Awake()
     {
@@ -76,7 +77,7 @@ public class LanguageHoopsManager : MonoBehaviour
         shared = this;
         StoredMovement = new List<Vector2>(Enumerable.Repeat(Vector2.zero, MaxStoredMovement));
         StartCoroutine(APIManager.StartSession(module.currentModuleID));
-        Rigidbody ballRigidbody = Ball.GetComponent<Rigidbody>();
+        ballRigidbody = Ball.GetComponent<Rigidbody>();
         ballRigidbody.isKinematic = true;
         basketballColors = new List<Material>(CosmeticManager.basketballMaterial.materials);
     }
@@ -167,8 +168,9 @@ public class LanguageHoopsManager : MonoBehaviour
                 // Debugging the touch positions and swipe vector
 
                 // Convert screen swipe vector to world direction
-                Vector3 forceDirection = (worldEndPosition - worldStartPosition).normalized;
-                float verticalMultiplier = 1f; // Adjust this multiplier for more vertical force
+               // Vector3 forceDirection = (worldEndPosition - worldStartPosition).normalized;
+                Vector3 forceDirection = new Vector3(swipeVector.x, swipeVector.y, Mathf.Abs(swipeVector.y)).normalized;
+                float verticalMultiplier = 0.38f; // Adjust this multiplier for more vertical force
                 forceDirection.y *= verticalMultiplier;
 
                 // Normalize the force direction again
@@ -176,52 +178,36 @@ public class LanguageHoopsManager : MonoBehaviour
 
                 float forceMagnitude = swipeVector.magnitude * 0.01f; // Adjust the multiplier for appropriate force
                 forceMagnitude = Mathf.Clamp(forceMagnitude, 0, maxForceMagnitude);
+                Debug.Log("forceMagnitude:" + forceMagnitude);
 
                 Vector3 velocity = forceDirection * forceMagnitude;
-                Transform targetHoop = GetClosestHoopPosition(worldStartPosition, velocity);
 
-                // Aim assist logic
-                //Debug.Log("AIM ASSUST");
-                //  forceDirection = CalculateAimAssist(forceDirection, forceMagnitude);
 
-                // Set the Rigidbody to non-kinematic before applying force
-                /*
-                 * 
-                 * 
-                Rigidbody ballRigidbody = Ball.GetComponent<Rigidbody>();
-                ballRigidbody.isKinematic = false; // Enable physics
-                ballRigidbody.velocity = Vector3.zero; // Reset velocity before applying force
-                ballRigidbody.angularVelocity = Vector3.zero; // Reset angular velocity
+                if (forceMagnitude < 2.5)
+                {
+                    ballRigidbody.isKinematic = false; // Enable physics
+                    ballRigidbody.velocity = Vector3.zero; // Reset velocity before applying force
+                    ballRigidbody.angularVelocity = Vector3.zero; // Reset angular velocity
+                    var impulseForce = forceDirection * forceMagnitude;
 
-                var impulseForce = forceDirection * forceMagnitude;
+                    ballRigidbody.AddForce(impulseForce, ForceMode.Impulse);
+                }
+                else
+                {
+                    Transform targetHoop = GetClosestHoopPosition(worldStartPosition, velocity);
+                    Vector3 controlPoint = CalculateControlPoint(worldStartPosition, forceDirection, targetHoop.position);
 
-              //  if (impulseForce.y < 2.5f)
-              //  {
-             //      ResetBall();
-             //       return;
-             //   }
+                    spline.GenerateSpline(worldStartPosition, targetHoop.position, controlPoint);
+                    isMoving = true;
+                    splineProgress = 0f;
+                    
+                }
 
-                impulseForce.x = Mathf.Clamp(impulseForce.x, -2f, 2f);
-
-                // if Y force is less than 2.5 then reset the ball 
-                // clamp x force to be between -2 and 2
-
-                // Debug.Log($"BasketBallGame -- ForceApplied: {impulseForce}");
-
-                ballRigidbody.AddForce(impulseForce, ForceMode.Impulse);
-
-                */
-
-                Vector3 controlPoint = CalculateControlPoint(worldStartPosition, forceDirection, targetHoop.position);
-
-                spline.GenerateSpline(worldStartPosition, targetHoop.position, controlPoint);
-
-                isMoving = true;
-                splineProgress = 0f;
                 HoldingBall = false;
                 LaunchingBall = true;
                 isTouchActive = false;
                 Ball.PlaySound();
+
             }
         }
         else
@@ -263,7 +249,7 @@ public class LanguageHoopsManager : MonoBehaviour
         float controlHeight = Mathf.Abs(hoopPosition.y - start.y) / 2f + start.y;
         float controlOffset = direction.x * 0.1f;  // Adjust this value to change the curve
 
-        return new Vector3(start.x + controlOffset, controlHeight +0.1f, 0.55f);
+        return new Vector3(start.x + controlOffset, controlHeight +0.2f, 0.55f);
     }
 
 
@@ -314,7 +300,7 @@ public class LanguageHoopsManager : MonoBehaviour
     private Transform GetClosestHoopPosition(Vector3 StartPosition, Vector3 velocity, float distanceThreshold = 0.15f)
     {
 
-        float timeStep = 0.03f;
+        float timeStep = 0.01f;
         Vector3 currentPosition = StartPosition;
         List<Transform> hoops = new List<Transform>
         {
@@ -323,19 +309,17 @@ public class LanguageHoopsManager : MonoBehaviour
             HoopC.transform.Find("Hoop_02/Hoop_B/Hoop_C")
         };
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 4; i++)
         {
+           currentPosition += velocity * timeStep;
+           velocity += (Physics.gravity) * timeStep;
 
-
-            currentPosition += velocity * timeStep;
-            velocity += Physics.gravity * timeStep;
-
-           // GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-           // sphere.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-          //  sphere.transform.position = currentPosition;
+         //  GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+         //  sphere.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+         //  sphere.transform.position = currentPosition;
         }
 
-        Debug.Log($"Hoop A:{hoops[0].position}, Hoop B:{hoops[1].position}, Hoop C:{hoops[2].position}, predicted {currentPosition}");
+        //Debug.Log($"Hoop A:{hoops[0].position}, Hoop B:{hoops[1].position}, Hoop C:{hoops[2].position}, predicted {currentPosition}");
         // Find the closest hoop based on the predicted landing position
         Transform closestHoop = hoops
             .OrderBy(hoop => Vector3.Distance(currentPosition, hoop.position))

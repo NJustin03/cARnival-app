@@ -13,7 +13,7 @@ public class Spline : MonoBehaviour
         points.Add(control);
         points.Add(end);
 
-        Debug.Log($"Spline generated with points: {start}, {control}, {end}");
+       // Debug.Log($"Spline generated with points: {start}, {control}, {end}");
     }
 
     public Vector3 GetPoint(float t)

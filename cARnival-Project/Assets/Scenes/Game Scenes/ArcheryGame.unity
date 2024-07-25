@@ -175,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ButtonImage: {fileID: 21300000, guid: 8eb69fafe4f719b49bb2dd1a7358aaaa, type: 3}
   Text: {fileID: 2079041741}
+  buttonclick: {fileID: 0}
 --- !u!114 &17809203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1582,6 +1583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ButtonImage: {fileID: 21300000, guid: 46da8634de2114354be217373280f00a, type: 3}
   Text: {fileID: 1324276791}
+  buttonclick: {fileID: 0}
 --- !u!114 &640955248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2076,6 +2078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ButtonImage: {fileID: 21300000, guid: 8eb69fafe4f719b49bb2dd1a7358aaaa, type: 3}
   Text: {fileID: 1380978430}
+  buttonclick: {fileID: 0}
 --- !u!114 &953351507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4816,6 +4819,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ButtonImage: {fileID: 21300000, guid: 8eb69fafe4f719b49bb2dd1a7358aaaa, type: 3}
   Text: {fileID: 1447624486}
+  buttonclick: {fileID: 0}
 --- !u!114 &1932370044
 MonoBehaviour:
   m_ObjectHideFlags: 0
