@@ -326,10 +326,9 @@ public class StandardizedBow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (lastProjectileTransform != null)
         {
-            trajectoryLine.ShowTrajectoryLine(stringStartPos, lastProjectileTransform.forward * currentStressOnString);
+            trajectoryLine.ShowTrajectoryLine(stringEndPos, lastProjectileTransform.forward * currentStressOnString);
 
         }
         if (isPaused == true)
