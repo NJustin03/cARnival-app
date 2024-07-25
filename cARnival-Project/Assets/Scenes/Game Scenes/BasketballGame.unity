@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028373, g: 0.22571398, b: 0.30692294, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3966,6 +3966,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: LanguageHoopsManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5206153429385123359, guid: 7647ee64e37a147c888f609e987e4570,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5256110998045723853, guid: 7647ee64e37a147c888f609e987e4570,
         type: 3}
