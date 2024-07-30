@@ -183,7 +183,6 @@ public class FishingGameManager : MonoBehaviour
             scoreText.Text = "Score: " + score;
             AdaptiveLearning.CalculateDecayContinuous(currentAnswer, true, responseTime);
             AdaptiveLearning.CalculateActivationValue(currentAnswer);
-
             selectedDuck.GetComponent<SpawnResultText>().AnsweredCorrect(selectedDuck.transform.position);
             // StartCoroutine(ShowCorrectCard());
             PlayNewWord();

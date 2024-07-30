@@ -341,7 +341,7 @@ public class LanguageHoopsManager : MonoBehaviour
     private void PlayNewWord()
     {
         Ball.transform.position = BallStartPosition.position;
-
+        numErrors = 0;
         int randomIndex = 0;
 
         // Do not destroy the value this holds when modifying code
@@ -457,7 +457,6 @@ public class LanguageHoopsManager : MonoBehaviour
             isCorrect = true;
             AdaptiveLearning.CalculateDecayContinuous(newWord, true, responseTime);
             AdaptiveLearning.CalculateActivationValue(newWord);
-
             PlayNewWord();
             ResetBall();
         }
@@ -476,7 +475,6 @@ public class LanguageHoopsManager : MonoBehaviour
                 AdaptiveLearning.CalculateDecayContinuous(newWord, false, responseTime);
                 AdaptiveLearning.CalculateActivationValue(newWord);
                 StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), false));
-                numErrors = 0;
                 ResetBall();
                 PlayNewWord();
                 isCorrect = false;
