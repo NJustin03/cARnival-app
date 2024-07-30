@@ -19,8 +19,8 @@ public class MusicManager : MonoBehaviour
     // To Do: Determine how/what to set as default music.
     private void Start()
     {
-        volume = 1f;
-
+        volume = 0.8f;
+        AudioListener.volume = PlayerPrefs.GetFloat("musicVolume", 1f);
         // On initial startup, the app should load all music files stored in the resources folder.
         if (musicFiles == null)
         {
