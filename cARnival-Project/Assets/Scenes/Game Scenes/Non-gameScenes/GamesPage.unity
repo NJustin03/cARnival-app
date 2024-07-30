@@ -612,7 +612,7 @@ PrefabInstance:
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
@@ -627,7 +627,7 @@ PrefabInstance:
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
@@ -648,7 +648,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 140580689}
+      objectReference: {fileID: 140580688}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
@@ -687,7 +687,7 @@ PrefabInstance:
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: PlayButtonSound
+      value: SwapScene
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
@@ -707,7 +707,7 @@ PrefabInstance:
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: ButtonPrefabScript, Assembly-CSharp
+      value: SceneSwapper, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
@@ -727,7 +727,7 @@ PrefabInstance:
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_StringArgument
-      value: 
+      value: ModulesSelectionPage
       objectReference: {fileID: 0}
     - target: {fileID: 4636345140730137525, guid: 7b9178bef7c5248bea9b5848e5bd658b,
         type: 3}

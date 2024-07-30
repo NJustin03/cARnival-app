@@ -70,6 +70,7 @@ public class LanguageHoopsManager : MonoBehaviour
 
     private void Awake()
     {
+        AudioListener.volume = PlayerPrefs.GetFloat("musicVolume", 1f);
         Debug.Log("Game Started");
         module = FindAnyObjectByType<ModuleManager>();
         TermsList = module.terms;
@@ -111,7 +112,7 @@ public class LanguageHoopsManager : MonoBehaviour
         }
         else
         {
-            musicManager.audioSource.volume = PlayerPrefs.GetFloat("musicVolume", 0.5f);
+            musicManager.audioSource.volume = 0.8f;
         }
 
         if (Ball.transform.position.y < -0.3f)

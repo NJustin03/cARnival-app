@@ -5185,6 +5185,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4951602534988215438, guid: e2d0b5cf8fd49e844adf5b5f803b2c96,
         type: 3}
+      propertyPath: m_Volume
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4951602534988215438, guid: e2d0b5cf8fd49e844adf5b5f803b2c96,
+        type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}

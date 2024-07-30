@@ -35,6 +35,7 @@ public class ArcheryManager : MonoBehaviour
 
     private void Awake()
     {
+        AudioListener.volume = PlayerPrefs.GetFloat("musicVolume", 1f);
         // Loads the module manager and finds the list of "terms" (current the Answer object).
         // Front is the word in the foreign language (prompt),
         // Back is the word in the native language(answer)

@@ -8,4 +8,9 @@ public class OpenURL : MonoBehaviour
     {
         Application.OpenURL(url);
     }
+
+    public void OpenGivenWebsite(string url)
+    {
+        Application.OpenURL(url);
+    }
 }

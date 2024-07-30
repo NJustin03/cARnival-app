@@ -47,6 +47,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game Scenes/Non-gameScenes/StorePageNew.unity
     guid: bd0b40c161ed6eb47b7851431c79eb93
+  - enabled: 1
+    path: Assets/Scenes/Game Scenes/Non-gameScenes/CreditsPage.unity
+    guid: 0a5a1bed03eaa984eaf72836d61d00e5
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af,
       type: 2}

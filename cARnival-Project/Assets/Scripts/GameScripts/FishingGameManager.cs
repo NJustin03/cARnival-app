@@ -54,6 +54,7 @@ public class FishingGameManager : MonoBehaviour
 
     private void Awake()
     {
+        AudioListener.volume = PlayerPrefs.GetFloat("musicVolume", 1f);
         // Loads the module manager and finds the list of "terms" (current the Answer object).
         // Front is the word in the foreign language (prompt),
         // Back is the word in the native language(answer)
@@ -61,8 +62,6 @@ public class FishingGameManager : MonoBehaviour
         TermsList = module.terms;
         Debug.Log(TermsList.Count);
         shared = this;
-
-        //Adding a few terms for testing
     }
 
     private void Start()
@@ -84,7 +83,7 @@ public class FishingGameManager : MonoBehaviour
         }
         else
         {
-            musicManager.audioSource.volume = PlayerPrefs.GetFloat("musicVolume", 0.5f);
+            musicManager.audioSource.volume = 0.8f;
         }
 
         if (!canSelectDuck) return;

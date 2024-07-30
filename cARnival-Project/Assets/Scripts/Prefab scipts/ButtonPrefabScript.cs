@@ -53,6 +53,6 @@ public class ButtonPrefabScript : MonoBehaviour
 #endif
     public void PlayButtonSound()
     {
-        AudioSource.PlayClipAtPoint(buttonclick, Vector3.zero, 0.05f);
+        AudioSource.PlayClipAtPoint(buttonclick, Vector3.zero, 0.1f);
     }
 }

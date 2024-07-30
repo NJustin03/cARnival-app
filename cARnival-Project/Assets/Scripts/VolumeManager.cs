@@ -9,7 +9,7 @@ public class VolumeManager : MonoBehaviour
     [SerializeField] Slider volumeSlider;
     [SerializeField] TextMeshProUGUI volumeText;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (!PlayerPrefs.HasKey("musicVolume"))
         {
