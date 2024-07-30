@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
@@ -37,17 +38,23 @@ public class FishingGameManager : MonoBehaviour
     public GameObject settingsCard;
     public TextPrefabScript scoreText;
     public TextPrefabScript correctAnswer;
+    public GameObject gameScene;
 
     private int score = 0;
     private int numErrors = 0;
     private string currentWord = null;
     private bool canSelectDuck = true;
+    private GameObject prefabInstance;
+    private bool hasSpawned = false;
 
     [SerializeField]
     private ModuleManager module;
 
     [SerializeField]
     private MusicManager musicManager = null;
+
+    [SerializeField]
+    private ARAnchorManager aRAnchorManager;
 
     [SerializeField]
     private List<Answer> TermsList;
@@ -71,7 +78,6 @@ public class FishingGameManager : MonoBehaviour
         PlayNewWord();
         incorrectCard.SetActive(false);
         correctCard.SetActive(false);
-
         scoreText.Text = "Score: " + score;
     }
 
@@ -84,6 +90,18 @@ public class FishingGameManager : MonoBehaviour
         else
         {
             musicManager.audioSource.volume = 0.8f;
+        }
+
+        if (!hasSpawned)
+        {
+            Ray ray = arCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            List<ARRaycastHit> hits = new List<ARRaycastHit>();
+            if (arRaycastManager.Raycast(ray, hits, TrackableType.FeaturePoint | TrackableType.PlaneWithinPolygon))
+            {
+                hasSpawned = true;
+                Pose hitPose = hits[0].pose;
+                prefabInstance = Instantiate(gameScene, hitPose.position, hitPose.rotation);
+            }
         }
 
         if (!canSelectDuck) return;

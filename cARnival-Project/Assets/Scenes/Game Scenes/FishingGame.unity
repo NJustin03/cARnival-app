@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028373, g: 0.22571398, b: 0.30692294, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -880,7 +880,7 @@ Transform:
   - {fileID: 1848978904}
   - {fileID: 2071165769}
   - {fileID: 242412827}
-  m_Father: {fileID: 2670899825649496574}
+  m_Father: {fileID: 1343549155}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &179966419
 PrefabInstance:
@@ -1095,7 +1095,7 @@ Transform:
   - {fileID: 1549647357}
   - {fileID: 1514503565}
   - {fileID: 1647581627}
-  m_Father: {fileID: 2670899825649496574}
+  m_Father: {fileID: 1343549155}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &242412827 stripped
 Transform:
@@ -4745,6 +4745,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1343549155}
+  - component: {fileID: 1343549156}
   m_Layer: 0
   m_Name: AnchorPoint
   m_TagString: Untagged
@@ -4770,8 +4771,23 @@ Transform:
   - {fileID: 1782072134298289326}
   - {fileID: 1764787467959007971}
   - {fileID: 4370469622269558774}
+  - {fileID: 161072858}
+  - {fileID: 237619528}
   m_Father: {fileID: 2670899825649496574}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1343549156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343549154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb898793194e03f4bb10dba03ec2cb70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DestroyOnRemoval: 1
 --- !u!1 &1344980697
 GameObject:
   m_ObjectHideFlags: 0
@@ -9121,8 +9137,6 @@ Transform:
   - {fileID: 2431086062147475013}
   - {fileID: 7132805967844496207}
   - {fileID: 1343549155}
-  - {fileID: 161072858}
-  - {fileID: 237619528}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2672752306241110431
@@ -10138,6 +10152,7 @@ MonoBehaviour:
     type: 3}
   incorrectIndicator: {fileID: 7730206975101125030, guid: bf26dfb11b62906419631ea41a2be592,
     type: 3}
+  scale: 1
 --- !u!82 &5159399675408851061
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10543,6 +10558,7 @@ MonoBehaviour:
     type: 3}
   incorrectIndicator: {fileID: 7730206975101125030, guid: bf26dfb11b62906419631ea41a2be592,
     type: 3}
+  scale: 1
 --- !u!82 &6013277693979740606
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10689,6 +10705,7 @@ MonoBehaviour:
     type: 3}
   incorrectIndicator: {fileID: 7730206975101125030, guid: bf26dfb11b62906419631ea41a2be592,
     type: 3}
+  scale: 1
 --- !u!82 &6031883148722731001
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10891,8 +10908,10 @@ MonoBehaviour:
   settingsCard: {fileID: 1544449341067838140}
   scoreText: {fileID: 594538199}
   correctAnswer: {fileID: 1105929471}
+  gameScene: {fileID: 1343549154}
   module: {fileID: 0}
   musicManager: {fileID: 1473381477}
+  aRAnchorManager: {fileID: 1571486784}
 --- !u!224 &6842771650382004930
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11333,6 +11352,7 @@ MonoBehaviour:
     type: 3}
   incorrectIndicator: {fileID: 7730206975101125030, guid: bf26dfb11b62906419631ea41a2be592,
     type: 3}
+  scale: 1
 --- !u!82 &8483983909679643653
 AudioSource:
   m_ObjectHideFlags: 0
