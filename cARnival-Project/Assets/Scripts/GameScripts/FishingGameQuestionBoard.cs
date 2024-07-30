@@ -14,6 +14,7 @@ public class FishingGameQuestionBoard : MonoBehaviour
         Audio
     }
     public GameObject QuestionBoard;
+    public bool isImage;
 
     [SerializeField]
     private GameObject TermWordGameObject = null;
@@ -41,6 +42,7 @@ public class FishingGameQuestionBoard : MonoBehaviour
         TermWordGameObject.SetActive(false);
         TermImageGameObject.SetActive(false);
         TermAudioGameObject.SetActive(false);
+        isImage = false;
         //randomTermType.ToString()
         switch (randomTermType)
         {
@@ -56,6 +58,7 @@ public class FishingGameQuestionBoard : MonoBehaviour
                 Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                 TermImageImage.sprite = sprite;
                 TermImageGameObject.SetActive(true);
+                isImage = true;
                 break;
                 
             case "Audio":

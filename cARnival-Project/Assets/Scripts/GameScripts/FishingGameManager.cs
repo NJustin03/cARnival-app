@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARSubsystems;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
@@ -44,17 +43,12 @@ public class FishingGameManager : MonoBehaviour
     private int numErrors = 0;
     private string currentWord = null;
     private bool canSelectDuck = true;
-    private GameObject prefabInstance;
-    private bool hasSpawned = false;
 
     [SerializeField]
     private ModuleManager module;
 
     [SerializeField]
     private MusicManager musicManager = null;
-
-    [SerializeField]
-    private ARAnchorManager aRAnchorManager;
 
     [SerializeField]
     private List<Answer> TermsList;
@@ -91,19 +85,6 @@ public class FishingGameManager : MonoBehaviour
         {
             musicManager.audioSource.volume = 0.8f;
         }
-
-        if (!hasSpawned)
-        {
-            Ray ray = arCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            List<ARRaycastHit> hits = new List<ARRaycastHit>();
-            if (arRaycastManager.Raycast(ray, hits, TrackableType.FeaturePoint | TrackableType.PlaneWithinPolygon))
-            {
-                hasSpawned = true;
-                Pose hitPose = hits[0].pose;
-                prefabInstance = Instantiate(gameScene, hitPose.position, hitPose.rotation);
-            }
-        }
-
         if (!canSelectDuck) return;
         // TODO: Perform raycast to see if we are clicking on a duck and determine if we need to select this word?
         if (Input.touchCount > 0)
@@ -155,18 +136,34 @@ public class FishingGameManager : MonoBehaviour
             tempWords.Add(TermsList[randomIndex]);
             TermsList.RemoveAt(randomIndex);
         }
+        tempWords.Insert(0, newWord);
+
         //configure all the ducks
-        DuckA.ConfigureDuck(newWord.GetBack());
-        DuckB.ConfigureDuck(tempWords[0].GetBack());
-        DuckC.ConfigureDuck(tempWords[1].GetBack());
-        DuckD.ConfigureDuck(tempWords[2].GetBack());
+        List<DuckPrefab> ducks = new List<DuckPrefab>
+        {
+            DuckA, DuckB, DuckC, DuckD
+        };
+
+        // Shuffle hoops to assign words randomly
+        ShuffleList(tempWords);
+
         //TODO: configure question board
         fishingGameQuestionBoard.ConfigureWithWord(newWord);
-        //Add terms back into main term list
-        TermsList.Add(newWord);
-        TermsList.Add(tempWords[0]);
-        TermsList.Add(tempWords[1]);
-        TermsList.Add(tempWords[2]);
+        // Assign words to ducks
+        // Add back terms to TermList
+        for (int i = 0; i < ducks.Count; i++)
+        {
+            if (fishingGameQuestionBoard.isImage)
+            {
+                ducks[i].ConfigureDuck(tempWords[i].GetFront());
+                TermsList.Add(tempWords[i]);
+            }
+            else
+            {
+                ducks[i].ConfigureDuck(tempWords[i].GetBack());
+                TermsList.Add(tempWords[i]);
+            }
+        }
     }
 
     public void PlayAudioClip(AudioClip clip) => FishingGameAudioSource.PlayOneShot(clip);
@@ -175,7 +172,7 @@ public class FishingGameManager : MonoBehaviour
     {
         //TODO: Add logic to check for response time.
         var responseTime = 0;
-        if (selectedDuck.Text.Text == currentAnswer.GetBack())
+        if (selectedDuck.Text.Text == currentAnswer.GetBack() || selectedDuck.Text.Text == currentAnswer.GetFront())
         {
             score++;
             StoreManager.AddCoins(1);
@@ -216,7 +213,14 @@ public class FishingGameManager : MonoBehaviour
 
     private IEnumerator OnAnswerIncorrect()
     {
-        correctAnswerBox.Text = "The correct answer is: " + newWord.GetBack();
+        if (fishingGameQuestionBoard.isImage)
+        {
+            correctAnswerBox.Text = "The correct answer is: " + newWord.GetFront();
+        }
+        else
+        {
+            correctAnswerBox.Text = "The correct answer is: " + newWord.GetBack();
+        }
         correctAnswerBox.gameObject.SetActive(true);
         yield return new WaitForSecondsRealtime(1.5f);
         correctAnswerBox.gameObject.SetActive(false);
@@ -294,5 +298,16 @@ public class FishingGameManager : MonoBehaviour
         settingsCard.GetComponent<Animator>().SetTrigger("SlideOut");
         yield return new WaitForSeconds(1.5f);
         settingsCard.SetActive(false);
+    }
+
+    void ShuffleList<T>(List<T> list)
+    {
+        for (int i = 0; i < list.Count - 1; i++)
+        {
+            T temp = list[i];
+            int rand = Random.Range(i, list.Count);
+            list[i] = list[rand];
+            list[rand] = temp;
+        }
     }
 }
