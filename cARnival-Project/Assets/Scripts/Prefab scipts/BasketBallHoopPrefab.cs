@@ -27,6 +27,7 @@ public class BasketBallHoopPrefab : MonoBehaviour
         {
             Debug.Log("Collider Works!!!");
             gameManager.SelectWord(this, out bool isCorrect);
+            gameManager.ResetBall();
             if (isCorrect)
             {
                 confetti.Play();
