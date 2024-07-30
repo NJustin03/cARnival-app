@@ -100,7 +100,6 @@ public class LanguageHoopsManager : MonoBehaviour
             {
                 splineProgress = 1f;
                 isMoving = false;
-                ResetBall();
             }
             if (isMoving)
             Ball.transform.position = spline.GetPoint(splineProgress);
