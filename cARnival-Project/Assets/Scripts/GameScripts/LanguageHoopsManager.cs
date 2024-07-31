@@ -100,7 +100,10 @@ public class LanguageHoopsManager : MonoBehaviour
             {
                 splineProgress = 1f;
                 isMoving = false;
+
+                ResetBall();
             }
+                
             if (isMoving)
             Ball.transform.position = spline.GetPoint(splineProgress);
         }
@@ -476,7 +479,7 @@ public class LanguageHoopsManager : MonoBehaviour
             AdaptiveLearning.CalculateActivationValue(newWord);
             StartCoroutine(SendSingleALToDatabase(newWord));
             PlayNewWord();
-            ResetBall();
+            
         }
         else
         {
@@ -494,7 +497,7 @@ public class LanguageHoopsManager : MonoBehaviour
                 AdaptiveLearning.CalculateActivationValue(newWord);
                 StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), false));
                 StartCoroutine(SendSingleALToDatabase(newWord));
-                ResetBall();
+                
                 PlayNewWord();
                 isCorrect = false;
             }
