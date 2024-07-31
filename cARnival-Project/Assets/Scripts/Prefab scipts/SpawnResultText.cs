@@ -11,11 +11,12 @@ public class SpawnResultText : MonoBehaviour
 
     public void AnsweredCorrect(Vector3 position)
     {
-        Instantiate(correctIndicator, position, Quaternion.identity).transform.localScale = new Vector3(scale, scale, scale);
+        Debug.Log(position);
+        Instantiate(correctIndicator, position, Quaternion.identity);
     }
 
     public void AnsweredIncorrect(Vector3 position)
     {
-        Instantiate(incorrectIndicator, position, Quaternion.identity).transform.localScale = new Vector3(scale, scale, scale);
+        Instantiate(incorrectIndicator, position, Quaternion.identity);
     }
 }

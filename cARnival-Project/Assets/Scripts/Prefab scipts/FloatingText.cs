@@ -10,12 +10,14 @@ public class FloatingText : MonoBehaviour
     float startValue = 0;
     float endValue = 1;
     float valueToLerp;
+    float startPos;
 
 
     // Start is called before the first frame update
     void Start()
     {
         numberPos = GetComponent<RectTransform>();
+        startPos = numberPos.position.y;
         StartCoroutine(Lerp());
     }
 
@@ -27,7 +29,7 @@ public class FloatingText : MonoBehaviour
         {
             valueToLerp = Mathf.Lerp(startValue, endValue, timeElapsed / lerpDuration);
             timeElapsed += Time.deltaTime;
-            numberPos.localPosition = new Vector3(numberPos.localPosition.x, valueToLerp, numberPos.localPosition.z);
+            numberPos.localPosition = new Vector3(numberPos.localPosition.x, valueToLerp + startPos, numberPos.localPosition.z);
             yield return null;
         }
         valueToLerp = endValue;
