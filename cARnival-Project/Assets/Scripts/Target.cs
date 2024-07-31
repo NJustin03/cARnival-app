@@ -44,7 +44,7 @@ public class Target : MonoBehaviour
         {
             spawnText.AnsweredIncorrect(transform.position);
         }
-        archeryManager.ChooseAnswer(isAnswerCorrect, currentAnswer);
+        archeryManager.ChooseAnswer(isAnswerCorrect);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -59,6 +59,6 @@ public class Target : MonoBehaviour
         {
             spawnText.AnsweredIncorrect(transform.position);
         }
-        archeryManager.ChooseAnswer(isAnswerCorrect, currentAnswer);
+        archeryManager.ChooseAnswer(isAnswerCorrect);
     }
 }

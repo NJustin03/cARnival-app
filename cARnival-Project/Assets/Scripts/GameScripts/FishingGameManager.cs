@@ -61,7 +61,7 @@ public class FishingGameManager : MonoBehaviour
         // Back is the word in the native language(answer)
         module = FindAnyObjectByType<ModuleManager>();
         TermsList = module.terms;
-        Debug.Log(TermsList.Count);
+        //Debug.Log(TermsList.Count);
         shared = this;
     }
 
@@ -97,12 +97,12 @@ public class FishingGameManager : MonoBehaviour
 
                 Ray ray = arCamera.ScreenPointToRay(touch.position);
                 RaycastHit hitObject;
-                Debug.Log("Raycasting from screen position: " + touch.position);
+                //Debug.Log("Raycasting from screen position: " + touch.position);
                 if (Physics.Raycast(ray, out hitObject))
                 {
                     if (hitObject.collider != null && hitObject.collider.gameObject.CompareTag("duck"))
                     {
-                        Debug.Log("Duck wCreith collider tapped");
+                        //Debug.Log("Duck wCreith collider tapped");
 
                         duckSelected = hitObject.collider.gameObject.GetComponent<DuckPrefab>();
 
@@ -230,6 +230,7 @@ public class FishingGameManager : MonoBehaviour
     
     public void QuitGame()
     {
+        Time.timeScale = 1;
         StartCoroutine(EndSession());
     }
 
@@ -264,6 +265,7 @@ public class FishingGameManager : MonoBehaviour
         // Ex: SetActive call on a settings prefab
 
         // TODO: Pause the game
+        canSelectDuck = false;
         Time.timeScale = 0;
         settingsCard.SetActive(true);
         settingsCard.GetComponent<Animator>().SetTrigger("SlideIn");

@@ -119,7 +119,7 @@ public class ArcheryManager : MonoBehaviour
 
     }
 
-    public void ChooseAnswer(bool isAnswerCorrect, Answer answer)
+    public void ChooseAnswer(bool isAnswerCorrect)
     {
         if (isAnswerCorrect)
         {
@@ -127,16 +127,18 @@ public class ArcheryManager : MonoBehaviour
             StoreManager.AddCoins(1);
             StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), true));
             scoreText.Text = "Score: " + score;
-            AdaptiveLearning.CalculateDecayContinuous(answer, true, 0);
-            AdaptiveLearning.CalculateActivationValue(answer);
+            AdaptiveLearning.CalculateDecayContinuous(newWord, true, 0);
+            AdaptiveLearning.CalculateActivationValue(newWord);
+            StartCoroutine(SendSingleALToDatabase(newWord));
             PlayNewWord();
         }
         else
         {
             StartCoroutine(OnAnswerIncorrect());
             StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), false));
-            AdaptiveLearning.CalculateDecayContinuous(answer, false, 0);
-            AdaptiveLearning.CalculateActivationValue(answer);
+            AdaptiveLearning.CalculateDecayContinuous(newWord, false, 0);
+            AdaptiveLearning.CalculateActivationValue(newWord);
+            StartCoroutine(SendSingleALToDatabase(newWord));
             PlayNewWord();
         }
 
@@ -159,9 +161,26 @@ public class ArcheryManager : MonoBehaviour
 
     public void QuitGame()
     {
-        StartCoroutine(SendALToDatabase());
+        Time.timeScale = 1;
+        // TODO: Add the summary functionality if needed
+        // TODO: Make sure the loading of the scene is the correct scene GameScene?
+        StartCoroutine(EndSession());
     }
 
+    private IEnumerator EndSession()
+    {
+        yield return StartCoroutine(APIManager.EndSession(score));
+        SceneSwapper.SwapSceneStatic("GamesPage");
+    }
+
+    private IEnumerator SendSingleALToDatabase(Answer currentTerm)
+    {
+        Debug.Log("Updating term: " + currentTerm.GetFront());
+        string times = string.Join(",", currentTerm.GetPresentationTimes());
+        yield return StartCoroutine(APIManager.UpdateAdaptiveLearningValue(currentTerm.GetTermID(), currentTerm.GetActivation(), currentTerm.GetDecay(), currentTerm.GetIntercept(), currentTerm.GetInitialTime(), times));
+    }
+
+    // Function that sends all Adaptive Learning values at once to the database. 
     private IEnumerator SendALToDatabase()
     {
         Time.timeScale = 1;

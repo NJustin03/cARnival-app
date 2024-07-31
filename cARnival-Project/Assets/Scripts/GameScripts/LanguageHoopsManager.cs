@@ -400,10 +400,27 @@ public class LanguageHoopsManager : MonoBehaviour
 
     public void QuitGame()
     {
+        Time.timeScale = 1;
         // TODO: Add the summary functionality if needed
         // TODO: Make sure the loading of the scene is the correct scene GameScene?
-        StartCoroutine(SendALToDatabase());
+        StartCoroutine(EndSession());
     }
+
+    private IEnumerator EndSession()
+    {
+
+        yield return StartCoroutine(APIManager.EndSession(score));
+        SceneSwapper.SwapSceneStatic("GamesPage");
+    }
+
+    private IEnumerator SendSingleALToDatabase(Answer currentTerm)
+    {
+        Debug.Log("Updating term: " + currentTerm.GetFront());
+        string times = string.Join(",", currentTerm.GetPresentationTimes());
+        yield return StartCoroutine(APIManager.UpdateAdaptiveLearningValue(currentTerm.GetTermID(), currentTerm.GetActivation(), currentTerm.GetDecay(), currentTerm.GetIntercept(), currentTerm.GetInitialTime(), times));
+    }
+
+    // Function that sends all Adaptive Learning values at once to the database. 
 
     private IEnumerator SendALToDatabase()
     {
@@ -457,6 +474,7 @@ public class LanguageHoopsManager : MonoBehaviour
             isCorrect = true;
             AdaptiveLearning.CalculateDecayContinuous(newWord, true, responseTime);
             AdaptiveLearning.CalculateActivationValue(newWord);
+            StartCoroutine(SendSingleALToDatabase(newWord));
             PlayNewWord();
             ResetBall();
         }
@@ -475,6 +493,7 @@ public class LanguageHoopsManager : MonoBehaviour
                 AdaptiveLearning.CalculateDecayContinuous(newWord, false, responseTime);
                 AdaptiveLearning.CalculateActivationValue(newWord);
                 StartCoroutine(APIManager.LogAnswer(newWord.GetTermID(), false));
+                StartCoroutine(SendSingleALToDatabase(newWord));
                 ResetBall();
                 PlayNewWord();
                 isCorrect = false;
