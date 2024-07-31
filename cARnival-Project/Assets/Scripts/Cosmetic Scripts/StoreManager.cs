@@ -9,6 +9,7 @@ public class StoreManager : MonoBehaviour
 
     public TextPrefabScript coinText;
     public ItemShopBox currentlySelectedItem;
+    public Animator insufficientCoinsAnimator;
 
     private void Awake()
     {
@@ -38,6 +39,10 @@ public class StoreManager : MonoBehaviour
             coins -= currentlySelectedItem.item.cost;
             StartCoroutine(currentlySelectedItem.PurchaseItem());
             coinText.Text = coins.ToString();
+        }
+        else if (coins < currentlySelectedItem.item.cost)
+        {
+            insufficientCoinsAnimator.SetTrigger("CantPurchase");
         }
 
     }
