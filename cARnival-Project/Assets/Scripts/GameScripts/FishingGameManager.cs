@@ -180,6 +180,7 @@ public class FishingGameManager : MonoBehaviour
             scoreText.Text = "Score: " + score;
             AdaptiveLearning.CalculateDecayContinuous(currentAnswer, true, responseTime);
             AdaptiveLearning.CalculateActivationValue(currentAnswer);
+            StartCoroutine(SendSingleALToDatabase(currentAnswer));
             selectedDuck.GetComponent<SpawnResultText>().AnsweredCorrect(selectedDuck.transform.position);
             // StartCoroutine(ShowCorrectCard());
             PlayNewWord();
@@ -204,7 +205,7 @@ public class FishingGameManager : MonoBehaviour
                 AdaptiveLearning.CalculateDecayContinuous(currentAnswer, false, responseTime);
                 AdaptiveLearning.CalculateActivationValue(currentAnswer);
                 StartCoroutine(APIManager.LogAnswer(currentAnswer.GetTermID(), false));
-
+                StartCoroutine(SendSingleALToDatabase(currentAnswer));
                 PlayNewWord();
                 return;
             }
@@ -226,41 +227,25 @@ public class FishingGameManager : MonoBehaviour
         correctAnswerBox.gameObject.SetActive(false);
     }
 
-    private IEnumerator ShowIncorrectCard()
-    {
-        Time.timeScale = 0;
-        incorrectCard.SetActive(true);
-        yield return new WaitForSecondsRealtime(2f);
-        incorrectCard.SetActive(false);
-        Time.timeScale = 1;
-        canSelectDuck = true;
-    }
-
-    private IEnumerator ShowIncorrectCard2()
-    {
-        Time.timeScale = 0;
-        incorrectCard2.SetActive(true);
-        correctAnswer.Text = "Incorrect\n" + "\nCorrect Answer: \n" + "\n" + newWord.GetBack();
-        yield return new WaitForSecondsRealtime(2f);
-        incorrectCard2.SetActive(false);
-        Time.timeScale = 1;
-        canSelectDuck = true;
-    }
-
-    private IEnumerator ShowCorrectCard()
-    {
-        Time.timeScale = 0;
-        correctCard.SetActive(true);
-        yield return new WaitForSecondsRealtime(2f);
-        correctCard.SetActive(false);
-        Time.timeScale = 1;
-        canSelectDuck = true;
-    }
+    
     public void QuitGame()
     {
-        StartCoroutine(SendALToDatabase());
+        StartCoroutine(EndSession());
     }
 
+    private IEnumerator EndSession()
+    {
+        yield return StartCoroutine(APIManager.EndSession(score));
+        SceneSwapper.SwapSceneStatic("GamesPage");
+    }
+
+    private IEnumerator SendSingleALToDatabase(Answer currentTerm)
+    {
+        string times = string.Join(",", currentTerm.GetPresentationTimes());
+        yield return StartCoroutine(APIManager.UpdateAdaptiveLearningValue(currentTerm.GetTermID(), currentTerm.GetActivation(), currentTerm.GetDecay(), currentTerm.GetIntercept(), currentTerm.GetInitialTime(), times));
+    }
+
+    // Function that sends all Adaptive Learning values at once to the database. 
     private IEnumerator SendALToDatabase()
     {
         Time.timeScale = 1;
@@ -309,5 +294,37 @@ public class FishingGameManager : MonoBehaviour
             list[i] = list[rand];
             list[rand] = temp;
         }
+    }
+
+    // Deprecated - Functions for showing old correct/incorrect cards.
+    private IEnumerator ShowIncorrectCard()
+    {
+        Time.timeScale = 0;
+        incorrectCard.SetActive(true);
+        yield return new WaitForSecondsRealtime(2f);
+        incorrectCard.SetActive(false);
+        Time.timeScale = 1;
+        canSelectDuck = true;
+    }
+
+    private IEnumerator ShowIncorrectCard2()
+    {
+        Time.timeScale = 0;
+        incorrectCard2.SetActive(true);
+        correctAnswer.Text = "Incorrect\n" + "\nCorrect Answer: \n" + "\n" + newWord.GetBack();
+        yield return new WaitForSecondsRealtime(2f);
+        incorrectCard2.SetActive(false);
+        Time.timeScale = 1;
+        canSelectDuck = true;
+    }
+
+    private IEnumerator ShowCorrectCard()
+    {
+        Time.timeScale = 0;
+        correctCard.SetActive(true);
+        yield return new WaitForSecondsRealtime(2f);
+        correctCard.SetActive(false);
+        Time.timeScale = 1;
+        canSelectDuck = true;
     }
 }
