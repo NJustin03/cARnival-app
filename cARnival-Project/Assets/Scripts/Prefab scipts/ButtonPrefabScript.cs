@@ -51,6 +51,8 @@ public class ButtonPrefabScript : MonoBehaviour
         return gameObject;
     }
 #endif
+
+    // Function which plays an audio clip for button pressing.
     public void PlayButtonSound()
     {
         AudioSource.PlayClipAtPoint(buttonclick, Vector3.zero, 0.1f);

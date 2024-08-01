@@ -21,6 +21,7 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
 
     [SerializeField] Button previousBtn, nextBtn; 
 
+    // Sets the current page to the first page (ducks) and updates the UI.
     private void Awake()
     {
         currentPage = 1;
@@ -30,6 +31,7 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
         UpdateArrowButton();
     }
 
+    // Set of Functions for swiping and moving forward or back on the games page.
     public void Next()
     {
         if(currentPage < maxPage)
@@ -50,9 +52,9 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
         }
     }
 
+    // Function which actually moves the page and calls for updates.
     void MovePage()
     {
-        Debug.Log(levelPagesRect.ToString());
         levelPagesRect.LeanMoveLocal(targetPos, tweenTime).setEase(tweenType);
         UpdateBar();
         UpdateArrowButton();
@@ -77,6 +79,7 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
         }
     }
 
+    // Function which updates the bar visual.
     void UpdateBar()
     {
         foreach(var item in barImage)
@@ -86,6 +89,7 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
         barImage[currentPage - 1].sprite = barOpen;
     }
 
+    // Function which updates the arrow buttons on the left and right after swiping.
     void UpdateArrowButton()
     {
         nextBtn.interactable = true;

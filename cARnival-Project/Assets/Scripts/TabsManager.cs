@@ -24,13 +24,7 @@ public class TabsManager : MonoBehaviour
 
         SwitchToTab(0);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    // Function which responds to the user swapping a tab and updates the screen and images to reflect that.
     public void SwitchToTab(int TabID)
     {
         foreach (GameObject go in Tabs)

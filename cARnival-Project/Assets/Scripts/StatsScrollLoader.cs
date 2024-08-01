@@ -12,13 +12,14 @@ public class StatsScrollLoader : MonoBehaviour
     {
         StartCoroutine(RetrieveStats());
     }
-
+    // Function which retrieves the stats from the server and adds them to a list.
     private IEnumerator RetrieveStats()
     {
         yield return StartCoroutine(APIManager.RetrieveAllModuleStats());
         AddStatsToList();
     }
 
+    // Function which adds all module stats to a list, instantiates a container and populates them properly.
     void AddStatsToList()
     {
         foreach (ModuleStatsJson stats in APIManager.moduleStats)

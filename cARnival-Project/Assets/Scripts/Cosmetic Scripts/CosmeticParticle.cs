@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class of cosmetics that swap particles (archery).
 public class CosmeticParticle : Cosmetic
 {
     public ParticleSystem particles;

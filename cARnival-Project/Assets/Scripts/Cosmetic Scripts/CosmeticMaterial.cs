@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class of cosmetics that swap materials (ducks and basketball).
 public class CosmeticMaterial : Cosmetic
 {
     public Material[] materials;

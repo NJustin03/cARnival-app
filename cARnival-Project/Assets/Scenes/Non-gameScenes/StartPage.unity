@@ -1400,7 +1400,7 @@ PrefabInstance:
     - target: {fileID: 4263482513913289301, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
       propertyPath: m_Name
-      value: Text2
+      value: Need Account Text
       objectReference: {fileID: 0}
     - target: {fileID: 8291759194527336719, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
@@ -1937,7 +1937,7 @@ PrefabInstance:
     - target: {fileID: 4263482513913289301, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}
       propertyPath: m_Name
-      value: Text1
+      value: Slogan Text
       objectReference: {fileID: 0}
     - target: {fileID: 4263482513913289301, guid: 867f11c609f0da84d9a2b5ee2fc3c645,
         type: 3}

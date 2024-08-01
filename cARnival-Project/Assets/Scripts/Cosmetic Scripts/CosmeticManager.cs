@@ -165,6 +165,7 @@ public class CosmeticManager : MonoBehaviour
         return false;
     }
 
+    // Function which finds which item is equipped for your current game.
     public static int FindEquippedItemID(string game)
     {
         if (game == "duck")
@@ -175,6 +176,7 @@ public class CosmeticManager : MonoBehaviour
             return basketballMaterial.itemID;
     }
 
+    // Function which clears the cosmetic info on logout.
     public static void ClearCosmeticList()
     {
         duckMaterial = null;

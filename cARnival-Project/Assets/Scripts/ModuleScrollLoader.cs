@@ -14,12 +14,14 @@ public class ModuleScrollLoader : MonoBehaviour
         StartCoroutine(RetrieveModules());
     }
 
+    // Function which retrieves all modules from the API Manager.
     private IEnumerator RetrieveModules()
     {
         yield return StartCoroutine(APIManager.GetAllModules());
         AddModulesToList();
     }
 
+    // Function which adds all modules to a list, instantiates a container and populates them properly.
     void AddModulesToList()
     {
         foreach (ModulesJson module in APIManager.ModulesJsonObjects)

@@ -52,6 +52,7 @@ public class ArcheryManager : MonoBehaviour
         PlayNewWord();
     }
 
+    // When the timer for the game ends, display the results.
     private void Update()
     {
         if (timerText.timeLeft < 0)
@@ -61,6 +62,7 @@ public class ArcheryManager : MonoBehaviour
         }
     }
 
+    // Function which goes through the targets and populates each target with a term.
     void ResetTargets(List<Answer> tempWords)
     {
         List<Answer> temp = new List<Answer>();
@@ -86,6 +88,7 @@ public class ArcheryManager : MonoBehaviour
         }
     }
 
+    // Function which resets the game and plays a new word.
     private void PlayNewWord()
     {
 
@@ -116,9 +119,9 @@ public class ArcheryManager : MonoBehaviour
         TermsList.Add(tempWords[0]);
         TermsList.Add(tempWords[1]);
         TermsList.Add(tempWords[2]);
-
     }
 
+    // Function which determines what occurs upon the user answering the question.
     public void ChooseAnswer(bool isAnswerCorrect)
     {
         if (isAnswerCorrect)
@@ -141,9 +144,9 @@ public class ArcheryManager : MonoBehaviour
             StartCoroutine(SendSingleALToDatabase(newWord));
             PlayNewWord();
         }
-
     }
 
+    // Function which shows the correct answer if the incorrect answer is chosen.
     private IEnumerator OnAnswerIncorrect()
     {
         correctAnswerBox.Text = "The correct answer is: " + newWord.GetBack();
@@ -152,6 +155,7 @@ public class ArcheryManager : MonoBehaviour
         correctAnswerBox.gameObject.SetActive(false);
     }
 
+    // Function which resets the game should the user choose to play again.
     public void PlayAgain()
     {
         Time.timeScale = 1;
@@ -159,6 +163,7 @@ public class ArcheryManager : MonoBehaviour
         SceneSwapper.SwapSceneStatic("ArcheryGame");
     }
 
+    // Function which ends the game and saves the session.
     public void QuitGame()
     {
         Time.timeScale = 1;
@@ -167,12 +172,14 @@ public class ArcheryManager : MonoBehaviour
         StartCoroutine(EndSession());
     }
 
+    // Function which ends the session and updates the database.
     private IEnumerator EndSession()
     {
         yield return StartCoroutine(APIManager.EndSession(score));
         SceneSwapper.SwapSceneStatic("GamesPage");
     }
 
+    // Function which updates the adaptive learning value and sends it to the database.
     private IEnumerator SendSingleALToDatabase(Answer currentTerm)
     {
         Debug.Log("Updating term: " + currentTerm.GetFront());
@@ -180,20 +187,7 @@ public class ArcheryManager : MonoBehaviour
         yield return StartCoroutine(APIManager.UpdateAdaptiveLearningValue(currentTerm.GetTermID(), currentTerm.GetActivation(), currentTerm.GetDecay(), currentTerm.GetIntercept(), currentTerm.GetInitialTime(), times));
     }
 
-    // Function that sends all Adaptive Learning values at once to the database. 
-    private IEnumerator SendALToDatabase()
-    {
-        Time.timeScale = 1;
-        foreach (Answer answer in TermsList)
-        {
-            string times = string.Join(",", answer.GetPresentationTimes());
-            yield return StartCoroutine(APIManager.UpdateAdaptiveLearningValue(answer.GetTermID(), answer.GetActivation(), answer.GetDecay(), answer.GetIntercept(), answer.GetInitialTime(), times));
-        }
-        StartCoroutine(APIManager.EndSession(score));
-        SceneSwapper.SwapSceneStatic("GamesPage");
-    }
-
-
+    // Function which displays the settings menu.
     public void ShowSettings()
     {
         // TODO: Show the Settings Prefab 
@@ -207,6 +201,7 @@ public class ArcheryManager : MonoBehaviour
 
     }
 
+    // Function which unpauses the game/removes the settings menu.
     public void UnPause()
     {
         bow.isPaused = false;
@@ -214,6 +209,7 @@ public class ArcheryManager : MonoBehaviour
         StartCoroutine(UnpauseAnimation());
     }
 
+    // Function which raises the settings menu image out of the screen.
     private IEnumerator UnpauseAnimation()
     {
         settingsCard.GetComponent<Animator>().SetTrigger("SlideOut");

@@ -75,6 +75,7 @@ public class FishingGameManager : MonoBehaviour
 
     private void Update()
     {
+        // If the question is playing audio, lower the music audio.
         if (FishingGameAudioSource.isPlaying)
         {
             musicManager.audioSource.volume = 0.1f;
@@ -84,7 +85,7 @@ public class FishingGameManager : MonoBehaviour
             musicManager.audioSource.volume = 0.8f;
         }
         if (!canSelectDuck) return;
-        // TODO: Perform raycast to see if we are clicking on a duck and determine if we need to select this word?
+        // Perform raycast to see if we are clicking on a duck and determine if we need to select this word
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -115,6 +116,7 @@ public class FishingGameManager : MonoBehaviour
         }
     }
 
+    // Function which decides the next question and randomly assigns terms to the ducks.
     private void PlayNewWord()
     {
         numErrors = 0;
@@ -164,8 +166,10 @@ public class FishingGameManager : MonoBehaviour
         }
     }
 
+    // Function which plays the question audio.
     public void PlayAudioClip(AudioClip clip) => FishingGameAudioSource.PlayOneShot(clip);
 
+    // Function that is called when a duck is selected, then plays the logic for the correct/incorrect answer choice.
     public void SelectWord(DuckPrefab selectedDuck, Answer currentAnswer)
     {
         //TODO: Add logic to check for response time.
@@ -180,24 +184,19 @@ public class FishingGameManager : MonoBehaviour
             AdaptiveLearning.CalculateActivationValue(currentAnswer);
             StartCoroutine(SendSingleALToDatabase(currentAnswer));
             selectedDuck.GetComponent<SpawnResultText>().AnsweredCorrect(selectedDuck.transform.position);
-            // StartCoroutine(ShowCorrectCard());
             PlayNewWord();
         }
         else
         {
             if (numErrors == 0)
             {
-                // canSelectDuck = false;
                 selectedDuck.GetComponent<SpawnResultText>().AnsweredIncorrect(selectedDuck.transform.position);
                 selectedDuck.SetActive(false);
                 numErrors++;
-                // StartCoroutine(ShowIncorrectCard());
                 return;
             }
-            //TODO: Add logic for giving correct answer after second incorrect guess
             else if (numErrors > 0)
             {
-                // canSelectDuck = false;
                 selectedDuck.GetComponent<SpawnResultText>().AnsweredIncorrect(selectedDuck.transform.position);
                 StartCoroutine(OnAnswerIncorrect());
                 AdaptiveLearning.CalculateDecayContinuous(currentAnswer, false, responseTime);
@@ -210,6 +209,7 @@ public class FishingGameManager : MonoBehaviour
         }
     }
 
+    // Function which displays the correct answer when an incorrect answer is selected.
     private IEnumerator OnAnswerIncorrect()
     {
         if (fishingGameQuestionBoard.isImage)
@@ -225,38 +225,28 @@ public class FishingGameManager : MonoBehaviour
         correctAnswerBox.gameObject.SetActive(false);
     }
 
-    
+    // Function which ends the game and saves the session.
     public void QuitGame()
     {
         Time.timeScale = 1;
         StartCoroutine(EndSession());
     }
 
+    // Function which ends the session and updates the database.
     private IEnumerator EndSession()
     {
         yield return StartCoroutine(APIManager.EndSession(score));
         SceneSwapper.SwapSceneStatic("GamesPage");
     }
 
+    // Function which updates the adaptive learning value and sends it to the database.
     private IEnumerator SendSingleALToDatabase(Answer currentTerm)
     {
         string times = string.Join(",", currentTerm.GetPresentationTimes());
         yield return StartCoroutine(APIManager.UpdateAdaptiveLearningValue(currentTerm.GetTermID(), currentTerm.GetActivation(), currentTerm.GetDecay(), currentTerm.GetIntercept(), currentTerm.GetInitialTime(), times));
     }
 
-    // Function that sends all Adaptive Learning values at once to the database. 
-    private IEnumerator SendALToDatabase()
-    {
-        Time.timeScale = 1;
-        foreach (Answer answer in TermsList)
-        {
-            string times = string.Join(",", answer.GetPresentationTimes());
-            yield return StartCoroutine(APIManager.UpdateAdaptiveLearningValue(answer.GetTermID(), answer.GetActivation(), answer.GetDecay(), answer.GetIntercept(), answer.GetInitialTime(), times));
-        }
-        StartCoroutine(APIManager.EndSession(score));
-        SceneSwapper.SwapSceneStatic("GamesPage");
-    }
-
+    // Function which displays the settings menu.
     public void ShowSettings()
     {
         // TODO: Show the Settings Prefab
@@ -269,6 +259,7 @@ public class FishingGameManager : MonoBehaviour
         settingsCard.GetComponent<Animator>().SetTrigger("SlideIn");
     }
 
+    // Function which unpauses the game/removes the settings menu.
     public void UnPause()
     {
         Time.timeScale = 1;
@@ -278,6 +269,7 @@ public class FishingGameManager : MonoBehaviour
         canSelectDuck = true;
     }
 
+    // Function which raises the settings menu image out of the screen.
     private IEnumerator UnpauseAnimation()
     {
         settingsCard.GetComponent<Animator>().SetTrigger("SlideOut");

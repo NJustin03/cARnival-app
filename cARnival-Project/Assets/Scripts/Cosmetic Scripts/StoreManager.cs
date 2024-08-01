@@ -27,11 +27,13 @@ public class StoreManager : MonoBehaviour
         coins = 0;
     }
 
+    // Function which stores the currently selected itembox for purchase/equip functions.
     public void SetCurrentItemBox(ItemShopBox current)
     {
         currentlySelectedItem = current;
     }
 
+    // Function which if the user has enough coins, purchases the item. If not, an insufficient coins notification will play.
     public void PurchaseItem()
     {
         if (coins >= currentlySelectedItem.item.cost && !CosmeticManager.userCosmeticInfo.ContainsKey(currentlySelectedItem.item.itemID))

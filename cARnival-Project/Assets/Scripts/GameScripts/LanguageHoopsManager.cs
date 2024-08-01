@@ -68,13 +68,14 @@ public class LanguageHoopsManager : MonoBehaviour
     private float splineProgress = 0f;
     Rigidbody ballRigidbody = null;
 
+    // Loads the modules into the game and starts the basketball's physics.
     private void Awake()
     {
         AudioListener.volume = PlayerPrefs.GetFloat("musicVolume", 1f);
         Debug.Log("Game Started");
         module = FindAnyObjectByType<ModuleManager>();
         TermsList = module.terms;
-        Debug.Log(TermsList.Count);
+        // Debug.Log(TermsList.Count);
         shared = this;
         StoredMovement = new List<Vector2>(Enumerable.Repeat(Vector2.zero, MaxStoredMovement));
         StartCoroutine(APIManager.StartSession(module.currentModuleID));
@@ -92,7 +93,7 @@ public class LanguageHoopsManager : MonoBehaviour
 
     private void Update()
     {
-
+        // When the ball is moving, follow the path and reset if necessary.
         if (isMoving)
         {
             splineProgress += Time.deltaTime * moveSpeed;
@@ -108,6 +109,7 @@ public class LanguageHoopsManager : MonoBehaviour
             Ball.transform.position = spline.GetPoint(splineProgress);
         }
 
+        // When question audio plays, lower the music.
         if (BasketBallGameAudioSource.isPlaying)
         {
             musicManager.audioSource.volume = 0.1f;
@@ -117,14 +119,18 @@ public class LanguageHoopsManager : MonoBehaviour
             musicManager.audioSource.volume = 0.8f;
         }
 
+        // If the ball goes too low, reset the position.
         if (Ball.transform.position.y < -0.3f)
             ResetBall();
 
+        // When the timer runs out, end the game.
         if (timer.timeLeft < 0)
         {
             Time.timeScale = 0;
             resultCard.SetActive(true);
         }
+
+        // Logic behind throwing the ball.
         if (HoldingBall && !LaunchingBall && Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -241,7 +247,7 @@ public class LanguageHoopsManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Raycast did not hit any object");
+                    //Debug.Log("Raycast did not hit any object");
                 }
             }
         }
@@ -255,7 +261,7 @@ public class LanguageHoopsManager : MonoBehaviour
         return new Vector3(start.x + controlOffset, controlHeight +0.2f, 0.55f);
     }
 
-
+    // Function which plays question audio.
     public void PlayAudioClip(AudioClip clip) => BasketBallGameAudioSource.PlayOneShot(clip);
 
     private Vector3 CalculateAimAssist(Vector3 forceDirection, float forceMagnitude)
@@ -299,7 +305,7 @@ public class LanguageHoopsManager : MonoBehaviour
         return Vector3.zero;
     }
 
-
+    // Function which finds the closest hoop to the throw.
     private Transform GetClosestHoopPosition(Vector3 StartPosition, Vector3 velocity, float distanceThreshold = 0.15f)
     {
 
@@ -341,6 +347,7 @@ public class LanguageHoopsManager : MonoBehaviour
         return closestHoop.transform;
     }
 
+    // Function which resets the question with a new term and resets the hoops.
     private void PlayNewWord()
     {
         Ball.transform.position = BallStartPosition.position;
@@ -380,6 +387,7 @@ public class LanguageHoopsManager : MonoBehaviour
         QuestionBoard.ConfigureWithWord(newWord);
     }
 
+    // Function to shuffle the terms.
     void ShuffleList<T>(List<T> list)
     {
         for (int i = 0; i < list.Count - 1; i++)
@@ -391,6 +399,7 @@ public class LanguageHoopsManager : MonoBehaviour
         }
     }
 
+    // Function which reset ball location.
     public void ResetBall()
     {
         Ball.transform.position = BallStartPosition.position;
@@ -401,6 +410,7 @@ public class LanguageHoopsManager : MonoBehaviour
         LaunchingBall = false;
     }
 
+    // Public function which calls the server and tells it to end the session and then quit the game.
     public void QuitGame()
     {
         Time.timeScale = 1;
@@ -409,13 +419,14 @@ public class LanguageHoopsManager : MonoBehaviour
         StartCoroutine(EndSession());
     }
 
+    // Function which calls the server and tells it to end the session and then quit the game.
     private IEnumerator EndSession()
     {
-
         yield return StartCoroutine(APIManager.EndSession(score));
         SceneSwapper.SwapSceneStatic("GamesPage");
     }
 
+    // Function which updates the AL values for a single term to the database.
     private IEnumerator SendSingleALToDatabase(Answer currentTerm)
     {
         Debug.Log("Updating term: " + currentTerm.GetFront());
@@ -423,20 +434,7 @@ public class LanguageHoopsManager : MonoBehaviour
         yield return StartCoroutine(APIManager.UpdateAdaptiveLearningValue(currentTerm.GetTermID(), currentTerm.GetActivation(), currentTerm.GetDecay(), currentTerm.GetIntercept(), currentTerm.GetInitialTime(), times));
     }
 
-    // Function that sends all Adaptive Learning values at once to the database. 
-
-    private IEnumerator SendALToDatabase()
-    {
-        Time.timeScale = 1;
-        foreach (Answer answer in TermsList)
-        {
-            string times = string.Join(",", answer.GetPresentationTimes());
-            yield return StartCoroutine(APIManager.UpdateAdaptiveLearningValue(answer.GetTermID(), answer.GetActivation(), answer.GetDecay(), answer.GetIntercept(), answer.GetInitialTime(), times));
-        }
-        StartCoroutine(APIManager.EndSession(score));
-        SceneSwapper.SwapSceneStatic("GamesPage");
-    }
-
+    // Function which shows the settings menu.
     public void ShowSettings()
     {
         // TODO: Show the Settings Prefab 
@@ -447,12 +445,14 @@ public class LanguageHoopsManager : MonoBehaviour
         settingsCard.GetComponent<Animator>().SetTrigger("SlideIn");
     }
 
+    // Function which unpauses the game.
     public void UnPause()
     {
         Time.timeScale = 1;
         StartCoroutine(UnpauseAnimation());
     }
 
+    // Function which plays the unpause animation for the settings menu.
     private IEnumerator UnpauseAnimation()
     {
         settingsCard.GetComponent<Animator>().SetTrigger("SlideOut");
@@ -460,6 +460,7 @@ public class LanguageHoopsManager : MonoBehaviour
         settingsCard.SetActive(false);
     }
 
+    // Function which responds to the user selecting their answer and calling the corresponding correct or incorrect answer functions.
     public void SelectWord(BasketBallHoopPrefab enteredHoop, out bool isCorrect)
     {
         //TODO: Add logic to check for response time.
@@ -504,6 +505,7 @@ public class LanguageHoopsManager : MonoBehaviour
         }
     }
 
+    // Function which displays the correct answer when an incorrect answer is chosen.
     private IEnumerator OnAnswerIncorrect()
     {
         correctAnswerBox.Text = "The correct answer is: " + newWord.GetBack();
@@ -512,6 +514,7 @@ public class LanguageHoopsManager : MonoBehaviour
         correctAnswerBox.gameObject.SetActive(false);
     }
 
+    // Function which resets the game to play again.
     public void PlayAgain()
     {
         Time.timeScale = 1;
