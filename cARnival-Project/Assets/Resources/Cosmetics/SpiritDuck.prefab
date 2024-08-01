@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6012655349372728664}
   - component: {fileID: 5821676362167320200}
   m_Layer: 0
-  m_Name: PurpleDuck
+  m_Name: SpiritDuck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,13 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b782048739ffa4847b51d103cfb3f01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Purple
-  icon: {fileID: 21300000, guid: e6c8202d1f26dff47a843652605819a6, type: 3}
+  itemName: Spirit Splash
+  icon: {fileID: 21300000, guid: 93194285e103e3b40938a14b839a4bea, type: 3}
   cost: 30
   game: duck
   itemID: 142
   materials:
-  - {fileID: 2100000, guid: ea1843db603b5e543aa4ebe2deeaaae7, type: 2}
+  - {fileID: 2100000, guid: fe45ebcd0bccb5c4e866f8ee742bb0e0, type: 2}
 --- !u!1001 &2754717404802333583
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -114,7 +114,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ea1843db603b5e543aa4ebe2deeaaae7, type: 2}
+      objectReference: {fileID: 2100000, guid: fe45ebcd0bccb5c4e866f8ee742bb0e0, type: 2}
     - target: {fileID: 919132149155446097, guid: e176552fccf46224f91ccc3105aec1e3,
         type: 3}
       propertyPath: m_Name
