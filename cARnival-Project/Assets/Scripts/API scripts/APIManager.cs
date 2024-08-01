@@ -505,7 +505,6 @@ public class APIManager : MonoBehaviour
     // Instead of a list of answers/terms, you could replace this with a CSV list of term IDs.
     public static IEnumerator RetrieveAllALValues(List<Answer> terms)
     {
-
         string adaptiveRetrievalEndpoint = endpointURL + "/adaptivelearning/gettermlistvalues";
         WWWForm form = new WWWForm();
         form.AddField("list_of_termIDs", ConvertTermListToCSV(terms));
@@ -678,6 +677,7 @@ public class APIManager : MonoBehaviour
             listOfIds.Append(",");
         }
         listOfIds.Length--;
+        Debug.Log(listOfIds.ToString());
         return listOfIds.ToString();
     }
 }

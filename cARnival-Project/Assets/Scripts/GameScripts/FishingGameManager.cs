@@ -70,8 +70,6 @@ public class FishingGameManager : MonoBehaviour
         StartCoroutine(APIManager.StartSession(module.currentModuleID));
         // TODO: Start the game
         PlayNewWord();
-        incorrectCard.SetActive(false);
-        correctCard.SetActive(false);
         scoreText.Text = "Score: " + score;
     }
 
