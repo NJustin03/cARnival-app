@@ -360,7 +360,7 @@ PrefabInstance:
     - target: {fileID: 3370148552229051353, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
       propertyPath: m_enableAutoSizing
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3370148552229051353, guid: f796979706fdb4b72836161b4fde3a20,
         type: 3}
