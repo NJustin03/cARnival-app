@@ -37,8 +37,13 @@ public class ModuleManager : MonoBehaviour
     // Function which takes in the ID of the module to retrieve, then calls the API to retrieve all terms associated with the module and populates the respective list.
     public IEnumerator LoadQuestionsAndAnswers(int moduleID)
     {
-        yield return StartCoroutine(APIManager.GetModule(moduleID));
+        currentModuleQuestions.Clear();
+        currentModuleAnswers.Clear();
+        questionIDs.Clear();
+        answerIDs.Clear();
+        terms.Clear();
         currentModuleID = moduleID;
+        yield return StartCoroutine(APIManager.GetModule(moduleID));
         yield return StartCoroutine(LoadToManager());
         yield return StartCoroutine(APIManager.RetrieveAllALValues(terms));
         AssignAdaptiveLearningValues();
@@ -47,13 +52,6 @@ public class ModuleManager : MonoBehaviour
     // Private Helper Function to actually load the values and terms retrieved from the API into lists.
     private IEnumerator LoadToManager()
     {
-        // Clear the current module set upon new load.
-        currentModuleQuestions.Clear();
-        currentModuleAnswers.Clear();
-        questionIDs.Clear();
-        answerIDs.Clear();
-        terms.Clear();
-
         // Retrieve the current module from the API manager.
 
         foreach( QuestionJson q in APIManager.currentQuestions)
@@ -84,6 +82,7 @@ public class ModuleManager : MonoBehaviour
             questionIDs.Add(q.questionID);
         }
         yield return null;
+        // ViewAnswers();
     }
 
     // Function which calls the API to download any images and audio associated with the term.
@@ -127,5 +126,13 @@ public class ModuleManager : MonoBehaviour
         answerIDs.Clear();
         terms.Clear();
         currentModuleID = 0;
+    }
+
+    private void ViewAnswers()
+    {
+        foreach (Answer answer in terms)
+        {
+            Debug.Log(answer.GetFront());
+        }
     }
 }
